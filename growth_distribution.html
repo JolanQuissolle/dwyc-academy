@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GROWTH & DISTRIBUTION</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b08;
+  --surface: #0e120e;
+  --surface2: #131813;
+  --border: #1e261e;
+  --lime: #b8ff57;
+  --lime-dim: #3a5a10;
+  --lime-glow: rgba(184,255,87,0.08);
+  --orange: #ff6b1a;
+  --orange-dim: #7a2800;
+  --orange-glow: rgba(255,107,26,0.08);
+  --cyan: #00e5cc;
+  --cyan-dim: #004d44;
+  --cyan-glow: rgba(0,229,204,0.08);
+  --red: #ff3b3b;
+  --text: #e8ede8;
+  --muted: #5a6b5a;
+  --code-bg: #060906;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* SCANLINE EFFECT */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── HEADER ── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(8,11,8,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; height: 56px;
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.15em;
+  color: var(--lime);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+
+.logo-ticker {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  border: 1px solid var(--border);
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+}
+
+nav { display: flex; gap: 0.2rem; flex-wrap: wrap; }
+
+.nav-btn {
+  background: none; border: 1px solid transparent;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem; padding: 0.28rem 0.7rem;
+  cursor: pointer; border-radius: 4px;
+  transition: all 0.15s;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+.nav-btn:hover, .nav-btn.active {
+  color: var(--lime); border-color: var(--lime-dim);
+  background: var(--lime-glow);
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 4rem 2rem 3rem;
+  max-width: 1000px; margin: 0 auto;
+  position: relative;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--lime);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block; width: 32px; height: 1px;
+  background: var(--lime);
+}
+
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+}
+
+h1 .l1 { color: var(--text); display: block; }
+h1 .l2 { color: var(--lime); display: block; }
+h1 .l3 { color: var(--muted); display: block; font-size: 60%; }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 2.5rem 0;
+}
+
+.stat-cell {
+  background: var(--surface);
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.stat-cell:hover { background: var(--surface2); }
+
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.stat-cell.lime .stat-num { color: var(--lime); }
+.stat-cell.orange .stat-num { color: var(--orange); }
+.stat-cell.cyan .stat-num { color: var(--cyan); }
+.stat-cell.red .stat-num { color: var(--red); }
+
+.modules-strip {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+}
+
+.module-pill {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px; padding: 0.5rem 1rem;
+  cursor: pointer; transition: all 0.2s;
+  font-size: 0.83rem; font-weight: 600;
+}
+
+.module-pill:hover { transform: translateY(-1px); }
+.module-pill.lime:hover { border-color: var(--lime-dim); background: var(--lime-glow); color: var(--lime); }
+.module-pill.orange:hover { border-color: var(--orange-dim); background: var(--orange-glow); color: var(--orange); }
+.module-pill.cyan:hover { border-color: var(--cyan-dim); background: var(--cyan-glow); color: var(--cyan); }
+
+/* ── CONTENT ── */
+.content {
+  max-width: 1000px; margin: 0 auto;
+  padding: 0 2rem 5rem;
+}
+
+.section { display: none; animation: snap 0.25s ease; }
+.section.active { display: block; }
+
+@keyframes snap {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── MODULE HEADER ── */
+.mod-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: end;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.mod-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase; letter-spacing: 0.15em;
+  margin-bottom: 0.5rem;
+}
+
+.mod-label.lime { color: var(--lime); }
+.mod-label.orange { color: var(--orange); }
+.mod-label.cyan { color: var(--cyan); }
+
+.mod-header h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+
+.mod-header p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 550px;
+  margin-top: 0.5rem;
+  line-height: 1.7;
+}
+
+.mod-kpi {
+  text-align: right; flex-shrink: 0;
+}
+
+.kpi-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem; line-height: 1;
+}
+
+.kpi-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  transition: border-color 0.2s;
+}
+
+.card:hover { border-color: #2e3a2e; }
+
+.card h3 {
+  font-size: 0.97rem; font-weight: 700;
+  margin-bottom: 1rem; display: flex;
+  align-items: center; gap: 0.5rem;
+  color: var(--text);
+}
+
+.card h3 .icon { font-size: 0.9rem; }
+
+.card p { color: var(--muted); font-size: 0.88rem; line-height: 1.8; }
+
+.card ul { list-style: none; padding-left: 0.25rem; }
+.card ul li {
+  color: var(--muted); font-size: 0.88rem;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  position: relative;
+}
+
+.card ul li::before {
+  content: '→';
+  position: absolute; left: 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+}
+
+.card ul.lime li::before { color: var(--lime); }
+.card ul.orange li::before { color: var(--orange); }
+.card ul.cyan li::before { color: var(--cyan); }
+
+strong { color: var(--text); font-weight: 600; }
+
+/* ── CODE ── */
+.code-block {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px; margin: 1rem 0;
+  overflow: hidden;
+}
+
+.code-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 1rem;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+.code-lang {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem; text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.code-lang.lime { color: var(--lime); }
+.code-lang.orange { color: var(--orange); }
+.code-lang.cyan { color: var(--cyan); }
+
+.copy-btn {
+  background: none; border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem; padding: 0.18rem 0.55rem;
+  cursor: pointer; border-radius: 3px;
+  transition: all 0.15s; text-transform: uppercase;
+}
+
+.copy-btn:hover { color: var(--lime); border-color: var(--lime-dim); }
+
+pre {
+  padding: 1.25rem; overflow-x: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.76rem; line-height: 1.8;
+  color: #b8c8b8;
+}
+
+.kw { color: #ff8c69; }
+.str { color: #b8ff57; }
+.fn  { color: #87ceeb; }
+.com { color: #3a4a3a; font-style: italic; }
+.num { color: #00e5cc; }
+.var { color: #ffd700; }
+.pk  { color: var(--lime); font-weight: 500; }   /* prompt key */
+.pv  { color: #c8e6c8; }                          /* prompt value */
+.ph  { color: #555; font-style: italic; }         /* prompt hint */
+
+/* ── ALERT ── */
+.alert {
+  border-radius: 8px; padding: 1rem 1.25rem;
+  margin: 1.25rem 0; font-size: 0.86rem;
+  display: flex; gap: 0.75rem;
+  align-items: flex-start; line-height: 1.7;
+}
+
+.alert-lime { background: var(--lime-glow); border: 1px solid var(--lime-dim); color: #9dde3a; }
+.alert-orange { background: var(--orange-glow); border: 1px solid var(--orange-dim); color: #ff9558; }
+.alert-cyan { background: var(--cyan-glow); border: 1px solid var(--cyan-dim); color: #00e5cc; }
+.alert-red { background: rgba(255,59,59,0.06); border: 1px solid rgba(255,59,59,0.25); color: #ff7070; }
+.alert-icon { flex-shrink: 0; }
+
+/* ── TABLE ── */
+table { width:100%; border-collapse:collapse; font-size:0.83rem; margin:0.75rem 0; }
+
+th {
+  background: var(--surface2);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 0.7rem 1rem;
+  text-align: left; border-bottom: 1px solid var(--border);
+}
+
+th.lime { color: var(--lime); }
+th.orange { color: var(--orange); }
+th.cyan { color: var(--cyan); }
+
+td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid rgba(30,38,30,0.6);
+  color: var(--muted); vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.015); }
+
+td code, p code, li code {
+  font-family: 'DM Mono', monospace;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 0.1em 0.35em; border-radius: 3px;
+  font-size: 0.8em; color: var(--cyan);
+}
+
+/* ── TAGS ── */
+.tags { display:flex; flex-wrap:wrap; gap:0.4rem; margin:0 0 1.75rem; }
+
+.tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem; padding: 0.2rem 0.6rem;
+  border-radius: 3px; border: 1px solid var(--border);
+  color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+.tag.lime { border-color: var(--lime-dim); color: var(--lime); background: var(--lime-glow); }
+.tag.orange { border-color: var(--orange-dim); color: var(--orange); background: var(--orange-glow); }
+.tag.cyan { border-color: var(--cyan-dim); color: var(--cyan); background: var(--cyan-glow); }
+.tag.red { border-color: rgba(255,59,59,0.3); color: var(--red); background: rgba(255,59,59,0.06); }
+
+/* ── GRID ── */
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.25rem; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:1.25rem; }
+
+/* ── STEP ── */
+.step {
+  display: flex; gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1.25rem; background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px; margin-bottom: 0.5rem;
+  transition: all 0.2s;
+}
+
+.step:hover { border-color: #2e3a2e; }
+
+.step-num {
+  width: 30px; height: 30px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem; font-weight: 500;
+  border-radius: 5px;
+}
+
+.step-num.lime { background: var(--lime-glow); border: 1px solid var(--lime-dim); color: var(--lime); }
+.step-num.orange { background: var(--orange-glow); border: 1px solid var(--orange-dim); color: var(--orange); }
+.step-num.cyan { background: var(--cyan-glow); border: 1px solid var(--cyan-dim); color: var(--cyan); }
+
+.step h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; color: var(--text); }
+.step p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+
+/* ── FORMULA BLOCK ── */
+.formula {
+  background: var(--code-bg);
+  border: 1px solid var(--lime-dim);
+  border-left: 3px solid var(--lime);
+  border-radius: 0 8px 8px 0;
+  padding: 1.25rem 1.5rem;
+  margin: 1.25rem 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--lime);
+  line-height: 2;
+}
+
+.formula.orange { border-color: var(--orange-dim); border-left-color: var(--orange); color: var(--orange); }
+.formula.cyan { border-color: var(--cyan-dim); border-left-color: var(--cyan); color: var(--cyan); }
+
+.formula span { color: var(--muted); }
+
+/* ── ACCORDION ── */
+details {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 0.6rem; overflow: hidden;
+}
+
+details:hover { border-color: #2e3a2e; }
+
+summary {
+  padding: 0.9rem 1.25rem; cursor: pointer;
+  font-weight: 600; font-size: 0.88rem;
+  list-style: none; display: flex;
+  align-items: center; justify-content: space-between;
+  color: var(--text); user-select: none;
+}
+
+summary::after { content: '+'; font-family: 'DM Mono', monospace; color: var(--lime); font-size: 1.1rem; }
+details[open] summary::after { content: '−'; }
+
+.det-body {
+  padding: 1.25rem; border-top: 1px solid var(--border);
+  color: var(--muted); font-size: 0.86rem; line-height: 1.75;
+}
+
+/* ── PROMPT BLOCK ── */
+.prompt-block {
+  background: #050805;
+  border: 1px solid #1e2e1e;
+  border-left: 3px solid var(--lime);
+  border-radius: 0 8px 8px 0;
+  margin: 1rem 0; overflow: hidden;
+}
+
+.prompt-block.orange { border-left-color: var(--orange); }
+.prompt-block.cyan { border-left-color: var(--cyan); }
+
+.prompt-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.45rem 1rem;
+  background: rgba(184,255,87,0.04);
+  border-bottom: 1px solid #1e2e1e;
+}
+
+.prompt-block.orange .prompt-header { background: rgba(255,107,26,0.04); }
+.prompt-block.cyan .prompt-header { background: rgba(0,229,204,0.04); }
+
+.prompt-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem; color: var(--lime);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+
+.prompt-block.orange .prompt-tag { color: var(--orange); }
+.prompt-block.cyan .prompt-tag { color: var(--cyan); }
+
+.prompt-block pre { color: #a8c8a8; font-size: 0.77rem; }
+
+/* ── DIVIDER ── */
+hr { border: none; height: 1px; background: var(--border); margin: 2rem 0; }
+
+/* ── METRIC ROW ── */
+.metric-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+.metric-cell {
+  background: var(--surface); padding: 1.25rem 1.5rem;
+}
+
+.metric-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem; line-height: 1; margin-bottom: 0.15rem;
+}
+
+.metric-cell .metric-num.lime { color: var(--lime); }
+.metric-cell .metric-num.orange { color: var(--orange); }
+.metric-cell .metric-num.cyan { color: var(--cyan); }
+
+.metric-desc { font-size: 0.78rem; color: var(--muted); }
+
+@media (max-width: 640px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .metric-row { grid-template-columns: 1fr; }
+  nav { display: none; }
+  h1 { font-size: 3.5rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    GROWTH
+    <span class="logo-ticker">DISTRIBUTION v1.0</span>
+  </div>
+  <nav>
+    <button class="nav-btn active" onclick="show('intro')">Intro</button>
+    <button class="nav-btn" onclick="show('seo')">SEO Prog.</button>
+    <button class="nav-btn" onclick="show('email')">Cold Email</button>
+    <button class="nav-btn" onclick="show('linkedin')">LinkedIn</button>
+    <button class="nav-btn" onclick="show('posthog')">PostHog</button>
+    <button class="nav-btn" onclick="show('mixpanel')">Mixpanel</button>
+    <button class="nav-btn" onclick="show('stack')">Stack & Ops</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Tier 1 · Growth & Distribution Mastery</div>
+  <h1>
+    <span class="l1">DISTRIBUTION</span>
+    <span class="l2">IS THE</span>
+    <span class="l3">ONLY MOAT</span>
+  </h1>
+  <p style="color:var(--muted);font-size:1rem;max-width:600px;line-height:1.8;margin-bottom:2rem;">
+    Le meilleur produit sans distribution = zéro. SEO programmatique, cold email IA, LinkedIn automation, analytics produit — les 4 machines à croissance que vous construisez une fois, et qui travaillent 24h/24.
+  </p>
+
+  <div class="hero-stats">
+    <div class="stat-cell lime" onclick="show('seo')">
+      <div class="stat-num">10x</div>
+      <div class="stat-label">Pages SEO vs effort manuel</div>
+    </div>
+    <div class="stat-cell orange" onclick="show('email')">
+      <div class="stat-num">8%</div>
+      <div class="stat-label">Reply rate moyen cold email IA</div>
+    </div>
+    <div class="stat-cell cyan" onclick="show('linkedin')">
+      <div class="stat-num">72h</div>
+      <div class="stat-label">Pour setup un pipeline LinkedIn complet</div>
+    </div>
+    <div class="stat-cell red" onclick="show('posthog')">
+      <div class="stat-num">40%</div>
+      <div class="stat-label">Features supprimées grâce analytics</div>
+    </div>
+  </div>
+
+  <div class="modules-strip">
+    <div class="module-pill lime" onclick="show('seo')">🌿 SEO Programmatique</div>
+    <div class="module-pill orange" onclick="show('email')">📨 Cold Email IA</div>
+    <div class="module-pill orange" onclick="show('linkedin')">💼 LinkedIn Auto</div>
+    <div class="module-pill cyan" onclick="show('posthog')">📊 PostHog</div>
+    <div class="module-pill cyan" onclick="show('mixpanel')">🔬 Mixpanel</div>
+    <div class="module-pill lime" onclick="show('stack')">⚙️ Stack & Ops</div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════════════════════ INTRO -->
+<div id="intro" class="section active">
+  <div class="mod-header">
+    <div>
+      <div class="mod-label lime">Vue d'ensemble</div>
+      <h2>La Mécanique<br>du Growth</h2>
+      <p>Distribution n'est pas marketing. C'est une ingénierie de systèmes reproductibles qui génèrent des leads, du trafic, et de la rétention sans intervention humaine constante.</p>
+    </div>
+    <div class="mod-kpi">
+      <div class="kpi-big" style="color:var(--lime)">4</div>
+      <div class="kpi-sub">Machines à<br>construire</div>
+    </div>
+  </div>
+
+  <div class="alert alert-red">
+    <span class="alert-icon">⛔</span>
+    <div><strong>L'erreur de départ :</strong> considérer ces canaux comme indépendants. La puissance est dans leur combinaison. Le SEO programmatique attire → le cold email convertit → LinkedIn construit la crédibilité → l'analytics optimise tout. Ce sont les 4 cylindres d'un seul moteur.</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🌿</span> SEO Programmatique</h3>
+      <p>Générer des centaines de pages optimisées depuis une base de données, ciblant des long-tail keywords à forte intention. <strong>Construit une fois, trafic gratuit pour toujours.</strong></p>
+      <br><ul class="lime">
+        <li>Architecture template × données</li>
+        <li>Internal linking automatisé</li>
+        <li>Schema.org et structured data</li>
+        <li>Actualisation automatique du contenu</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="icon">📨</span> Cold Email IA</h3>
+      <p>Personnalisation à l'échelle avec l'IA. Scraping des signaux d'intention, enrichissement automatique, copywriting contextuel. <strong>Le canal B2B le plus ROI-positif.</strong></p>
+      <br><ul class="orange">
+        <li>Enrichissement Clay / Apollo</li>
+        <li>Personnalisation ligne 1 IA</li>
+        <li>Séquences multi-touch automatisées</li>
+        <li>A/B testing systématique</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="icon">💼</span> LinkedIn Automation</h3>
+      <p>Construire une audience et un pipeline de leads en parallèle. Contenu + outreach automatisé dans les limites de sécurité. <strong>Crédibilité + volume = différenciation.</strong></p>
+      <br><ul class="orange">
+        <li>Content strategy algorithmique</li>
+        <li>Outreach automatisé sécurisé</li>
+        <li>Social selling systématique</li>
+        <li>Employee advocacy à l'échelle</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="icon">📊</span> Analytics Produit</h3>
+      <p>PostHog pour la data produit (events, funnels, sessions). Mixpanel pour l'analyse comportementale profonde. <strong>Décisions basées sur faits, pas intuitions.</strong></p>
+      <br><ul class="cyan">
+        <li>Event tracking exhaustif</li>
+        <li>Funnel analysis et drop-off</li>
+        <li>Cohort retention analysis</li>
+        <li>Feature flags et A/B testing</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">⚡</span> L'équation croissance</h3>
+    <div class="formula">
+      GROWTH = <span>(</span>Trafic SEO + Cold Outreach + LinkedIn Reach<span>)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span>Conversion Rate (mesuré PostHog)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span>Retention (mesuré Mixpanel)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;÷ <span>CAC (optimisé par analytics)</span>
+    </div>
+    <p>Chaque outil attaque une variable de cette équation. Optimiser isolément est une erreur — la progression exponentielle vient des interactions entre canaux.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ SEO PROG -->
+<div id="seo" class="section">
+  <div class="mod-header">
+    <div>
+      <div class="mod-label lime">Module 01</div>
+      <h2>SEO<br>Programmatique</h2>
+      <p>Générer des milliers de pages SEO depuis une base de données structurée. Cibler des long-tail keywords à forte intention d'achat, impossible à couvrir manuellement.</p>
+    </div>
+    <div class="mod-kpi">
+      <div class="kpi-big" style="color:var(--lime)">∞</div>
+      <div class="kpi-sub">Pages générées<br>depuis 1 template</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag lime">Long-tail</span>
+    <span class="tag lime">Template Engine</span>
+    <span class="tag">Next.js SSG</span>
+    <span class="tag">Schema.org</span>
+    <span class="tag">Internal Linking</span>
+    <span class="tag">Core Web Vitals</span>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🧠</span> Le modèle mental — Dataset × Template</h3>
+    <p>Le SEO programmatique repose sur un principe simple : <strong>une page = une requête = une réponse unique</strong>. Vous construisez un template une fois, vous le branchez sur une base de données, et chaque ligne génère une page SEO-optimisée automatiquement.</p>
+    <div class="formula">
+      PAGES = <span>Template(</span>variables<span>)</span> × <span>Nombre de lignes en DB</span><br>
+      EXEMPLES :<br>
+      <span>"Meilleur [outil] pour [use-case] en [année]"</span> × 500 outils × 20 use-cases = <span>10 000 pages</span><br>
+      <span>"[Ville] + [service]"</span> × 300 villes × 15 services = <span>4 500 pages</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🔍</span> Recherche de keywords — Trouver les patterns exploitables</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num lime">01</div>
+        <div>
+          <h4>Identifier les patterns à volume</h4>
+          <p>Dans Ahrefs/Semrush, cherchez un mot-clé seed. Filtrez sur <strong>KD &lt; 20 et Volume &gt; 100</strong>. Exportez. Cherchez les patterns répétitifs : "[verbe] [objet] pour [persona]", "[comparaison] [A] vs [B]", etc.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num lime">02</div>
+        <div>
+          <h4>Valider l'intent commercial</h4>
+          <p>Googlez 10 keywords du pattern. Si les résultats top sont des articles de blog → contenu informatif. Si ce sont des pages produit/SaaS → intent transactionnel. Ciblez l'intent transactionnel en priorité.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num lime">03</div>
+        <div>
+          <h4>Construire le dataset</h4>
+          <p>Créez une table Airtable/Notion/DB avec toutes les variables du pattern. Enrichissez avec IA (descriptions, comparaisons, données spécifiques). Chaque colonne = une variable dans le template.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">⚙️</span> Implémentation Next.js — Pages dynamiques SEO</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang lime">typescript — app/[categorie]/[slug]/page.tsx</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Pattern: /alternatives/[outil]-alternatives</span>
+<span class="com">// Exemple: /alternatives/notion-alternatives</span>
+
+<span class="kw">import</span> { <span class="fn">notFound</span> } <span class="kw">from</span> <span class="str">'next/navigation'</span>
+<span class="kw">import</span> <span class="kw">type</span> { <span class="var">Metadata</span> } <span class="kw">from</span> <span class="str">'next'</span>
+
+<span class="com">// 1. Générer tous les slugs au build time</span>
+<span class="kw">export async function</span> <span class="fn">generateStaticParams</span>() {
+  <span class="kw">const</span> <span class="var">tools</span> = <span class="kw">await</span> <span class="fn">getAllTools</span>()  <span class="com">// depuis votre DB/Supabase</span>
+  <span class="kw">return</span> <span class="var">tools</span>.map(t => ({ slug: <span class="str">`${t.slug}-alternatives`</span> }))
+}
+
+<span class="com">// 2. Metadata dynamique pour chaque page</span>
+<span class="kw">export async function</span> <span class="fn">generateMetadata</span>({ params }): <span class="var">Promise</span>&lt;<span class="var">Metadata</span>&gt; {
+  <span class="kw">const</span> <span class="var">tool</span> = <span class="kw">await</span> <span class="fn">getToolBySlug</span>(<span class="var">params</span>.slug)
+
+  <span class="kw">return</span> {
+    title: <span class="str">`Les ${tool.alternatives_count} meilleures alternatives à ${tool.name} en 2025`</span>,
+    description: <span class="str">`Comparatif complet des alternatives à ${tool.name}. Prix, features, avis — tout pour choisir le bon outil pour ${tool.primary_use_case}.`</span>,
+    openGraph: {
+      title: <span class="str">`${tool.name} alternatives — Comparatif 2025`</span>,
+      images: [{ url: <span class="str">`/api/og?tool=${tool.slug}`</span> }]  <span class="com">// OG dynamique</span>
+    },
+    alternates: {
+      canonical: <span class="str">`https://monsite.com/alternatives/${tool.slug}-alternatives`</span>
+    }
+  }
+}
+
+<span class="com">// 3. Le composant page</span>
+<span class="kw">export default async function</span> <span class="fn">AlternativesPage</span>({ params }) {
+  <span class="kw">const</span> <span class="var">tool</span> = <span class="kw">await</span> <span class="fn">getToolBySlug</span>(<span class="var">params</span>.slug)
+  <span class="kw">if</span> (!<span class="var">tool</span>) <span class="fn">notFound</span>()
+
+  <span class="kw">const</span> <span class="var">alternatives</span> = <span class="kw">await</span> <span class="fn">getAlternatives</span>(<span class="var">tool</span>.id)
+
+  <span class="kw">return</span> (
+    &lt;<span class="fn">main</span>&gt;
+      <span class="com">{/* H1 optimisé avec mot-clé exact */}</span>
+      &lt;<span class="fn">h1</span>&gt;Les {<span class="var">alternatives</span>.length} meilleures alternatives à {<span class="var">tool</span>.name}&lt;/<span class="fn">h1</span>&gt;
+      <span class="com">{/* Schema.org JSON-LD */}</span>
+      &lt;<span class="fn">SchemaMarkup</span> tool={<span class="var">tool</span>} alternatives={<span class="var">alternatives</span>} /&gt;
+      <span class="com">{/* Tableau comparatif généré depuis les données */}</span>
+      &lt;<span class="fn">ComparisonTable</span> items={<span class="var">alternatives</span>} /&gt;
+      <span class="com">{/* Internal links automatiques vers pages connexes */}</span>
+      &lt;<span class="fn">RelatedPages</span> category={<span class="var">tool</span>.category} /&gt;
+    &lt;/<span class="fn">main</span>&gt;
+  )
+}</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🔗</span> Internal Linking automatique</h3>
+    <p>Le maillage interne programmatique est souvent négligé et représente un levier massif. Chaque page doit pointer vers les pages connexes de manière cohérente et automatique.</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang lime">typescript — composant RelatedPages</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Stratégie de linking automatique</span>
+<span class="kw">export async function</span> <span class="fn">getRelatedLinks</span>(toolId: <span class="var">string</span>) {
+  <span class="kw">return</span> {
+    <span class="com">// Même catégorie (horizontal)</span>
+    sameCategory: <span class="kw">await</span> <span class="fn">getToolsByCategory</span>(toolId, { limit: <span class="num">5</span> }),
+    <span class="com">// Pages comparatives (A vs B)</span>
+    comparisons: <span class="kw">await</span> <span class="fn">getComparisons</span>(toolId, { limit: <span class="num">3</span> }),
+    <span class="com">// Use cases (vertical)</span>
+    useCases: <span class="kw">await</span> <span class="fn">getUseCasePages</span>(toolId, { limit: <span class="num">4</span> }),
+    <span class="com">// Reviews (profondeur)</span>
+    review: <span class="kw">await</span> <span class="fn">getReviewPage</span>(toolId)
+  }
+}
+
+<span class="com">// Structure de siloing sémantique</span>
+<span class="com">// /alternatives/[outil]-alternatives  ← pilier</span>
+<span class="com">// /comparatifs/[A]-vs-[B]             ← cluster</span>
+<span class="com">// /use-cases/[outil]-pour-[usage]     ← cluster</span>
+<span class="com">// /reviews/[outil]-avis               ← cluster</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">📋</span> Schema.org — Structured Data</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang lime">typescript — SchemaMarkup component</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">export function</span> <span class="fn">SchemaMarkup</span>({ tool, alternatives }) {
+  <span class="kw">const</span> <span class="var">schema</span> = {
+    <span class="str">"@context"</span>: <span class="str">"https://schema.org"</span>,
+    <span class="str">"@type"</span>: <span class="str">"ItemList"</span>,
+    <span class="str">"name"</span>: <span class="str">`Alternatives à ${tool.name}`</span>,
+    <span class="str">"numberOfItems"</span>: <span class="var">alternatives</span>.length,
+    <span class="str">"itemListElement"</span>: <span class="var">alternatives</span>.map((alt, i) => ({
+      <span class="str">"@type"</span>: <span class="str">"ListItem"</span>,
+      <span class="str">"position"</span>: i + <span class="num">1</span>,
+      <span class="str">"item"</span>: {
+        <span class="str">"@type"</span>: <span class="str">"SoftwareApplication"</span>,
+        <span class="str">"name"</span>: alt.name,
+        <span class="str">"description"</span>: alt.description,
+        <span class="str">"aggregateRating"</span>: {
+          <span class="str">"@type"</span>: <span class="str">"AggregateRating"</span>,
+          <span class="str">"ratingValue"</span>: alt.rating,
+          <span class="str">"reviewCount"</span>: alt.review_count
+        }
+      }
+    }))
+  }
+
+  <span class="kw">return</span> &lt;<span class="fn">script</span> type=<span class="str">"application/ld+json"</span>
+    dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} /&gt;
+}</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">✦</span> Génération de contenu IA par batch</h3>
+    <p>Pour chaque page générée, le contenu unique (intro, descriptions, conclusions) peut être généré en batch avec l'IA et stocké en DB. Évite les pénalités thin content.</p>
+    <div class="prompt-block">
+      <div class="prompt-header"><span class="prompt-tag">Prompt génération contenu SEO</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="pk">TÂCHE:</span> <span class="pv">Rédige l'introduction (150 mots) d'une page SEO sur les alternatives à [OUTIL]</span>
+
+<span class="pk">CONTEXTE:</span>
+<span class="pv">- Outil: [NOM], [DESCRIPTION_COURTE]
+- Primary use case: [USE_CASE]
+- Prix: [PRIX]
+- Problème #1 des utilisateurs: [PAIN_POINT]</span>
+
+<span class="pk">OBJECTIFS SEO:</span>
+<span class="pv">- Inclure le mot-clé exact "alternatives à [OUTIL]" dans les 50 premiers mots
+- Répondre immédiatement à l'intention: pourquoi cherche-t-on une alternative ?
+- Citer 2-3 alternatives par nom sans les évaluer (ça vient après)</span>
+
+<span class="pk">STYLE:</span>
+<span class="pv">Direct, expert, pas de remplissage. Première phrase = hook sur le pain point.
+Ton : consultant, pas journaliste.</span>
+
+<span class="pk">NE PAS:</span>
+<span class="pv">Commencer par "Dans cet article" ou "Vous cherchez".
+Mentionner l'année dans le texte (elle est dans le titre).</span></pre>
+    </div>
+  </div>
+
+  <div class="metric-row">
+    <div class="metric-cell">
+      <div class="metric-num lime">3-6</div>
+      <div class="metric-desc">Mois pour voir les premiers résultats SEO programmatique</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-num lime">KD&lt;20</div>
+      <div class="metric-desc">Keyword Difficulty cible pour commencer à ranker rapidement</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-num lime">1:8</div>
+      <div class="metric-desc">Ratio templates créés : pages générées (minimum viable)</div>
+    </div>
+  </div>
+
+  <div class="alert alert-lime">
+    <span class="alert-icon">✦</span>
+    <div><strong>Levier accélérateur :</strong> Branchez Google Search Console sur votre base de données via l'API GSC. Identifiez automatiquement les pages qui "impressionnent" beaucoup mais ont un CTR faible — ce sont vos meilleurs candidats à l'optimisation de title/meta. Un script hebdomadaire peut prioriser votre roadmap SEO entière.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ COLD EMAIL -->
+<div id="email" class="section">
+  <div class="mod-header">
+    <div>
+      <div class="mod-label orange">Module 02</div>
+      <h2>Cold Email<br>IA</h2>
+      <p>Personnalisation à l'échelle industrielle. L'IA analyse les signaux d'intention de vos prospects et génère des premiers paragraphes hyper-contextuels. Le volume sans sacrifier la pertinence.</p>
+    </div>
+    <div class="mod-kpi">
+      <div class="kpi-big" style="color:var(--orange)">8%</div>
+      <div class="kpi-sub">Reply rate<br>atteignable</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag orange">Clay</span>
+    <span class="tag orange">Apollo</span>
+    <span class="tag orange">Instantly</span>
+    <span class="tag">Lemlist</span>
+    <span class="tag">Enrichissement</span>
+    <span class="tag red">Deliverability</span>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🏗️</span> Architecture d'une machine cold email</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num orange">01</div>
+        <div>
+          <h4>Data Layer — Trouver et enrichir les leads</h4>
+          <p><strong>Apollo.io</strong> pour la recherche initiale (titre, entreprise, email). <strong>Clay</strong> pour l'enrichissement multi-sources : LinkedIn, site web, news récentes, levées de fonds, offres d'emploi. Chaque signal = un angle de personnalisation.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">02</div>
+        <div>
+          <h4>IA Layer — Personnalisation contextuelle</h4>
+          <p>Clay envoie les données enrichies à un prompt IA (Claude/GPT) qui génère la ligne 1 personnalisée. Input : dernier post LinkedIn + description entreprise + titre du prospect. Output : première phrase qui prouve que vous avez fait vos devoirs.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">03</div>
+        <div>
+          <h4>Sending Layer — Deliverability en priorité</h4>
+          <p><strong>Instantly</strong> ou <strong>Smartlead</strong> pour l'envoi. Domaines secondaires warmés (3 semaines minimum), rotation des boîtes mail, limites d'envoi respectées (30-50/jour/boîte). Un seul domaine grillé = blacklist pour tous.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">04</div>
+        <div>
+          <h4>Optimization Layer — Mesure et itération</h4>
+          <p>A/B test systématique : subject lines, call-to-action, longueur d'email. Cible : &gt;40% open rate, &gt;4% reply rate, &lt;0.2% unsubscribe. En dessous de ces seuils, arrêtez et retravaill</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">✦</span> Clay — Le cerveau de l'enrichissement</h3>
+    <p>Clay est une spreadsheet connectée à 75+ sources de données. L'approche : construire un "waterfall" d'enrichissement pour maximiser la couverture.</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang orange">Clay — Waterfall enrichissement email</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Logique waterfall dans Clay (colonne par colonne)</span>
+
+<span class="com">// ÉTAPE 1 — Email finding (ordre de priorité)</span>
+<span class="var">email</span> = <span class="fn">Hunter.io</span>(domain, firstName, lastName)
+       ?? <span class="fn">Apollo.io</span>(linkedinUrl)
+       ?? <span class="fn">Dropcontact</span>(fullName, domain)
+       ?? <span class="fn">Findymail</span>(linkedinUrl)
+
+<span class="com">// ÉTAPE 2 — Signaux d'intention</span>
+<span class="var">signals</span> = {
+  recentPost:    <span class="fn">PhantomBuster</span>(linkedinUrl).lastPost,
+  companyNews:   <span class="fn">Perplexity</span>(<span class="str">`${company} news last 30 days`</span>),
+  jobOpenings:   <span class="fn">Clay_LinkedIn</span>(company).hiring_roles,
+  techStack:     <span class="fn">BuiltWith</span>(domain).technologies,
+  funding:       <span class="fn">Crunchbase</span>(company).last_funding
+}
+
+<span class="com">// ÉTAPE 3 — Génération personnalisation IA</span>
+<span class="var">line1</span> = <span class="fn">Claude</span>(<span class="str">`
+  Context: ${signals.recentPost} / ${signals.companyNews}
+  Write a 1-sentence opening that references something specific
+  about ${firstName}'s work or company — NO generic flattery.
+  Max 25 words. In French.
+`</span>)</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">📝</span> Structure d'email — Framework PPPP</h3>
+    <table>
+      <tr>
+        <th class="orange">Élément</th>
+        <th class="orange">Rôle</th>
+        <th class="orange">Longueur</th>
+        <th class="orange">Exemple</th>
+      </tr>
+      <tr><td><strong>Personnalisation</strong></td><td>Prouve que ce n'est pas un blast</td><td>1 phrase</td><td><em>"Votre post sur [sujet] m'a fait penser..."</em></td></tr>
+      <tr><td><strong>Pain</strong></td><td>Nomme le problème qu'ils ont</td><td>1-2 phrases</td><td><em>"La plupart des [titre] passent X heures sur..."</em></td></tr>
+      <tr><td><strong>Proof</strong></td><td>Crédibilité sans vendre</td><td>1 phrase</td><td><em>"On a aidé [client similaire] à réduire ça de 60%"</em></td></tr>
+      <tr><td><strong>Prompt</strong></td><td>CTA micro-engagement</td><td>1 question</td><td><em>"Ça fait sens d'en parler 15 minutes ?"</em></td></tr>
+    </table>
+    <div class="prompt-block orange">
+      <div class="prompt-header"><span class="prompt-tag">Prompt — Génération email cold</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="pk">TÂCHE:</span> <span class="pv">Écris un cold email B2B en suivant le framework PPPP</span>
+
+<span class="pk">PROSPECT:</span>
+<span class="pv">Nom: [NOM], Titre: [TITRE], Entreprise: [ENTREPRISE]
+Dernier post LinkedIn: [POST]
+Signal récent: [NEWS/HIRING/FUNDING]</span>
+
+<span class="pk">MON OFFRE:</span>
+<span class="pv">[Description en 1 phrase de ce que je propose]
+Client de référence similaire: [CLIENT + RÉSULTAT CHIFFRÉ]</span>
+
+<span class="pk">CONTRAINTES:</span>
+<span class="pv">- Total: maximum 80 mots (compté rigoureusement)
+- Ligne 1: référence SPÉCIFIQUE au prospect (pas générique)
+- Zéro jargon: "synergies", "solution innovante" = interdit
+- CTA: question fermée (oui/non) pas "n'hésitez pas à..."
+- Ton: direct professionnel, pas corporate pas familier</span>
+
+<span class="pk">FORMAT:</span>
+<span class="pv">Subject: [3-7 mots, pas de majuscules inutiles]
+Body: [Email]
+Variante A/B subject: [Alternative]</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">📡</span> Deliverability — Ce qui tue les campagnes</h3>
+    <table>
+      <tr>
+        <th class="orange">Facteur</th><th class="orange">Règle</th><th class="orange">Impact</th>
+      </tr>
+      <tr><td>Warmup domaine</td><td>Minimum 3 semaines avant envoi cold</td><td>🔴 Critique</td></tr>
+      <tr><td>Ratio domaines</td><td>1 domaine secondaire / 3 boîtes mail</td><td>🔴 Critique</td></tr>
+      <tr><td>Volume quotidien</td><td>Max 30-50 emails/jour/boîte</td><td>🔴 Critique</td></tr>
+      <tr><td>Spam words</td><td>Éviter : "gratuit", "offre", "urgent", "promo"</td><td>🟡 Important</td></tr>
+      <tr><td>Images & liens</td><td>Max 1 lien par email, 0 image en cold</td><td>🟡 Important</td></tr>
+      <tr><td>SPF/DKIM/DMARC</td><td>Les 3 doivent être configurés avant tout envoi</td><td>🔴 Critique</td></tr>
+      <tr><td>Unsubscribe rate</td><td>Alert si &gt;0.3% sur 7 jours glissants</td><td>🟡 Important</td></tr>
+    </table>
+  </div>
+
+  <div class="metric-row">
+    <div class="metric-cell"><div class="metric-num orange">40%+</div><div class="metric-desc">Open rate cible avec bon subject line et deliverability saine</div></div>
+    <div class="metric-cell"><div class="metric-num orange">4%+</div><div class="metric-desc">Reply rate avec personnalisation IA ligne 1 contextuelle</div></div>
+    <div class="metric-cell"><div class="metric-num orange">21j</div><div class="metric-desc">Warmup minimum avant premier envoi cold sur nouveau domaine</div></div>
+  </div>
+
+  <div class="alert alert-orange">
+    <span class="alert-icon">⚠️</span>
+    <div><strong>Piège fréquent :</strong> envoyer la même séquence à tous les segments. Segmentez impérativement : ICP parfait (email 1 personnalisé fort), ICP large (template + personnalisation modérée), prospects froids (validation d'intent avant outreach). ROI x3 minimum sur l'ICP parfait.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ LINKEDIN -->
+<div id="linkedin" class="section">
+  <div class="mod-header">
+    <div>
+      <div class="mod-label orange">Module 03</div>
+      <h2>LinkedIn<br>Automation</h2>
+      <p>Deux machines en parallèle : une machine à audience (contenu) et une machine à leads (outreach). L'une alimente l'autre — le contenu chauffe les prospects, l'outreach convertit.</p>
+    </div>
+    <div class="mod-kpi">
+      <div class="kpi-big" style="color:var(--orange)">2x</div>
+      <div class="kpi-sub">Reach vs<br>autres canaux B2B</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag orange">Waalaxy</span>
+    <span class="tag orange">Expandi</span>
+    <span class="tag orange">PhantomBuster</span>
+    <span class="tag">Content Strategy</span>
+    <span class="tag">SSI Score</span>
+    <span class="tag red">Anti-ban</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">📣</span> Machine à Audience</h3>
+      <ul class="orange">
+        <li>Posts 3-4x/semaine minimum</li>
+        <li>Formats : liste, histoire, opinion tranchée</li>
+        <li>Hook : les 2 premières lignes = tout</li>
+        <li>Engagement pod les 60 premières minutes</li>
+        <li>Republier les tops performers à J+90</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🎯</span> Machine à Leads</h3>
+      <ul class="orange">
+        <li>Sales Navigator pour le ciblage précis</li>
+        <li>Connexion → Note personnalisée &lt;300 car.</li>
+        <li>Séquence 3-4 messages max</li>
+        <li>Trigger sur les "qui a vu votre profil"</li>
+        <li>Limits : 100 invitations/semaine max</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">✦</span> Framework de contenu — Le post qui performe</h3>
+    <div class="formula orange">
+      HOOK : <span>Affirmation contre-intuitive ou chiffre surprenant</span><br>
+      DÉVELOPPEMENT : <span>3-5 points concrets (liste ou bullet)</span><br>
+      PREUVE : <span>Cas réel, résultat chiffré, expérience personnelle</span><br>
+      CTA : <span>Question ouverte ou "sauvegardez ce post"</span>
+    </div>
+    <div class="prompt-block orange">
+      <div class="prompt-header"><span class="prompt-tag">Prompt — Génération post LinkedIn</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="pk">TÂCHE:</span> <span class="pv">Génère un post LinkedIn à fort engagement</span>
+
+<span class="pk">SUJET:</span> <span class="pv">[Sujet ou insight que je veux partager]</span>
+<span class="pk">MON ANGLE:</span> <span class="pv">[Ma prise de position spécifique, potentiellement contro]</span>
+<span class="pk">AUDIENCE:</span> <span class="pv">[Titre/profil de mon audience cible]</span>
+
+<span class="pk">STRUCTURE IMPOSÉE:</span>
+<span class="pv">Ligne 1: Hook — affirmation surprenante ou question provocante (MAX 10 mots)
+Ligne 2: Vide (saut de ligne visuel)
+Corps: 3-5 points avec numérotation ou →
+Chiffres: minimum 2 données concrètes
+Fin: Question qui invite au commentaire</span>
+
+<span class="pk">STYLE:</span>
+<span class="pv">- Ton: expert direct, pas corporate
+- Aucun emoji sauf 1 max en fin de post
+- Phrases courtes: max 15 mots par phrase
+- Pas de : "Dans cet article", "Je suis ravi de"</span>
+
+<span class="pk">VARIANTES:</span> <span class="pv">Génère 3 versions du hook différentes</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🤖</span> Outreach automatisé — Règles de sécurité</h3>
+    <p>LinkedIn ban les comptes qui dépassent les limites. Les outils comme <strong>Waalaxy</strong>, <strong>Expandi</strong> ou <strong>PhantomBuster</strong> intègrent des safety limits, mais il faut les configurer correctement.</p>
+    <table>
+      <tr><th class="orange">Action</th><th class="orange">Limite safe</th><th class="orange">Outil</th></tr>
+      <tr><td>Invitations connexion</td><td>≤ 20/jour, 100/semaine</td><td>Waalaxy, Expandi</td></tr>
+      <tr><td>Messages InMail</td><td>≤ 15/jour (avec Sales Nav)</td><td>Expandi</td></tr>
+      <tr><td>Profile views</td><td>≤ 80/jour</td><td>PhantomBuster</td></tr>
+      <tr><td>Post engagement</td><td>≤ 100 likes/jour</td><td>Waalaxy</td></tr>
+      <tr><td>Scraping contacts</td><td>≤ 2500/jour (Sales Nav)</td><td>PhantomBuster</td></tr>
+    </table>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang orange">Séquence Waalaxy — 4 messages</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Message 1 — Invitation (300 car. max)</span>
+<span class="str">"Bonjour {{firstName}}, je suis tombé sur votre profil en cherchant</span>
+<span class="str"> des [titre] dans [secteur]. Votre expérience chez [entreprise]</span>
+<span class="str"> m'a intéressé — je rejoins votre réseau avec plaisir."</span>
+
+<span class="com">// Message 2 — J+3 après acceptation (soft)</span>
+<span class="str">"Merci pour la connexion {{firstName}}. Curieux : comment vous</span>
+<span class="str"> gérez [problème spécifique au secteur] chez [entreprise] ?"</span>
+
+<span class="com">// Message 3 — J+7 (valeur + hook)</span>
+<span class="str">"Suite à votre réponse — on a publié un guide sur [sujet].</span>
+<span class="str"> Pertinent pour vous ? Je peux vous l'envoyer."</span>
+
+<span class="com">// Message 4 — J+14 (CTA direct)</span>
+<span class="str">"{{firstName}}, on a aidé [client similaire] à [résultat].
+</span><span class="str"> Ça vaut 15 minutes pour voir si c'est pertinent pour vous ?"</span></pre>
+    </div>
+  </div>
+
+  <div class="alert alert-orange">
+    <span class="alert-icon">⚡</span>
+    <div><strong>Stratégie avancée — Signal-triggered outreach :</strong> Configurez PhantomBuster pour extraire chaque semaine qui a liké/commenté vos posts ou les posts de vos concurrents. Ces profils ont un intent 3x supérieur à un cold prospect. Intégrez directement dans votre séquence Waalaxy en priorité haute.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ POSTHOG -->
+<div id="posthog" class="section">
+  <div class="mod-header">
+    <div>
+      <div class="mod-label cyan">Module 04</div>
+      <h2>PostHog<br>Mastery</h2>
+      <p>Analytics produit open-source tout-en-un. Events, funnels, session replay, feature flags, A/B testing — tout dans une plateforme que vous pouvez auto-héberger.</p>
+    </div>
+    <div class="mod-kpi">
+      <div class="kpi-big" style="color:var(--cyan)">0$</div>
+      <div class="kpi-sub">Jusqu'à 1M<br>events/mois</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag cyan">Event Tracking</span>
+    <span class="tag cyan">Funnels</span>
+    <span class="tag cyan">Session Replay</span>
+    <span class="tag cyan">Feature Flags</span>
+    <span class="tag cyan">A/B Testing</span>
+    <span class="tag">Cohorts</span>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">⚙️</span> Installation & Configuration de base</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang cyan">bash + typescript — Setup PostHog Next.js</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com"># Installation</span>
+npm install posthog-js posthog-node
+
+<span class="com">// providers/PostHogProvider.tsx</span>
+<span class="str">'use client'</span>
+<span class="kw">import</span> { <span class="fn">useEffect</span> } <span class="kw">from</span> <span class="str">'react'</span>
+<span class="kw">import</span> posthog <span class="kw">from</span> <span class="str">'posthog-js'</span>
+<span class="kw">import</span> { <span class="fn">PostHogProvider</span> } <span class="kw">from</span> <span class="str">'posthog-js/react'</span>
+
+<span class="kw">export function</span> <span class="fn">PHProvider</span>({ children }) {
+  <span class="fn">useEffect</span>(() => {
+    posthog.<span class="fn">init</span>(<span class="var">process</span>.env.<span class="var">NEXT_PUBLIC_POSTHOG_KEY</span>, {
+      api_host: <span class="str">'/ingest'</span>,           <span class="com">// Proxy pour éviter les ad blockers</span>
+      ui_host: <span class="str">'https://app.posthog.com'</span>,
+      capture_pageview: <span class="num">false</span>,       <span class="com">// Manuel pour App Router</span>
+      capture_pageleave: <span class="num">true</span>,
+      session_recording: {
+        maskAllInputs: <span class="num">true</span>,          <span class="com">// RGPD : masquer les inputs</span>
+        maskInputOptions: { password: <span class="num">true</span> }
+      },
+      persistence: <span class="str">'localStorage+cookie'</span>,
+      loaded: (ph) => {
+        <span class="kw">if</span> (process.env.NODE_ENV === <span class="str">'development'</span>) ph.<span class="fn">opt_out_capturing</span>()
+      }
+    })
+  }, [])
+
+  <span class="kw">return</span> &lt;<span class="fn">PostHogProvider</span> client={posthog}&gt;{children}&lt;/<span class="fn">PostHogProvider</span>&gt;
+}
+
+<span class="com">// next.config.js — Proxy pour éviter les bloqueurs</span>
+<span class="kw">async</span> rewrites() {
+  <span class="kw">return</span> [{
+    source: <span class="str">'/ingest/static/:path*'</span>,
+    destination: <span class="str">'https://eu-assets.i.posthog.com/static/:path*'</span>
+  }, {
+    source: <span class="str">'/ingest/:path*'</span>,
+    destination: <span class="str">'https://eu.i.posthog.com/:path*'</span>
+  }]
+}</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">📊</span> Stratégie d'Event Tracking — Taxonomie</h3>
+    <p>La qualité de votre analytics dépend de votre taxonomie d'events. Une convention rigoureuse dès le départ évite des semaines de nettoyage.</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang cyan">typescript — Convention naming + tracking</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Convention : [objet]_[verbe] en snake_case</span>
+<span class="com">// Exemples : user_signed_up, project_created, payment_completed</span>
+
+<span class="com">// lib/analytics.ts — Wrapper centralisé</span>
+<span class="kw">import</span> posthog <span class="kw">from</span> <span class="str">'posthog-js'</span>
+
+<span class="kw">export const</span> <span class="var">analytics</span> = {
+  <span class="com">// Identify l'user avec ses propriétés</span>
+  <span class="fn">identify</span>(userId: <span class="var">string</span>, traits: <span class="var">Record</span>&lt;<span class="var">string</span>, <span class="var">unknown</span>&gt;) {
+    posthog.<span class="fn">identify</span>(userId, {
+      email: traits.email,
+      name: traits.name,
+      plan: traits.plan,
+      company: traits.company,
+      created_at: traits.createdAt,
+    })
+  },
+
+  <span class="com">// Track un event avec propriétés</span>
+  <span class="fn">track</span>(event: <span class="var">string</span>, properties?: <span class="var">Record</span>&lt;<span class="var">string</span>, <span class="var">unknown</span>&gt;) {
+    posthog.<span class="fn">capture</span>(event, {
+      ...properties,
+      timestamp: <span class="kw">new</span> <span class="fn">Date</span>().toISOString(),
+    })
+  },
+
+  <span class="com">// Events critiques typés (safety net)</span>
+  <span class="fn">signUp</span>(method: <span class="str">'email'</span> | <span class="str">'google'</span> | <span class="str">'github'</span>) {
+    <span class="kw">this</span>.<span class="fn">track</span>(<span class="str">'user_signed_up'</span>, { method, source: <span class="fn">getUtmSource</span>() })
+  },
+
+  <span class="fn">featureUsed</span>(feature: <span class="var">string</span>, context?: <span class="var">Record</span>&lt;<span class="var">string</span>, <span class="var">unknown</span>&gt;) {
+    <span class="kw">this</span>.<span class="fn">track</span>(<span class="str">`feature_${feature}_used`</span>, context)
+  }
+}</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🔍</span> Funnel Analysis — Trouver les drop-offs</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang cyan">typescript — Tracking funnel d'activation</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Funnel d'activation classique SaaS</span>
+<span class="com">// Chaque étape doit être trackée explicitement</span>
+
+<span class="com">// 1. Signup</span>
+analytics.<span class="fn">track</span>(<span class="str">'user_signed_up'</span>, { method, plan: <span class="str">'free'</span> })
+
+<span class="com">// 2. Onboarding démarré</span>
+analytics.<span class="fn">track</span>(<span class="str">'onboarding_started'</span>, { step: <span class="str">'profile'</span> })
+
+<span class="com">// 3. First value moment (définir précisément)</span>
+<span class="com">// Ex: pour Notion = "first_page_created"</span>
+<span class="com">// Ex: pour Slack = "first_message_sent"</span>
+analytics.<span class="fn">track</span>(<span class="str">'aha_moment_reached'</span>, {
+  time_to_aha_minutes: timeSinceSignup,
+  assisted: wasAssisted   <span class="com">// onboarding guidé ou solo</span>
+})
+
+<span class="com">// 4. Activation complète (votre définition)</span>
+analytics.<span class="fn">track</span>(<span class="str">'user_activated'</span>, { days_to_activation: daysCount })
+
+<span class="com">// 5. Conversion premium</span>
+analytics.<span class="fn">track</span>(<span class="str">'subscription_started'</span>, {
+  plan, price, billing_period,
+  trial_converted: wasOnTrial,
+  days_on_free: freeDays
+})</pre>
+    </div>
+    <p style="margin-top:0.75rem">Dans PostHog, créez le funnel avec ces 5 events. Analysez le taux de conversion entre chaque étape. L'étape avec le plus gros drop = votre priorité produit n°1.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🚩</span> Feature Flags — Déploiement progressif</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang cyan">typescript — Feature flags côté serveur et client</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Côté serveur (RSC ou API routes)</span>
+<span class="kw">import</span> { <span class="fn">PostHog</span> } <span class="kw">from</span> <span class="str">'posthog-node'</span>
+
+<span class="kw">const</span> <span class="var">client</span> = <span class="kw">new</span> <span class="fn">PostHog</span>(<span class="var">process</span>.env.<span class="var">POSTHOG_KEY</span>)
+
+<span class="kw">const</span> <span class="var">isEnabled</span> = <span class="kw">await</span> <span class="var">client</span>.<span class="fn">isFeatureEnabled</span>(
+  <span class="str">'new-dashboard-v2'</span>,
+  userId,
+  { groups: { company: companyId } }
+)
+
+<span class="com">// Côté client avec React hook</span>
+<span class="kw">import</span> { <span class="fn">useFeatureFlagEnabled</span> } <span class="kw">from</span> <span class="str">'posthog-js/react'</span>
+
+<span class="kw">export function</span> <span class="fn">Dashboard</span>() {
+  <span class="kw">const</span> <span class="var">newDashboard</span> = <span class="fn">useFeatureFlagEnabled</span>(<span class="str">'new-dashboard-v2'</span>)
+
+  <span class="kw">return</span> <span class="var">newDashboard</span>
+    ? &lt;<span class="fn">DashboardV2</span> /&gt;
+    : &lt;<span class="fn">DashboardV1</span> /&gt;
+}
+
+<span class="com">// A/B Test avec variantes multiples</span>
+<span class="kw">const</span> <span class="var">variant</span> = posthog.<span class="fn">getFeatureFlag</span>(<span class="str">'pricing-experiment'</span>)
+<span class="com">// variant = 'control' | 'monthly-first' | 'annual-first'</span></pre>
+    </div>
+  </div>
+
+  <div class="metric-row">
+    <div class="metric-cell"><div class="metric-num cyan">1M</div><div class="metric-desc">Events/mois gratuits (cloud) — suffisant pour la plupart des early-stage</div></div>
+    <div class="metric-cell"><div class="metric-num cyan">30j</div><div class="metric-desc">Session recordings conservées sur plan gratuit</div></div>
+    <div class="metric-cell"><div class="metric-num cyan">∞</div><div class="metric-desc">Rétention données en self-host (PostgreSQL ou ClickHouse)</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ MIXPANEL -->
+<div id="mixpanel" class="section">
+  <div class="mod-header">
+    <div>
+      <div class="mod-label cyan">Module 05</div>
+      <h2>Mixpanel<br>Deep Analytics</h2>
+      <p>Là où PostHog suit les events, Mixpanel excelle dans l'analyse comportementale de cohortes, la rétention et le journey mapping. Complémentaires, pas concurrents.</p>
+    </div>
+    <div class="mod-kpi">
+      <div class="kpi-big" style="color:var(--cyan)">20M</div>
+      <div class="kpi-sub">Events/mois<br>plan gratuit</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag cyan">Retention</span>
+    <span class="tag cyan">Cohorts</span>
+    <span class="tag cyan">User Journeys</span>
+    <span class="tag cyan">Segmentation</span>
+    <span class="tag">JQL</span>
+    <span class="tag">Impact Analysis</span>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">⚙️</span> Setup & Tracking Plan</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang cyan">typescript — Mixpanel setup + wrapper</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre>npm install mixpanel-browser
+
+<span class="com">// lib/mixpanel.ts</span>
+<span class="kw">import</span> mixpanel <span class="kw">from</span> <span class="str">'mixpanel-browser'</span>
+
+mixpanel.<span class="fn">init</span>(<span class="var">process</span>.env.<span class="var">NEXT_PUBLIC_MIXPANEL_TOKEN</span>, {
+  debug: process.env.NODE_ENV === <span class="str">'development'</span>,
+  track_pageview: <span class="num">true</span>,
+  persistence: <span class="str">'localStorage'</span>,
+  ip: <span class="num">false</span>,               <span class="com">// RGPD</span>
+  ignore_dnt: <span class="num">false</span>,
+  batch_requests: <span class="num">true</span>    <span class="com">// Performance</span>
+})
+
+<span class="com">// Super Properties — envoyées avec CHAQUE event</span>
+<span class="com">// Définir une fois, présentes partout</span>
+mixpanel.<span class="fn">register</span>({
+  app_version: process.env.<span class="var">NEXT_PUBLIC_VERSION</span>,
+  environment: process.env.NODE_ENV,
+  platform: <span class="str">'web'</span>
+})
+
+<span class="com">// People Properties — profil de l'user</span>
+mixpanel.people.<span class="fn">set</span>({
+  $name: user.name,
+  $email: user.email,
+  plan: user.plan,
+  company_size: user.companySize,
+  created_at: user.createdAt,
+  mrr: user.monthlyRevenue    <span class="com">// Segmenter par revenu</span>
+})</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">📈</span> Retention Analysis — La métrique qui compte vraiment</h3>
+    <p>La rétention est la métrique fondamentale d'un SaaS. Mixpanel permet d'analyser la <strong>rétention par cohorte</strong> : les users qui se sont inscrits en janvier retournent-ils en mars ? En juin ?</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang cyan">typescript — Events pour retention analysis</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Dans Mixpanel : Retention Report</span>
+<span class="com">// Birth event : user_signed_up</span>
+<span class="com">// Return event : session_started (ou votre "core action")</span>
+
+<span class="com">// La "core action" = l'action qui définit</span>
+<span class="com">// un utilisateur actif dans votre produit</span>
+<span class="com">// Ex Slack: message_sent</span>
+<span class="com">// Ex Notion: page_edited</span>
+<span class="com">// Ex votre app: [À DÉFINIR]</span>
+
+<span class="com">// Tracez cette action à chaque occurrence</span>
+mixpanel.<span class="fn">track</span>(<span class="str">'core_action_performed'</span>, {
+  action_type: <span class="str">'project_updated'</span>,    <span class="com">// préciser le type</span>
+  session_number: sessionCount,          <span class="com">// n-ième session</span>
+  days_since_signup: daysSinceSignup,
+  feature_used: featureName
+})
+
+<span class="com">// Lecture des courbes de rétention :</span>
+<span class="com">// Semaine 1 (W1) : &gt;40% = bon produit</span>
+<span class="com">// Mois 3 (M3)   : &gt;20% = forte rétention</span>
+<span class="com">// Mois 6 (M6)   : &gt;15% = excellent</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🔀</span> Flows & Journeys — Comprendre les chemins</h3>
+    <p>Le rapport <strong>Flows</strong> de Mixpanel montre les séquences d'actions les plus fréquentes <em>avant</em> une conversion et <em>après</em> un churn. C'est souvent ici que se cachent les insights produits les plus actionnables.</p>
+    <table>
+      <tr><th class="cyan">Analyse</th><th class="cyan">Question</th><th class="cyan">Action</th></tr>
+      <tr><td>Flow avant conversion</td><td>Quelles features utilisent ceux qui upgradent ?</td><td>Mettre ces features en avant dans l'onboarding</td></tr>
+      <tr><td>Flow avant churn</td><td>Quelles actions précèdent le départ ?</td><td>Trigger email de réengagement à ce moment</td></tr>
+      <tr><td>Paths non-attendus</td><td>Où vont les users qu'on n'attendait pas ?</td><td>Découvrir des use cases cachés</td></tr>
+      <tr><td>Dead ends</td><td>Où abandonnent les users bloqués ?</td><td>Ajouter aide contextuelle / simplifier UX</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🎯</span> Segmentation avancée — Les cohortes qui comptent</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang cyan">Mixpanel — Cohortes à créer dès le jour 1</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Cohorte 1 — Power Users (votre meilleur segment)</span>
+<span class="var">PowerUser</span> = users who performed <span class="str">"core_action_performed"</span> &gt;= <span class="num">5</span> times
+             in the last <span class="num">7</span> days
+
+<span class="com">// Cohorte 2 — At Risk (churn probable)</span>
+<span class="var">AtRisk</span> = users who did <span class="str">"session_started"</span> last between 14-30 days ago
+          AND had &gt;= <span class="num">3</span> sessions before that
+
+<span class="com">// Cohorte 3 — Churned (confirmé)</span>
+<span class="var">Churned</span> = users who did NOT perform any event in last 30 days
+           AND were active in the 30 days before that
+
+<span class="com">// Cohorte 4 — High Intent Free (candidats upgrade)</span>
+<span class="var">HighIntentFree</span> = users on free plan
+                  who hit a paywall event in last 7 days
+                  AND have &gt;= 10 core_actions total
+
+<span class="com">// Usage : exporter ces cohortes dans Clay</span>
+<span class="com">// → séquences cold email / LinkedIn ciblées par état</span></pre>
+    </div>
+  </div>
+
+  <div class="alert alert-cyan">
+    <span class="alert-icon">✦</span>
+    <div><strong>Connexion analytics → growth :</strong> Exportez les cohortes Mixpanel "At Risk" et "High Intent Free" directement dans Clay. L'IA enrichit les profils, génère des messages personnalisés selon leur état d'usage, et déclenche la séquence email/LinkedIn appropriée. C'est là que l'analytics devient un canal d'acquisition direct.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ STACK & OPS -->
+<div id="stack" class="section">
+  <div class="mod-header">
+    <div>
+      <div class="mod-label lime">Module 06</div>
+      <h2>Stack &<br>Opérations</h2>
+      <p>L'outillage complet, les intégrations entre canaux, et les KPIs à suivre pour piloter une machine de croissance cohérente. Chaque outil dans sa case, chaque métrique dans son tableau.</p>
+    </div>
+    <div class="mod-kpi">
+      <div class="kpi-big" style="color:var(--lime)">72h</div>
+      <div class="kpi-sub">Pour setup<br>le stack complet</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🗺️</span> Stack complet par fonction</h3>
+    <table>
+      <tr><th class="lime">Fonction</th><th class="lime">Outil primaire</th><th class="lime">Alternative</th><th class="lime">Coût/mois</th></tr>
+      <tr><td><strong>SEO Research</strong></td><td>Ahrefs</td><td>Semrush</td><td>~$99</td></tr>
+      <tr><td><strong>SEO Technique</strong></td><td>Next.js SSG + Vercel</td><td>Astro</td><td>~$20</td></tr>
+      <tr><td><strong>Lead sourcing</strong></td><td>Apollo.io</td><td>Sales Navigator</td><td>$49-99</td></tr>
+      <tr><td><strong>Enrichissement</strong></td><td>Clay</td><td>Clearbit</td><td>$149+</td></tr>
+      <tr><td><strong>Cold email sending</strong></td><td>Instantly</td><td>Smartlead</td><td>$37-97</td></tr>
+      <tr><td><strong>LinkedIn outreach</strong></td><td>Waalaxy</td><td>Expandi</td><td>$40-99</td></tr>
+      <tr><td><strong>LinkedIn scraping</strong></td><td>PhantomBuster</td><td>Evaboot</td><td>$56+</td></tr>
+      <tr><td><strong>Product analytics</strong></td><td>PostHog</td><td>Amplitude</td><td>$0-450</td></tr>
+      <tr><td><strong>Behavioral analytics</strong></td><td>Mixpanel</td><td>PostHog</td><td>$0-25</td></tr>
+      <tr><td><strong>Automation/Glue</strong></td><td>Make (Integromat)</td><td>n8n (self-host)</td><td>$9-29</td></tr>
+      <tr><td><strong>CRM</strong></td><td>Attio</td><td>HubSpot free</td><td>$0-34</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🔁</span> Les intégrations clés entre canaux</h3>
+    <div class="formula">
+      SEO rankings → <span>GSC API →</span> Priorisation pages à optimiser<br>
+      PostHog signups → <span>Clay →</span> Cold email séquence D+1<br>
+      Mixpanel "At Risk" → <span>Clay →</span> LinkedIn re-engagement<br>
+      Cold email réponses → <span>Attio CRM →</span> Séquence LinkedIn warm<br>
+      LinkedIn engagement → <span>PhantomBuster →</span> Nouveau segment cold email<br>
+      PostHog Feature Flag → <span>A/B test →</span> Mixpanel conversion analysis
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">📊</span> Dashboard KPIs — Ce que vous suivez chaque semaine</h3>
+    <table>
+      <tr><th class="lime">Catégorie</th><th class="lime">KPI</th><th class="lime">Seuil alerte</th><th class="lime">Fréquence</th></tr>
+      <tr><td><strong>SEO</strong></td><td>Organic clicks (GSC)</td><td>-20% WoW</td><td>Hebdo</td></tr>
+      <tr><td><strong>SEO</strong></td><td>Pages indexées</td><td>Toute baisse</td><td>Hebdo</td></tr>
+      <tr><td><strong>Cold Email</strong></td><td>Open rate</td><td>&lt;35%</td><td>Quotidien</td></tr>
+      <tr><td><strong>Cold Email</strong></td><td>Reply rate</td><td>&lt;3%</td><td>Hebdo</td></tr>
+      <tr><td><strong>Cold Email</strong></td><td>Bounce rate</td><td>&gt;3%</td><td>Quotidien</td></tr>
+      <tr><td><strong>LinkedIn</strong></td><td>Acceptance rate</td><td>&lt;25%</td><td>Hebdo</td></tr>
+      <tr><td><strong>LinkedIn</strong></td><td>Post impressions</td><td>-30% WoW</td><td>Hebdo</td></tr>
+      <tr><td><strong>Produit</strong></td><td>D7 Retention</td><td>&lt;30%</td><td>Hebdo</td></tr>
+      <tr><td><strong>Produit</strong></td><td>Activation rate</td><td>&lt;40%</td><td>Hebdo</td></tr>
+      <tr><td><strong>Produit</strong></td><td>Time to Aha Moment</td><td>&gt;5 minutes</td><td>Mensuel</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">⚡</span> Automation Make — Glue entre les outils</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang lime">Scénario Make — Nouveau signup → séquence</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Trigger: Webhook PostHog "user_signed_up"</span>
+
+<span class="com">// Étape 1 — Enrichissement Clay</span>
+POST clay.com/api/enrich
+{
+  email: <span class="var">{{email}}</span>,
+  fields: [<span class="str">"linkedin_url"</span>, <span class="str">"company"</span>, <span class="str">"title"</span>, <span class="str">"company_size"</span>]
+}
+
+<span class="com">// Étape 2 — Ajouter dans Attio CRM</span>
+POST attio.com/api/contacts
+{
+  email, name, company,
+  tags: [<span class="str">"new-signup"</span>, <span class="str">`plan:${plan}`</span>],
+  source: <span class="str">"organic-signup"</span>
+}
+
+<span class="com">// Étape 3 — Si ICP match → séquence email J+1</span>
+<span class="kw">IF</span> (company_size >= <span class="num">10</span> && title.<span class="fn">includes</span>(<span class="str">'CEO|CTO|Head'</span>)) {
+  POST instantly.ai/api/leads
+  { email, campaign_id: <span class="str">"ici-onboarding-ics"</span>, personalization: clay.line1 }
+}
+
+<span class="com">// Étape 4 — Notifier Slack #sales</span>
+POST slack.com/webhooks/xxx
+{ text: <span class="str">`🎯 New ICP signup: ${name} @ ${company} (${title})`</span> }</pre>
+    </div>
+  </div>
+
+  <div class="alert alert-lime">
+    <span class="alert-icon">✦</span>
+    <div><strong>Axes de progression non demandés :</strong> (1) <strong>Attribution multi-touch</strong> — configurer UTM tracking systématique dans PostHog pour savoir exactement quel canal (SEO/cold email/LinkedIn) génère quoi en revenus réels. (2) <strong>Intent data enrichissement</strong> — G2, Bombora ou 6sense pour identifier les entreprises qui recherchent activement votre catégorie de produit avant même qu'elles vous contactent. (3) <strong>Reverse ETL</strong> — Census ou Hightouch pour pousser automatiquement les segments Mixpanel/PostHog vers vos outils d'outreach, sans export/import manuel.</div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  const map = {
+    intro:'Intro', seo:'SEO Prog.', email:'Cold Email',
+    linkedin:'LinkedIn', posthog:'PostHog', mixpanel:'Mixpanel', stack:'Stack & Ops'
+  };
+
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === (map[id] || ''));
+  });
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function copyCode(btn) {
+  const container = btn.closest('.code-block, .prompt-block');
+  const pre = container.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = 'copied!';
+    btn.style.color = '#b8ff57';
+    setTimeout(() => { btn.textContent = 'copy'; btn.style.color = ''; }, 2000);
+  });
+}
+
+document.addEventListener('keydown', e => {
+  const sections = ['intro','seo','email','linkedin','posthog','mixpanel','stack'];
+  const current = sections.findIndex(s => document.getElementById(s).classList.contains('active'));
+  if (e.key === 'ArrowRight' && current < sections.length - 1) show(sections[current + 1]);
+  if (e.key === 'ArrowLeft' && current > 0) show(sections[current - 1]);
+});
+</script>
+</body>
+</html>

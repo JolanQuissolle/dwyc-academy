@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CURSOR VIBE CODING</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,400&family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07070d;
+    --surface: #0f0f1a;
+    --surface2: #16162a;
+    --border: #252540;
+    --purple: #a855f7;
+    --purple-dim: #4c1d95;
+    --purple-glow: rgba(168,85,247,0.10);
+    --blue: #60a5fa;
+    --pink: #f472b6;
+    --yellow: #fbbf24;
+    --green: #34d399;
+    --text: #ededf5;
+    --muted: #6b6b8a;
+    --code-bg: #090912;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(7,7,13,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 58px;
+  }
+
+  .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--purple);
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo-dot {
+    width: 6px; height: 6px;
+    background: var(--purple);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--purple);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .logo span { color: var(--muted); }
+
+  nav {
+    display: flex;
+    gap: 0.2rem;
+  }
+
+  .nav-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.75rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .nav-btn:hover, .nav-btn.active {
+    color: var(--purple);
+    border-color: var(--purple-dim);
+    background: var(--purple-glow);
+  }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 2rem 4rem;
+    max-width: 920px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 400px;
+    background: radial-gradient(ellipse at 50% 30%, rgba(168,85,247,0.07) 0%, rgba(96,165,250,0.04) 40%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--purple);
+    border: 1px solid var(--purple-dim);
+    background: var(--purple-glow);
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+  }
+
+  h1 .line1 { display: block; color: var(--text); }
+  h1 .line2 {
+    display: block;
+    background: linear-gradient(135deg, var(--purple), var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 580px;
+    margin: 1.5rem auto 3rem;
+    font-weight: 300;
+    line-height: 1.9;
+  }
+
+  /* TOOLS GRID */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    max-width: 800px;
+    margin: 0 auto 1rem;
+  }
+
+  .tool-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tool-chip::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--purple-glow), transparent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .tool-chip:hover {
+    border-color: var(--purple-dim);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(168,85,247,0.1);
+  }
+
+  .tool-chip:hover::after { opacity: 1; }
+
+  .chip-emoji { font-size: 1.4rem; margin-bottom: 0.4rem; display: block; }
+  .chip-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--purple);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+  .chip-desc { font-size: 0.75rem; color: var(--muted); }
+
+  .nav-modules {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .module-nav-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 1.1rem;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .module-nav-btn:hover {
+    color: var(--purple);
+    border-color: var(--purple-dim);
+    background: var(--purple-glow);
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 2rem 5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section { display: none; animation: fadeIn 0.3s ease; }
+  .section.active { display: block; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* MODULE HEADER */
+  .module-header {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .module-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), var(--blue), var(--pink));
+  }
+
+  .module-header::after {
+    content: attr(data-bg);
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 5rem;
+    opacity: 0.06;
+    filter: blur(1px);
+  }
+
+  .module-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .module-number::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: var(--purple);
+  }
+
+  .module-header h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .module-header p { color: var(--muted); font-size: 0.97rem; max-width: 600px; }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: rgba(168,85,247,0.25); }
+
+  .card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text);
+  }
+
+  .card h3 .icon { font-size: 1rem; }
+
+  .card p, .card li {
+    color: var(--muted);
+    font-size: 0.91rem;
+    line-height: 1.85;
+  }
+
+  .card ul { list-style: none; padding-left: 0.5rem; }
+  .card ul li {
+    padding: 0.2rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .card ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--purple);
+    font-size: 0.7rem;
+    top: 0.35rem;
+  }
+
+  strong { color: var(--text); font-weight: 600; }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin: 1.25rem 0;
+    overflow: hidden;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1.1rem;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-lang {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .copy-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    padding: 0.2rem 0.65rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .copy-btn:hover { color: var(--purple); border-color: var(--purple-dim); }
+
+  pre {
+    padding: 1.25rem 1.25rem;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.8;
+    color: #c9d1e0;
+  }
+
+  .kw { color: #c084fc; }
+  .str { color: #86efac; }
+  .fn { color: #93c5fd; }
+  .com { color: #525275; font-style: italic; }
+  .num { color: #f9a8d4; }
+  .var { color: #fde68a; }
+  .tag { color: #f472b6; }
+  .attr { color: #a5f3fc; }
+  .prompt-kw { color: var(--yellow); font-weight: 700; }
+  .prompt-val { color: var(--green); }
+  .prompt-com { color: #525275; font-style: italic; }
+
+  /* TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.75rem 0 1.5rem; }
+  .tag-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .tag-chip.purple { border-color: var(--purple-dim); color: var(--purple); background: var(--purple-glow); }
+  .tag-chip.blue { border-color: rgba(96,165,250,0.3); color: var(--blue); background: rgba(96,165,250,0.05); }
+  .tag-chip.pink { border-color: rgba(244,114,182,0.3); color: var(--pink); background: rgba(244,114,182,0.05); }
+  .tag-chip.yellow { border-color: rgba(251,191,36,0.3); color: var(--yellow); background: rgba(251,191,36,0.05); }
+  .tag-chip.green { border-color: rgba(52,211,153,0.3); color: var(--green); background: rgba(52,211,153,0.05); }
+
+  /* ALERT */
+  .alert {
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    font-size: 0.87rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    line-height: 1.7;
+  }
+
+  .alert-warn { background: rgba(251,191,36,0.07); border: 1px solid rgba(251,191,36,0.25); color: #fcd34d; }
+  .alert-info { background: var(--purple-glow); border: 1px solid var(--purple-dim); color: var(--purple); }
+  .alert-tip { background: rgba(52,211,153,0.07); border: 1px solid rgba(52,211,153,0.25); color: var(--green); }
+  .alert-icon { flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin: 1rem 0; }
+  th {
+    background: var(--surface2);
+    color: var(--purple);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(37,37,64,0.5);
+    color: var(--muted);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.015); }
+  td code, p code, li code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    font-size: 0.8em;
+    color: var(--blue);
+  }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+
+  /* PROMPT BLOCK — special styling */
+  .prompt-block {
+    background: #0a0a14;
+    border: 1px solid rgba(168,85,247,0.3);
+    border-left: 3px solid var(--purple);
+    border-radius: 0 10px 10px 0;
+    margin: 1.25rem 0;
+    overflow: hidden;
+  }
+
+  .prompt-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: rgba(168,85,247,0.05);
+    border-bottom: 1px solid rgba(168,85,247,0.15);
+  }
+
+  .prompt-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .prompt-label::before { content: '✦'; }
+
+  .prompt-block pre {
+    padding: 1.25rem;
+    color: #d4d4e8;
+    font-size: 0.8rem;
+    line-height: 1.85;
+  }
+
+  /* ACCORDION */
+  details {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  details:hover { border-color: rgba(168,85,247,0.2); }
+
+  summary {
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text);
+    user-select: none;
+  }
+
+  summary::after { content: '+'; color: var(--purple); font-size: 1.2rem; font-family: 'JetBrains Mono', monospace; }
+  details[open] summary::after { content: '−'; }
+
+  .details-content {
+    padding: 1.25rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* WORKFLOW STEPS */
+  .steps { display: flex; flex-direction: column; gap: 1px; }
+
+  .step {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.25rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s;
+  }
+
+  .step:hover { border-color: rgba(168,85,247,0.25); background: rgba(168,85,247,0.03); }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    background: var(--purple-glow);
+    border: 1px solid var(--purple-dim);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--purple);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  .step-content h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--text); }
+  .step-content p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  /* COMPARISON CARD */
+  .tool-compare {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .tool-compare-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .tool-compare-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .tool-col {
+    padding: 1.25rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .tool-col:last-child { border-right: none; }
+
+  .tool-name {
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-bottom: 0.15rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .tool-role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+  }
+
+  .tool-pros li {
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding: 0.15rem 0;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .tool-pros li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  .tool-cons li::before { content: '−'; color: var(--pink) !important; }
+
+  /* KEYBOARD SHORTCUT */
+  kbd {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid rgba(168,85,247,0.3);
+    border-radius: 5px;
+    padding: 0.1em 0.4em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75em;
+    color: var(--text);
+  }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 2rem 0; }
+
+  @media (max-width: 650px) {
+    .grid-2, .grid-3, .tool-compare-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    nav { display: none; }
+    h1 { font-size: 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    VIBE<span>_</span>CODING
+  </div>
+  <nav>
+    <button class="nav-btn active" onclick="show('intro')">Intro</button>
+    <button class="nav-btn" onclick="show('cursor')">Cursor</button>
+    <button class="nav-btn" onclick="show('claudecode')">Claude Code</button>
+    <button class="nav-btn" onclick="show('v0')">v0.dev</button>
+    <button class="nav-btn" onclick="show('bolt')">Bolt.new</button>
+    <button class="nav-btn" onclick="show('workflow')">Workflow</button>
+    <button class="nav-btn" onclick="show('prompting')">Prompting</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">Tier 1 · Vibe Coding Mastery</div>
+  <h1>
+    <span class="line1">Coder avec l'IA</span>
+    <span class="line2">sans être dev</span>
+  </h1>
+  <p class="hero-sub">Cursor, Claude Code, v0.dev, Bolt.new — la stack complète pour construire des produits réels avec l'IA comme co-pilote, pas comme traducteur.</p>
+
+  <div class="tools-grid">
+    <div class="tool-chip" onclick="show('cursor')">
+      <span class="chip-emoji">🖱️</span>
+      <span class="chip-name">Cursor</span>
+      <span class="chip-desc">IDE + IA intégrée. Le QG du vibe coding.</span>
+    </div>
+    <div class="tool-chip" onclick="show('claudecode')">
+      <span class="chip-emoji">⚡</span>
+      <span class="chip-name">Claude Code</span>
+      <span class="chip-desc">Agent terminal. Autonomie maximale.</span>
+    </div>
+    <div class="tool-chip" onclick="show('v0')">
+      <span class="chip-emoji">🎨</span>
+      <span class="chip-name">v0.dev</span>
+      <span class="chip-desc">UI React en prompt. Vercel-native.</span>
+    </div>
+    <div class="tool-chip" onclick="show('bolt')">
+      <span class="chip-emoji">🔩</span>
+      <span class="chip-name">Bolt.new</span>
+      <span class="chip-desc">App full-stack depuis zéro, en 5 min.</span>
+    </div>
+  </div>
+
+  <div class="nav-modules">
+    <button class="module-nav-btn" onclick="show('workflow')">🔄 Workflow combiné</button>
+    <button class="module-nav-btn" onclick="show('prompting')">✦ Prompting avancé</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- INTRO -->
+<div id="intro" class="section active">
+  <div class="module-header" data-bg="∞">
+    <div class="module-number">Vue d'ensemble</div>
+    <h2>Le paradigme Vibe Coding</h2>
+    <p>Ce n'est pas "apprendre à coder avec de l'aide". C'est un nouveau mode de production : vous êtes l'architecte, l'IA est l'ingénieur. Comprendre la distinction change tout.</p>
+  </div>
+
+  <div class="alert alert-warn">
+    <span class="alert-icon">⚠️</span>
+    <div><strong>L'erreur fatale du débutant :</strong> traiter ces outils comme des moteurs de recherche améliorés. Vous leur posez des questions. La réalité : ce sont des agents d'exécution. Vous leur donnez des <em>missions</em>, un <em>contexte</em>, des <em>contraintes</em>. La qualité de votre pensée détermine la qualité du résultat.</div>
+  </div>
+
+  <div class="tool-compare">
+    <div class="tool-compare-header">Comparaison des 4 outils — Quand utiliser quoi</div>
+    <div class="tool-compare-grid">
+      <div class="tool-col">
+        <div class="tool-name">🖱️ Cursor</div>
+        <div class="tool-role">IDE principal</div>
+        <ul class="tool-pros">
+          <li>Édition fichier par fichier précise</li>
+          <li>Contexte sur tout le codebase</li>
+          <li>Refactoring chirurgical</li>
+          <li>Debug interactif</li>
+        </ul>
+      </div>
+      <div class="tool-col">
+        <div class="tool-name">⚡ Claude Code</div>
+        <div class="tool-role">Agent terminal</div>
+        <ul class="tool-pros">
+          <li>Tâches longues autonomes</li>
+          <li>Multi-fichiers en une commande</li>
+          <li>Git, tests, migrations</li>
+          <li>CI/CD et scripts</li>
+        </ul>
+      </div>
+      <div class="tool-col">
+        <div class="tool-name">🎨 v0.dev</div>
+        <div class="tool-role">UI Prototyping</div>
+        <ul class="tool-pros">
+          <li>UI React/Tailwind en secondes</li>
+          <li>Shadcn/ui natif</li>
+          <li>Export Next.js direct</li>
+          <li>Itération visuelle rapide</li>
+        </ul>
+      </div>
+      <div class="tool-col">
+        <div class="tool-name">🔩 Bolt.new</div>
+        <div class="tool-role">Greenfield apps</div>
+        <ul class="tool-pros">
+          <li>Projet from scratch instantané</li>
+          <li>Backend + front intégrés</li>
+          <li>Preview live immédiat</li>
+          <li>Deploy en 1 clic</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🧠</span> Le modèle mental</h3>
+      <p>Vous n'écrivez plus de code. Vous <strong>spécifiez des comportements</strong>. La compétence qui compte n'est plus la syntaxe — c'est la capacité à décomposer un problème en tâches atomiques, à définir les contraintes avec précision, et à valider les outputs.</p>
+    </div>
+    <div class="card">
+      <h3><span class="icon">⚡</span> Le stack optimal</h3>
+      <ul>
+        <li><strong>Bolt.new</strong> → Scaffold initial (15 min)</li>
+        <li><strong>v0.dev</strong> → Composants UI complexes</li>
+        <li><strong>Cursor</strong> → Dev quotidien, itération</li>
+        <li><strong>Claude Code</strong> → Tâches lourdes autonomes</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">📐</span> Les 3 lois du vibe coding efficace</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Contexte > Commande</h4>
+          <p>L'IA produit en proportion directe du contexte que vous donnez. Un prompt avec architecture, stack, contraintes, et exemple produit 10x mieux qu'une commande vague. Investissez 2 minutes à contextualiser pour économiser 20 minutes de correction.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Décomposer avant d'exécuter</h4>
+          <p>Ne demandez jamais "construis-moi une app". Découpez en micro-tâches : "crée le schéma de base de données", puis "génère l'API", puis "construis le composant UI". Chaque tâche doit tenir en une conversation.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Vérifier sans se noyer</h4>
+          <p>Vous ne comprendrez pas tout le code généré. C'est normal et acceptable — à condition de tester le comportement, pas la syntaxe. Faites tourner, testez les edge cases, vérifiez la sécurité des points critiques (auth, données, paiement).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CURSOR -->
+<div id="cursor" class="section">
+  <div class="module-header" data-bg="🖱️">
+    <div class="module-number">Module 01</div>
+    <h2>Cursor</h2>
+    <p>L'IDE IA le plus puissant du marché. Fork de VS Code avec des fonctionnalités d'IA profondes intégrées à tous les niveaux de l'édition.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag-chip purple">Tab Completion</span>
+    <span class="tag-chip blue">Composer</span>
+    <span class="tag-chip pink">Chat</span>
+    <span class="tag-chip yellow">Agent Mode</span>
+    <span class="tag-chip green">.cursorrules</span>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🗺️</span> L'interface — 4 modes d'interaction</h3>
+    <table>
+      <tr><th>Mode</th><th>Raccourci</th><th>Usage</th><th>Portée</th></tr>
+      <tr><td><strong>Tab</strong></td><td><kbd>Tab</kbd></td><td>Autocomplétion contextuelle ligne par ligne</td><td>Curseur actuel</td></tr>
+      <tr><td><strong>Inline Edit</strong></td><td><kbd>Cmd+K</kbd></td><td>Modifier un bloc de code sélectionné</td><td>Sélection</td></tr>
+      <tr><td><strong>Chat</strong></td><td><kbd>Cmd+L</kbd></td><td>Questions, explication de code, debug</td><td>Fichier + contexte</td></tr>
+      <tr><td><strong>Composer</strong></td><td><kbd>Cmd+I</kbd></td><td>Modifications multi-fichiers, nouvelles features</td><td>Codebase entier</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">✦</span> .cursorrules — Le fichier qui change tout</h3>
+    <p>Placé à la racine du projet, <code>.cursorrules</code> (ou <code>.cursor/rules</code>) injecte du contexte système dans chaque requête. C'est votre <strong>constitution de projet</strong> que l'IA respecte en permanence.</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">.cursorrules — Template production</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com"># Stack & Architecture</span>
+<span class="prompt-kw">STACK:</span> <span class="prompt-val">Next.js 14 App Router, TypeScript strict, Tailwind CSS, Supabase</span>
+<span class="prompt-kw">UI:</span> <span class="prompt-val">shadcn/ui components uniquement, pas de bibliothèques tierces</span>
+<span class="prompt-kw">STATE:</span> <span class="prompt-val">Zustand pour l'état global, React Query pour les données serveur</span>
+<span class="prompt-kw">AUTH:</span> <span class="prompt-val">Supabase Auth — jamais stocker le token manuellement</span>
+
+<span class="com"># Conventions de code</span>
+<span class="prompt-kw">STYLE:</span> <span class="prompt-val">Composants fonctionnels uniquement, arrow functions</span>
+<span class="prompt-kw">NAMING:</span> <span class="prompt-val">PascalCase composants, camelCase hooks/utils, SCREAMING_SNAKE constants</span>
+<span class="prompt-kw">IMPORTS:</span> <span class="prompt-val">Utiliser les alias @/components, @/lib, @/hooks</span>
+
+<span class="com"># Règles de sécurité</span>
+<span class="prompt-kw">SECURITY:</span> <span class="prompt-val">Ne jamais exposer SUPABASE_SERVICE_ROLE_KEY côté client</span>
+<span class="prompt-kw">VALIDATION:</span> <span class="prompt-val">Zod pour toute validation d'input utilisateur</span>
+<span class="prompt-kw">API:</span> <span class="prompt-val">Toujours valider l'auth dans les Route Handlers</span>
+
+<span class="com"># Comportement attendu de l'IA</span>
+<span class="prompt-kw">DO:</span> <span class="prompt-val">Expliquer brièvement les choix techniques non-évidents</span>
+<span class="prompt-kw">DO:</span> <span class="prompt-val">Proposer le type TypeScript complet pour chaque fonction</span>
+<span class="prompt-kw">DONT:</span> <span class="prompt-val">Utiliser 'any' comme type TypeScript</span>
+<span class="prompt-kw">DONT:</span> <span class="prompt-val">Ajouter des dépendances npm non listées sans demander</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🔬</span> Composer — Agent multi-fichiers</h3>
+    <p>Le mode <strong>Composer</strong> (<kbd>Cmd+I</kbd>) permet à Cursor d'écrire, modifier et créer plusieurs fichiers en une seule conversation. C'est le mode à utiliser pour les features complètes.</p>
+    <div class="prompt-block">
+      <div class="prompt-header"><span class="prompt-label">Prompt Composer — Feature complète</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="prompt-kw">TASK:</span> <span class="prompt-val">Créer un système de commentaires pour les posts</span>
+
+<span class="prompt-kw">CONTEXT:</span>
+<span class="prompt-val">- Table 'posts' existante avec colonnes: id, user_id, title, content</span>
+<span class="prompt-val">- Auth Supabase déjà configurée</span>
+<span class="prompt-val">- Composant PostCard.tsx existant à étendre</span>
+
+<span class="prompt-kw">DELIVERABLES:</span>
+<span class="prompt-val">1. Migration SQL: table comments (id, post_id, user_id, content, created_at)</span>
+<span class="prompt-val">2. Policies RLS: lecture publique, écriture authentifiée, delete owner only</span>
+<span class="prompt-val">3. Hook useComments.ts avec fetch + optimistic insert</span>
+<span class="prompt-val">4. Composant CommentSection.tsx avec liste + formulaire</span>
+<span class="prompt-val">5. Intégration dans PostCard.tsx existant</span>
+
+<span class="prompt-kw">CONSTRAINTS:</span>
+<span class="prompt-val">- shadcn/ui uniquement pour les composants UI</span>
+<span class="prompt-val">- Optimistic updates sur l'insert (UX fluide)</span>
+<span class="prompt-val">- Gestion d'erreur complète</span></pre>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🎯</span> @ References</h3>
+      <p>Dans Chat et Composer, utilisez <code>@</code> pour cibler précisément :</p>
+      <ul>
+        <li><code>@fichier.ts</code> — contexte d'un fichier</li>
+        <li><code>@dossier/</code> — tout un répertoire</li>
+        <li><code>@Codebase</code> — recherche sémantique globale</li>
+        <li><code>@Web</code> — recherche web en temps réel</li>
+        <li><code>@Docs</code> — documentation indexée</li>
+        <li><code>@Git</code> — diff ou commit spécifique</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="icon">⚙️</span> Raccourcis essentiels</h3>
+      <ul>
+        <li><kbd>Cmd+K</kbd> — Edit inline sur sélection</li>
+        <li><kbd>Cmd+L</kbd> — Ouvrir Chat</li>
+        <li><kbd>Cmd+I</kbd> — Ouvrir Composer</li>
+        <li><kbd>Cmd+Shift+L</kbd> — Ajouter fichier au chat</li>
+        <li><kbd>Cmd+Enter</kbd> — Envoyer avec agent mode</li>
+        <li><kbd>Escape</kbd> — Annuler une suggestion Tab</li>
+        <li><kbd>Cmd+Z</kbd> — Undo une modification IA</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🐛</span> Debug avec Cursor</h3>
+    <div class="prompt-block">
+      <div class="prompt-header"><span class="prompt-label">Prompt de debug — Pattern efficace</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="prompt-kw">BUG:</span> <span class="prompt-val">Le hook useComments retourne undefined au premier render</span>
+
+<span class="prompt-kw">EXPECTED:</span> <span class="prompt-val">Tableau vide [] pendant le chargement, puis les commentaires</span>
+<span class="prompt-kw">ACTUAL:</span> <span class="prompt-val">undefined → provoque un .map() qui crash</span>
+
+<span class="prompt-kw">ERROR:</span> <span class="prompt-val">TypeError: Cannot read properties of undefined (reading 'map')</span>
+
+<span class="prompt-kw">CONTEXT:</span> <span class="prompt-val">@hooks/useComments.ts @components/CommentSection.tsx</span>
+
+<span class="prompt-com"># Ne pas réécrire tout le fichier. 
+# Identifier la cause racine et proposer le fix minimal.</span></pre>
+    </div>
+  </div>
+
+  <div class="alert alert-tip">
+    <span class="alert-icon">✦</span>
+    <div><strong>Pro tip — Model selection :</strong> Claude Sonnet pour la majorité des tâches (vitesse + qualité). Claude Opus pour les architectures complexes ou les refactorings majeurs. GPT-4o pour le débogage de logique mathématique. Switchez selon la nature de la tâche dans le sélecteur de modèle.</div>
+  </div>
+</div>
+
+<!-- CLAUDE CODE -->
+<div id="claudecode" class="section">
+  <div class="module-header" data-bg="⚡">
+    <div class="module-number">Module 02</div>
+    <h2>Claude Code</h2>
+    <p>Agent CLI d'Anthropic. S'exécute dans votre terminal, lit et écrit des fichiers, lance des commandes, git commit. L'autonomie maximale pour les tâches lourdes.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag-chip purple">CLI Agent</span>
+    <span class="tag-chip blue">Multi-fichiers</span>
+    <span class="tag-chip pink">Git natif</span>
+    <span class="tag-chip yellow">Autonomie</span>
+    <span class="tag-chip green">CLAUDE.md</span>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🚀</span> Installation & premiers pas</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com"># Installation</span>
+npm install -g @anthropic-ai/claude-code
+
+<span class="com"># Lancer dans votre projet</span>
+cd mon-projet
+claude
+
+<span class="com"># Mode non-interactif (pour scripts/CI)</span>
+claude -p "Ajoute des tests pour toutes les fonctions dans src/utils/"
+
+<span class="com"># Avec un fichier de contexte</span>
+claude --context CLAUDE.md
+
+<span class="com"># Mode verbose (voir les actions en détail)</span>
+claude --verbose</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">📄</span> CLAUDE.md — La mémoire permanente</h3>
+    <p>Equivalent du <code>.cursorrules</code>, mais pour Claude Code. Ce fichier est lu automatiquement à chaque session. Placez-le à la racine du projet.</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">CLAUDE.md — Template</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com"># Contexte du projet</span>
+Application SaaS B2B de gestion de projets musicaux.
+Stack: Next.js 14, TypeScript, Supabase, Stripe.
+
+<span class="com"># Structure du projet</span>
+- src/app/          → Routes Next.js (App Router)
+- src/components/   → Composants React réutilisables
+- src/lib/          → Utilitaires et clients (supabase, stripe)
+- src/hooks/        → Custom React hooks
+- supabase/         → Migrations et Edge Functions
+
+<span class="com"># Commandes importantes</span>
+- `npm run dev`         → Démarrer en local
+- `npm run test`        → Tests unitaires (Vitest)
+- `supabase db push`    → Appliquer les migrations
+- `npm run typecheck`   → Vérifier les types TS
+
+<span class="com"># Règles impératives</span>
+- TOUJOURS lancer les tests après modification
+- TOUJOURS vérifier TypeScript avant de commit
+- Ne JAMAIS push directement sur main
+- Créer une branche feature/ pour chaque tâche
+
+<span class="com"># Patterns à respecter</span>
+- Server Components par défaut, 'use client' uniquement si nécessaire
+- Erreurs: Result pattern (pas de throw, retourner { data, error })
+- Validation: Zod schemas dans src/lib/schemas/</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🤖</span> Commandes agent — Ce que Claude Code peut faire</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">READ</div>
+        <div class="step-content">
+          <h4>Lecture de fichiers et navigation</h4>
+          <p>Explore l'arborescence, lit les fichiers, comprend la structure. Demandez : <em>"Explique-moi l'architecture de ce projet"</em></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">WRITE</div>
+        <div class="step-content">
+          <h4>Création et modification de fichiers</h4>
+          <p>Crée, modifie, supprime des fichiers. Demandez : <em>"Refactore tous les composants pour utiliser le nouveau design system"</em></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">EXEC</div>
+        <div class="step-content">
+          <h4>Exécution de commandes shell</h4>
+          <p>Lance npm, git, supabase CLI, tests. Demandez : <em>"Lance les tests, et si ils échouent corrige les erreurs"</em></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">GIT</div>
+        <div class="step-content">
+          <h4>Opérations Git complètes</h4>
+          <p>Branch, commit, diff, merge. Demandez : <em>"Crée une PR avec un changelog détaillé de ce que tu viens de faire"</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">✦</span> Prompts haute valeur pour Claude Code</h3>
+    <div class="prompt-block">
+      <div class="prompt-header"><span class="prompt-label">Migration de codebase</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="prompt-val">Migre tous les composants de pages/ (Pages Router) vers app/ (App Router).
+Respecte les conventions Next.js 14 : Server Components par défaut,
+loading.tsx et error.tsx pour chaque route, metadata exports.
+Lance le build à la fin pour vérifier qu'il n'y a pas d'erreurs.</span></pre>
+    </div>
+    <div class="prompt-block">
+      <div class="prompt-header"><span class="prompt-label">Génération de tests</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="prompt-val">Analyse src/lib/utils.ts et src/hooks/.
+Génère des tests Vitest avec couverture à 80%+ pour chaque fonction.
+Utilise des mocks pour Supabase (pattern existant dans __tests__/setup.ts).
+Lance les tests et corrige jusqu'à ce qu'ils passent.</span></pre>
+    </div>
+    <div class="prompt-block">
+      <div class="prompt-header"><span class="prompt-label">Audit de sécurité</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="prompt-val">Fais un audit de sécurité du projet. Cherche :
+1. Clés API exposées côté client
+2. Routes API sans vérification d'auth
+3. Queries sans RLS ou validation d'input
+4. Dépendances avec vulnérabilités connues (npm audit)
+Crée un rapport SECURITY_AUDIT.md avec les findings et les fixes prioritaires.</span></pre>
+    </div>
+  </div>
+
+  <div class="alert alert-warn">
+    <span class="alert-icon">⚠️</span>
+    <div><strong>Contrôle des permissions :</strong> Claude Code demande confirmation avant les actions destructives. Lisez attentivement ces confirmations. Utilisez <code>claude --dangerously-skip-permissions</code> uniquement dans des environnements isolés (Docker, CI) — jamais sur votre machine principale avec des données sensibles.</div>
+  </div>
+</div>
+
+<!-- V0.DEV -->
+<div id="v0" class="section">
+  <div class="module-header" data-bg="🎨">
+    <div class="module-number">Module 03</div>
+    <h2>v0.dev</h2>
+    <p>Générateur UI par Vercel. Prompt → composant React/Tailwind/shadcn prêt à coller dans votre projet. Le prototypage UI le plus rapide disponible.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag-chip purple">React</span>
+    <span class="tag-chip blue">Tailwind</span>
+    <span class="tag-chip pink">shadcn/ui</span>
+    <span class="tag-chip yellow">Vercel Deploy</span>
+    <span class="tag-chip green">Itération visuelle</span>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🎯</span> Cas d'usage — Ce pour quoi v0 est imbattable</h3>
+    <div class="grid-2">
+      <div>
+        <p><strong>✅ Utiliser v0 pour :</strong></p>
+        <ul>
+          <li>Landing pages et sections marketing</li>
+          <li>Dashboards avec données mockées</li>
+          <li>Formulaires complexes multi-step</li>
+          <li>Composants UI réutilisables</li>
+          <li>Prototypes pour valider un concept</li>
+          <li>Email templates (HTML/CSS)</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>❌ Ne pas utiliser v0 pour :</strong></p>
+        <ul>
+          <li>Logique business complexe</li>
+          <li>Intégrations API et état global</li>
+          <li>Authentification et sécurité</li>
+          <li>Gestion de base de données</li>
+          <li>Workflows multi-étapes complexes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">✦</span> Anatomie d'un prompt v0 efficace</h3>
+    <div class="prompt-block">
+      <div class="prompt-header"><span class="prompt-label">Prompt v0 — Dashboard Analytics</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="prompt-kw">COMPOSANT:</span> <span class="prompt-val">Dashboard analytics pour une app de streaming musical</span>
+
+<span class="prompt-kw">LAYOUT:</span>
+<span class="prompt-val">- Header avec période sélectionnable (7j / 30j / 90j / Custom)</span>
+<span class="prompt-val">- Row de 4 KPI cards: Écoutes, Abonnés, Revenus, Taux de conversion</span>
+<span class="prompt-val">- Graphique linéaire écoutes sur la période (Recharts)</span>
+<span class="prompt-val">- Tableau top 5 tracks avec rank, titre, artiste, écoutes, trend</span>
+
+<span class="prompt-kw">STYLE:</span>
+<span class="prompt-val">- Thème sombre, palette dark gray + accent violet</span>
+<span class="prompt-val">- shadcn/ui Card, Badge, Table components</span>
+<span class="prompt-val">- Données mockées réalistes (pas de lorem ipsum)</span>
+
+<span class="prompt-kw">TECH:</span>
+<span class="prompt-val">- TypeScript strict</span>
+<span class="prompt-val">- Tailwind CSS uniquement pour les styles custom</span>
+<span class="prompt-val">- Composant unique exporté par défaut</span></pre>
+    </div>
+    <div class="prompt-block">
+      <div class="prompt-header"><span class="prompt-label">Prompt v0 — Landing Page</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="prompt-kw">PAGE:</span> <span class="prompt-val">Landing page SaaS pour outil de collaboration musicale</span>
+
+<span class="prompt-kw">SECTIONS:</span>
+<span class="prompt-val">1. Hero: headline percutante, sous-titre, 2 CTAs (Essai gratuit / Voir démo), 
+   screenshot mockup de l'app</span>
+<span class="prompt-val">2. Social proof: logos de labels partenaires (5 logos placeholder)</span>
+<span class="prompt-val">3. Features: 3 colonnes avec icône Lucide, titre, description</span>
+<span class="prompt-val">4. Pricing: 3 plans (Free/Pro/Team) avec feature list et CTA</span>
+<span class="prompt-val">5. FAQ: accordion 6 questions</span>
+<span class="prompt-val">6. Footer: navigation, socials, legal</span>
+
+<span class="prompt-kw">STYLE:</span>
+<span class="prompt-val">Moderne, premium, dark mode. Inspiré Linear.app et Vercel.com.
+Gradient subtle en background hero. Animations CSS légères au scroll.</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🔄</span> Workflow v0 → Cursor : l'intégration parfaite</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Générer dans v0.dev</h4>
+          <p>Créez votre composant UI avec un prompt détaillé. Itérez dans l'interface v0 en affinant visuellement jusqu'à satisfaction.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Copier le code dans Cursor</h4>
+          <p>Utilisez "Copy Code" dans v0, créez le fichier dans votre projet. Cursor reconnaîtra immédiatement le contexte et les imports.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Brancher les données réelles</h4>
+          <p>Dans Cursor, demandez : <em>"Remplace les données mockées par de vraies requêtes Supabase, en utilisant le hook useXxx existant"</em></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Intégrer dans le routing</h4>
+          <p>Demandez à Cursor d'ajouter la route, le lien de navigation, et les permissions d'accès selon le rôle utilisateur.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">✦</span>
+    <div><strong>Feature cachée — "Modify with prompt" :</strong> Une fois le composant généré, vous pouvez affiner visuellement en cliquant sur des éléments puis en tapant votre demande. Ex: cliquer sur le bouton → "rend ce bouton plus grand avec une ombre violet". Plus rapide que de réécrire le prompt.</div>
+  </div>
+</div>
+
+<!-- BOLT.NEW -->
+<div id="bolt" class="section">
+  <div class="module-header" data-bg="🔩">
+    <div class="module-number">Module 04</div>
+    <h2>Bolt.new</h2>
+    <p>Générateur d'applications full-stack dans le navigateur. Idéal pour le greenfield : de l'idée à l'app deployée en moins d'une heure.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag-chip purple">Greenfield</span>
+    <span class="tag-chip blue">Full-stack</span>
+    <span class="tag-chip pink">Preview live</span>
+    <span class="tag-chip yellow">Export code</span>
+    <span class="tag-chip green">Netlify Deploy</span>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">⚡</span> Pourquoi Bolt pour le scaffold initial</h3>
+    <p>Bolt.new exécute le code dans un environnement WebContainer directement dans votre navigateur. Vous voyez le résultat en temps réel sans rien installer. La force de Bolt n'est pas la précision — c'est la <strong>vitesse de démarrage</strong>. En 10 minutes vous avez une app fonctionnelle, même partielle, que vous pouvez ensuite raffiner dans Cursor.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">✦</span> Prompt initial — La fondation</h3>
+    <div class="alert alert-warn">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Règle d'or Bolt :</strong> Le prompt de départ détermine 80% du résultat. Soyez extrêmement précis sur la stack, les features, et les contraintes. Un mauvais prompt initial = une heure de corrections.</div>
+    </div>
+    <div class="prompt-block">
+      <div class="prompt-header"><span class="prompt-label">Prompt Bolt — App complète</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="prompt-kw">APPLICATION:</span> <span class="prompt-val">Plateforme de partage de beats pour producteurs musicaux</span>
+
+<span class="prompt-kw">STACK:</span>
+<span class="prompt-val">- React 18 + TypeScript + Vite
+- Tailwind CSS + shadcn/ui
+- Supabase (auth + database + storage)
+- React Router v6</span>
+
+<span class="prompt-kw">FEATURES MVP:</span>
+<span class="prompt-val">1. Auth (signup/login avec email)
+2. Upload de fichiers audio (.mp3, .wav, max 50MB)
+3. Lecteur audio basique (play/pause/progress bar)
+4. Liste des beats avec: titre, BPM, genre, artiste, durée
+5. Profil utilisateur (nom, bio, ses propres beats)
+6. Like/unlike sur les beats</span>
+
+<span class="prompt-kw">DATABASE SCHEMA:</span>
+<span class="prompt-val">- users: id, username, bio, avatar_url
+- beats: id, user_id, title, bpm, genre, file_url, duration, likes_count
+- likes: id, user_id, beat_id</span>
+
+<span class="prompt-kw">UI STYLE:</span>
+<span class="prompt-val">Dark mode, accent violet/purple, minimaliste type SoundCloud mais plus moderne</span>
+
+<span class="prompt-kw">NE PAS INCLURE:</span>
+<span class="prompt-val">Paiement, messagerie, recommandations IA (ce sera la v2)</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🔄</span> Bolt → Cursor : le passage de relais</h3>
+    <p>Bolt est parfait pour le MVP. Pour aller plus loin, exportez et continuez dans Cursor.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Valider le MVP dans Bolt</h4>
+          <p>Assurez-vous que les features core fonctionnent dans le preview Bolt. Corrigez les bugs évidents en continuant de prompter dans l'interface.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Exporter le code</h4>
+          <p>Cliquez sur "Export to ZIP" ou connectez directement à GitHub. Récupérez le projet complet avec toutes les dépendances.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Ajouter .cursorrules + CLAUDE.md</h4>
+          <p>Avant d'ouvrir dans Cursor, documentez la stack, les conventions, et les règles dans les fichiers de contexte. L'IA saura dans quoi elle travaille.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Itérer dans Cursor</h4>
+          <p>Toutes les features avancées, l'optimisation des performances, les tests, la sécurité — maintenant dans Cursor avec le contexte complet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">✅</span> Bolt est excellent pour</h3>
+      <ul>
+        <li>Valider une idée en 30 minutes</li>
+        <li>Présenter un prototype à un client</li>
+        <li>Scaffold d'un nouveau projet</li>
+        <li>Tester une stack inconnue</li>
+        <li>Apps internes simples (outils, dashboards)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="icon">⛔</span> Limites de Bolt</h3>
+      <ul>
+        <li>Contexte limité sur les grands projets</li>
+        <li>Difficile à déboguer en profondeur</li>
+        <li>Pas fait pour les refactorings complexes</li>
+        <li>Sécurité à revoir soigneusement</li>
+        <li>Migrations DB non gérées proprement</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- WORKFLOW -->
+<div id="workflow" class="section">
+  <div class="module-header" data-bg="🔄">
+    <div class="module-number">Module 05</div>
+    <h2>Workflow combiné</h2>
+    <p>Comment orchestrer les 4 outils ensemble pour aller de l'idée au produit en production avec une vitesse d'exécution maximale.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag-chip purple">Architecture</span>
+    <span class="tag-chip blue">Productivité</span>
+    <span class="tag-chip pink">Ship fast</span>
+    <span class="tag-chip yellow">Stack complet</span>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🗺️</span> Le Pipeline complet — De l'idée au prod</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Spec & Architecture (30 min) — Claude.ai</h4>
+          <p>Avant de toucher aux outils : utilisez Claude.ai (chat) pour affiner votre spec. Décrivez l'idée, demandez à l'IA de la questionner, d'identifier les edge cases, et de proposer l'architecture de données. Output : un document spec clair.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Scaffold MVP (1h) — Bolt.new</h4>
+          <p>Utilisez votre spec comme base du prompt Bolt. Générez le projet full-stack avec auth, DB schema, routes de base. Validez que ça fonctionne dans le preview. Exportez sur GitHub.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>UI Components (30 min) — v0.dev</h4>
+          <p>Pour les composants UI complexes (dashboard, tableaux, formulaires), générez-les dans v0 en parallèle. Vous avez vos composants prêts avant même d'avoir fini le setup du projet.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Développement features (jours → semaines) — Cursor</h4>
+          <p>L'essentiel du travail. Ajoutez .cursorrules, ouvrez le projet, et utilisez Composer pour chaque feature. Chat pour les questions, Inline Edit pour les modifications précises.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Tâches lourdes (à la demande) — Claude Code</h4>
+          <p>Migrations, refactorings massifs, génération de tests, audits de sécurité, préparation de releases. Claude Code pendant que vous faites autre chose.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">📐</span> Matrice de décision — Quel outil pour quelle tâche</h3>
+    <table>
+      <tr><th>Tâche</th><th>Outil recommandé</th><th>Pourquoi</th></tr>
+      <tr><td>Nouvelle idée → prototype rapide</td><td>Bolt.new</td><td>Zéro setup, preview immédiat</td></tr>
+      <tr><td>Composant UI complexe</td><td>v0.dev</td><td>Itération visuelle, shadcn natif</td></tr>
+      <tr><td>Feature dans un projet existant</td><td>Cursor Composer</td><td>Contexte codebase complet</td></tr>
+      <tr><td>Debug d'une erreur précise</td><td>Cursor Chat</td><td>Inline, contexte local, rapide</td></tr>
+      <tr><td>Refactoring de 20+ fichiers</td><td>Claude Code</td><td>Autonomie, multi-fichiers, git</td></tr>
+      <tr><td>Génération de tests</td><td>Claude Code</td><td>Peut lancer et corriger en boucle</td></tr>
+      <tr><td>Architecture de données</td><td>Claude.ai (chat)</td><td>Discussion, pas d'exécution</td></tr>
+      <tr><td>Migration DB</td><td>Cursor + Claude Code</td><td>Écriture dans Cursor, exécution dans CC</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">⚡</span> Exemple concret — Feature "Notifications" en 2h</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">Timeline — Feature complète</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// T+0min  — v0.dev</span>
+<span class="var">Générer</span> le composant NotificationDropdown avec badge + liste
+
+<span class="com">// T+15min — Claude Code (terminal)</span>
+<span class="var">Créer</span> la migration SQL: table notifications + policies RLS
+<span class="var">Créer</span> la Edge Function Supabase pour envoyer les notifs
+
+<span class="com">// T+40min — Cursor Composer</span>
+<span class="var">Intégrer</span> le composant v0 avec le hook useNotifications
+<span class="var">Brancher</span> Realtime Supabase pour les notifs en live
+<span class="var">Ajouter</span> dans le layout principal
+
+<span class="com">// T+90min — Claude Code (terminal)</span>
+<span class="var">Générer</span> les tests pour le hook useNotifications
+<span class="var">Lancer</span> les tests et corriger jusqu'à 100% de passage
+
+<span class="com">// T+115min — Cursor Chat</span>
+<span class="var">Code review</span>: vérifier sécurité, perf, edge cases
+
+<span class="com">// T+120min ✅ Feature en production</span></pre>
+    </div>
+  </div>
+
+  <div class="alert alert-tip">
+    <span class="alert-icon">✦</span>
+    <div><strong>Accélérateur :</strong> Créez un dossier <code>_prompts/</code> dans votre projet et sauvegardez vos meilleurs prompts Cursor. Chaque prompt réutilisable est un gain de temps futur. Après 2 semaines, vous avez une bibliothèque de prompts calibrés pour votre stack exact.</div>
+  </div>
+</div>
+
+<!-- PROMPTING -->
+<div id="prompting" class="section">
+  <div class="module-header" data-bg="✦">
+    <div class="module-number">Module 06</div>
+    <h2>Prompting avancé</h2>
+    <p>La compétence fondamentale. La différence entre un vibe coder amateur et un exécuteur redoutable se joue entièrement dans la qualité des instructions données à l'IA.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag-chip purple">Contexte</span>
+    <span class="tag-chip blue">Contraintes</span>
+    <span class="tag-chip pink">Format</span>
+    <span class="tag-chip yellow">Anti-patterns</span>
+    <span class="tag-chip green">Templates</span>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🧠</span> La structure CROFT — Pour tout prompt technique</h3>
+    <table>
+      <tr><th>Lettre</th><th>Élément</th><th>Exemple</th></tr>
+      <tr><td><strong>C</strong></td><td>Contexte</td><td><em>"Je travaille sur une app Next.js 14 avec Supabase..."</em></td></tr>
+      <tr><td><strong>R</strong></td><td>Rôle</td><td><em>"Tu es un senior dev TypeScript spécialisé React..."</em></td></tr>
+      <tr><td><strong>O</strong></td><td>Objectif</td><td><em>"Je veux créer un hook pour gérer l'upload de fichiers..."</em></td></tr>
+      <tr><td><strong>F</strong></td><td>Format</td><td><em>"Retourne le code TypeScript complet avec les types..."</em></td></tr>
+      <tr><td><strong>T</strong></td><td>Contraintes (T pour Taboo)</td><td><em>"Ne pas utiliser de librairies tierces. Pas de 'any'..."</em></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">✦</span> Templates de prompts — Bibliothèque</h3>
+    <details>
+      <summary>Créer une nouvelle feature</summary>
+      <div class="details-content">
+        <div class="prompt-block">
+          <div class="prompt-header"><span class="prompt-label">Template — Nouvelle feature</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre><span class="prompt-kw">FEATURE:</span> <span class="prompt-val">[Nom de la feature]</span>
+
+<span class="prompt-kw">CONTEXTE DU PROJET:</span>
+<span class="prompt-val">@.cursorrules (ou résumé de la stack)</span>
+
+<span class="prompt-kw">FICHIERS EXISTANTS PERTINENTS:</span>
+<span class="prompt-val">@[fichier1] — [pourquoi c'est pertinent]
+@[fichier2] — [pourquoi c'est pertinent]</span>
+
+<span class="prompt-kw">COMPORTEMENT ATTENDU:</span>
+<span class="prompt-val">1. [Step 1]
+2. [Step 2]
+3. [Edge case à gérer]</span>
+
+<span class="prompt-kw">DELIVERABLES:</span>
+<span class="prompt-val">- [Fichier 1 à créer/modifier]
+- [Fichier 2]
+- [Tests si applicable]</span>
+
+<span class="prompt-kw">CONTRAINTES:</span>
+<span class="prompt-val">- [Stack constraint]
+- [Sécurité]
+- [Performance]</span></pre>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Refactoring de code existant</summary>
+      <div class="details-content">
+        <div class="prompt-block">
+          <div class="prompt-header"><span class="prompt-label">Template — Refactoring</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre><span class="prompt-kw">TÂCHE:</span> <span class="prompt-val">Refactorer @[fichier.tsx]</span>
+
+<span class="prompt-kw">PROBLÈMES ACTUELS:</span>
+<span class="prompt-val">1. [Problème spécifique, ex: composant trop long > 300 lignes]
+2. [Problème 2, ex: logique business mélangée avec UI]
+3. [Problème 3, ex: pas de gestion d'erreur]</span>
+
+<span class="prompt-kw">OBJECTIF:</span>
+<span class="prompt-val">[État cible souhaité]</span>
+
+<span class="prompt-kw">CONTRAINTES:</span>
+<span class="prompt-val">- Comportement externe identique (même props, même API)
+- Ne pas changer les noms des composants exportés
+- Rester dans le même fichier ou créer des sous-fichiers dans [dossier/]</span>
+
+<span class="prompt-kw">NE PAS:</span>
+<span class="prompt-val">- Changer la logique business
+- Modifier le style visuel</span></pre>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Debug avec contexte d'erreur</summary>
+      <div class="details-content">
+        <div class="prompt-block">
+          <div class="prompt-header"><span class="prompt-label">Template — Debug</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre><span class="prompt-kw">BUG:</span> <span class="prompt-val">[Description en une phrase]</span>
+
+<span class="prompt-kw">ERREUR:</span>
+<span class="prompt-val">[Copier-coller exact de l'erreur console/terminal]</span>
+
+<span class="prompt-kw">COMPORTEMENT ATTENDU:</span> <span class="prompt-val">[Ce qui devrait se passer]</span>
+<span class="prompt-kw">COMPORTEMENT ACTUEL:</span> <span class="prompt-val">[Ce qui se passe réellement]</span>
+
+<span class="prompt-kw">QUAND ÇA SE PRODUIT:</span>
+<span class="prompt-val">[Steps pour reproduire: 1. Faire X → 2. Cliquer Y → 3. Erreur]</span>
+
+<span class="prompt-kw">FICHIERS SUSPECTS:</span>
+<span class="prompt-val">@[fichier1.ts]
+@[fichier2.tsx]</span>
+
+<span class="prompt-kw">APPROCHE DEMANDÉE:</span>
+<span class="prompt-val">1. Identifier la cause racine
+2. Proposer le fix MINIMAL (ne pas réécrire)
+3. Expliquer pourquoi ça cassait</span></pre>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Review de code — Demander une critique</summary>
+      <div class="details-content">
+        <div class="prompt-block">
+          <div class="prompt-header"><span class="prompt-label">Template — Code Review</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre><span class="prompt-kw">REVUE:</span> <span class="prompt-val">@[fichier.ts] — [contexte de ce que ça fait]</span>
+
+<span class="prompt-kw">ANALYSER:</span>
+<span class="prompt-val">1. Sécurité: injections, auth bypass, exposition de données
+2. Performance: re-renders, queries N+1, mémoire
+3. Maintenabilité: clarté, couplage, tests
+4. TypeScript: types manquants ou trop permissifs
+5. Edge cases: inputs inattendus, états de chargement, erreurs</span>
+
+<span class="prompt-kw">FORMAT DE RÉPONSE:</span>
+<span class="prompt-val">Pour chaque problème trouvé:
+- Sévérité: 🔴 Critique / 🟡 Important / 🟢 Amélioration
+- Ligne concernée
+- Explication du problème  
+- Fix suggéré</span></pre>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">❌</span> Anti-patterns — Ce qui ruine vos résultats</h3>
+    <table>
+      <tr><th>Anti-pattern</th><th>Problème</th><th>Solution</th></tr>
+      <tr><td><em>"Fais-moi une app de gestion de projet"</em></td><td>Trop vague → résultat générique inutilisable</td><td>Spécifier stack, features, contraintes</td></tr>
+      <tr><td><em>"Pourquoi ça marche pas ?"</em> sans contexte</td><td>L'IA ne peut pas deviner l'environnement</td><td>Toujours joindre le code ET l'erreur</td></tr>
+      <tr><td>Accepter sans lire</td><td>Bugs silencieux, sécurité compromise</td><td>Toujours tester le comportement</td></tr>
+      <tr><td>Tout dans un seul prompt</td><td>Contexte trop large = qualité dégradée</td><td>Décomposer en étapes séquentielles</td></tr>
+      <tr><td>Réouvrir une nouvelle conversation</td><td>Perte du contexte accumulé</td><td>Continuer dans la même conversation</td></tr>
+      <tr><td><em>"Optimise ça"</em> sans définir "mieux"</td><td>L'IA optimise une métrique inconnue</td><td>Définir la métrique : vitesse, lisibilité, bundle size</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🚀</span> Techniques avancées</h3>
+    <div class="grid-2">
+      <div>
+        <p><strong>Chain-of-thought :</strong> Demandez <em>"Réfléchis étape par étape avant de coder"</em> pour les architectures complexes. L'IA planifie avant d'exécuter = moins d'erreurs.</p>
+      </div>
+      <div>
+        <p><strong>Exemples positifs/négatifs :</strong> Montrez un exemple de ce que vous voulez ET un exemple de ce que vous ne voulez pas. Le contraste calibre précisément l'output.</p>
+      </div>
+      <div>
+        <p><strong>Checkpoint explicite :</strong> <em>"Avant de coder, liste les fichiers que tu vas modifier et dis-moi ton approche. J'approuve avant que tu procèdes."</em> Évite les surprises.</p>
+      </div>
+      <div>
+        <p><strong>Contrainte de taille :</strong> <em>"La fonction doit faire moins de 30 lignes"</em> ou <em>"Le composant ne doit avoir qu'une seule responsabilité"</em>. Force l'IA à être chirurgicale.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">✦</span>
+    <div><strong>Axes de progression non demandés :</strong> (1) Maîtriser <strong>MCP (Model Context Protocol)</strong> dans Cursor — connecte l'IA directement à votre Supabase, GitHub, Figma. (2) Construire un <strong>workflow de génération d'images avec Replicate</strong> déclenché par Claude Code. (3) Apprendre à <strong>évaluer les outputs</strong> rapidement : lire les diffs git plutôt que le code complet, tester les interfaces plutôt que la logique ligne par ligne.</div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  
+  const map = {
+    intro: 'Intro', cursor: 'Cursor', claudecode: 'Claude Code',
+    v0: 'v0.dev', bolt: 'Bolt.new', workflow: 'Workflow', prompting: 'Prompting'
+  };
+  
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === (map[id] || ''));
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-block, .prompt-block').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = 'copied!';
+    btn.style.color = '#a855f7';
+    setTimeout(() => { btn.textContent = 'copy'; btn.style.color = ''; }, 2000);
+  });
+}
+
+document.addEventListener('keydown', e => {
+  const sections = ['intro','cursor','claudecode','v0','bolt','workflow','prompting'];
+  const current = sections.findIndex(s => document.getElementById(s).classList.contains('active'));
+  if (e.key === 'ArrowRight' && current < sections.length - 1) show(sections[current + 1]);
+  if (e.key === 'ArrowLeft' && current > 0) show(sections[current - 1]);
+});
+</script>
+</body>
+</html>

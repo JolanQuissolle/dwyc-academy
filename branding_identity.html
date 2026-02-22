@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRANDING & IDENTITY MASTERY</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600;1,700&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #f4efe6;
+  --bg2:      #ece6d9;
+  --surf:     #faf7f1;
+  --surf2:    #f0ebe0;
+  --ink:      #1c1712;
+  --ink2:     #332d25;
+  --ink3:     #5c5248;
+  --muted:    #8a7e72;
+  --border:   rgba(28,23,18,.10);
+  --border2:  rgba(28,23,18,.18);
+  --burg:     #8c1a2d;
+  --burg-lt:  #c24760;
+  --burg-dim: rgba(140,26,45,.14);
+  --burg-bg:  rgba(140,26,45,.06);
+  --sand:     #c6a85e;
+  --sand-lt:  #dfc37c;
+  --sand-dim: rgba(198,168,94,.25);
+  --sand-bg:  rgba(198,168,94,.10);
+  --slate:    #5a6370;
+  --slate-lt: #8a97a4;
+  --code-bg:  #181410;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Barlow Condensed',sans-serif;
+  line-height:1.6;
+  overflow-x:hidden
+}
+
+/* PATTERN TOP BAR */
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;right:0;height:3px;z-index:300;
+  background:repeating-linear-gradient(90deg,
+    var(--burg) 0,var(--burg) 48px,
+    var(--sand) 48px,var(--sand) 96px,
+    var(--ink)  96px,var(--ink) 144px,
+    var(--bg2) 144px,var(--bg2) 192px
+  );
+}
+
+/* HEADER */
+header{
+  position:sticky;top:3px;z-index:200;
+  background:rgba(244,239,230,.96);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;height:56px;
+}
+.logo{display:flex;align-items:baseline;gap:.65rem}
+.logo-mark{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:700;letter-spacing:.1em;
+  color:var(--ink);text-transform:uppercase;
+}
+.logo-sep{
+  font-family:'Courier Prime',monospace;
+  font-size:.58rem;color:var(--muted);
+  letter-spacing:.12em;text-transform:uppercase;
+  border-left:1px solid var(--border2);padding-left:.65rem;
+}
+nav{display:flex;gap:.2rem}
+.nb{
+  background:none;border:1px solid transparent;
+  color:var(--ink3);font-family:'Barlow Condensed',sans-serif;
+  font-size:.68rem;font-weight:500;padding:.28rem .75rem;
+  cursor:pointer;border-radius:3px;
+  transition:all .15s;text-transform:uppercase;letter-spacing:.08em;
+}
+.nb:hover,.nb.active{
+  color:var(--burg);background:var(--burg-bg);
+  border-color:rgba(140,26,45,.22);
+}
+
+/* HERO */
+.hero{
+  max-width:1060px;margin:0 auto;
+  padding:4.5rem 2.5rem 3rem;
+  display:grid;grid-template-columns:1fr 300px;gap:4rem;align-items:start;
+}
+.hero-kicker{
+  font-family:'Courier Prime',monospace;
+  font-size:.6rem;color:var(--burg);
+  text-transform:uppercase;letter-spacing:.22em;
+  margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.hero-kicker::after{
+  content:'';flex:1;max-width:60px;height:1px;
+  background:linear-gradient(90deg,var(--burg),transparent);
+}
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.5rem,7.5vw,7rem);
+  line-height:.92;font-weight:700;
+  letter-spacing:-.01em;margin-bottom:1.5rem;
+}
+h1 em{font-style:italic;color:var(--burg);display:block}
+h1 .sub{
+  font-size:40%;font-weight:300;
+  color:var(--muted);display:block;font-style:normal;
+  letter-spacing:.06em;margin-top:.4rem;
+}
+.hero-desc{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;color:var(--ink3);
+  line-height:1.9;max-width:500px;
+  margin-bottom:2.2rem;font-weight:300;
+}
+.hero-ctas{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:3rem}
+.cta-primary{
+  background:var(--burg);color:#fff;
+  padding:.55rem 1.4rem;border-radius:3px;cursor:pointer;
+  font-size:.78rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.09em;transition:background .15s;border:none;
+}
+.cta-primary:hover{background:var(--burg-lt)}
+.cta-sec{
+  background:none;border:1px solid var(--border2);
+  color:var(--ink3);padding:.55rem 1.2rem;border-radius:3px;
+  cursor:pointer;font-size:.78rem;font-weight:500;
+  text-transform:uppercase;letter-spacing:.07em;transition:all .15s;
+}
+.cta-sec:hover{border-color:var(--burg);color:var(--burg)}
+
+/* HERO RIGHT */
+.swatch-strip{
+  display:flex;height:72px;border-radius:5px;
+  overflow:hidden;margin-bottom:1.1rem;
+  box-shadow:0 6px 24px rgba(28,23,18,.12);
+}
+.sw{flex:1}
+
+.spec-card{
+  background:var(--surf);border:1px solid var(--border2);
+  border-radius:5px;padding:1.1rem;margin-bottom:.8rem;
+}
+.spec-lbl{
+  font-family:'Courier Prime',monospace;
+  font-size:.55rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.12em;margin-bottom:.4rem;
+}
+.spec-big{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:700;line-height:1;
+  color:var(--ink);margin-bottom:.2rem;
+}
+.spec-body{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.78rem;color:var(--muted);
+  font-weight:500;letter-spacing:.04em;
+}
+.mod-list{display:flex;flex-direction:column;gap:.3rem}
+.mod-item{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.5rem .8rem;background:var(--surf);
+  border:1px solid var(--border);border-radius:3px;
+  cursor:pointer;transition:all .15s;
+  font-size:.75rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);
+}
+.mod-item:hover{border-color:rgba(140,26,45,.3);color:var(--burg);background:var(--burg-bg)}
+.mn{
+  font-family:'Courier Prime',monospace;
+  font-size:.58rem;color:var(--sand);width:22px;flex-shrink:0;
+}
+
+/* CONTENT */
+.content{max-width:1060px;margin:0 auto;padding:0 2.5rem 7rem}
+.sec{display:none;animation:emerge .25s ease}
+.sec.active{display:block}
+@keyframes emerge{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+/* MOD HEADER */
+.mhd{
+  display:grid;grid-template-columns:1fr auto;
+  align-items:end;gap:3rem;
+  padding-bottom:2rem;margin-bottom:2.5rem;
+  border-bottom:2px solid var(--ink);
+}
+.eyebrow{
+  font-family:'Courier Prime',monospace;
+  font-size:.58rem;color:var(--burg);
+  text-transform:uppercase;letter-spacing:.22em;margin-bottom:.6rem;
+}
+.mhd h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.2rem,5.5vw,4.2rem);
+  line-height:.95;font-weight:700;letter-spacing:-.01em;
+}
+.mhd h2 em{font-style:italic;color:var(--burg)}
+.mhd-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;color:var(--ink3);
+  max-width:520px;margin-top:.8rem;
+  line-height:1.85;font-weight:300;
+}
+.fig-wrap{text-align:right;flex-shrink:0}
+.fig-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.5rem;line-height:1;
+  color:var(--burg);font-weight:700;font-style:italic;
+}
+.fig-d{
+  font-family:'Courier Prime',monospace;
+  font-size:.55rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem;
+}
+
+/* TAGS */
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:2rem}
+.tag{
+  font-family:'Courier Prime',monospace;
+  font-size:.57rem;padding:.2rem .65rem;
+  text-transform:uppercase;letter-spacing:.07em;
+  border:1px solid var(--border2);
+  color:var(--ink3);border-radius:2px;background:var(--surf);
+}
+.t-burg{border-color:rgba(140,26,45,.3);color:var(--burg);background:var(--burg-bg)}
+.t-sand{border-color:rgba(198,168,94,.4);color:#7a5e1a;background:var(--sand-bg)}
+.t-slate{border-color:rgba(90,99,112,.25);color:var(--slate);background:rgba(90,99,112,.05)}
+
+/* CARD */
+.card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:5px;padding:1.75rem;margin-bottom:1.2rem;
+  transition:border-color .2s;position:relative;overflow:hidden;
+}
+.card:hover{border-color:var(--border2)}
+.card-line{
+  position:absolute;top:0;left:0;width:3px;height:100%;
+  background:var(--burg);
+}
+.card h3{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.07em;
+  margin-bottom:.9rem;color:var(--ink);
+  display:flex;align-items:center;gap:.5rem;
+}
+.card p{
+  font-family:'Cormorant Garamond',serif;
+  color:var(--ink3);font-size:1rem;line-height:1.85;font-weight:300;
+}
+.card ul{list-style:none}
+.card ul li{
+  font-family:'Cormorant Garamond',serif;
+  color:var(--ink3);font-size:1rem;
+  padding:.22rem 0 .22rem 1.4rem;
+  position:relative;font-weight:300;line-height:1.75;
+}
+.card ul li::before{
+  content:'—';position:absolute;left:0;
+  color:var(--sand);font-family:'Courier Prime',monospace;
+  font-size:.75rem;top:.4rem;
+}
+strong{color:var(--ink);font-weight:600}
+
+/* CODE */
+.cb{
+  background:var(--code-bg);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:5px;margin:1rem 0;overflow:hidden;
+}
+.cb-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.5rem 1.1rem;
+  background:rgba(255,255,255,.03);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.cb-title{
+  font-family:'Courier Prime',monospace;
+  font-size:.57rem;color:var(--sand);
+  text-transform:uppercase;letter-spacing:.1em;
+}
+.cpbtn{
+  background:none;border:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.25);
+  font-family:'Courier Prime',monospace;
+  font-size:.55rem;padding:.18rem .6rem;
+  cursor:pointer;border-radius:3px;transition:all .15s;text-transform:uppercase;
+}
+.cpbtn:hover{color:var(--sand-lt);border-color:rgba(198,168,94,.35)}
+pre{
+  padding:1.25rem;overflow-x:auto;
+  font-family:'Courier Prime',monospace;
+  font-size:.76rem;line-height:1.85;color:#d4c8b0;
+}
+.kw{color:#e0a060}.str{color:#90c890}.fn{color:#90b8d8}
+.com{color:#3d3528;font-style:italic}.num{color:#d4a843}
+.var{color:#c8b080}.typ{color:#c8a0d0}.pk{color:var(--sand-lt);font-weight:700}
+.pv{color:#a8b8a0}.ph{color:#4a4030;font-style:italic}
+
+/* ALERT */
+.alert{
+  border-radius:4px;padding:1rem 1.25rem;
+  margin:1.2rem 0;display:flex;gap:.75rem;
+  line-height:1.8;align-items:flex-start;
+  font-family:'Cormorant Garamond',serif;font-weight:300;font-size:.97rem;
+}
+.a-burg{background:var(--burg-bg);border:1px solid rgba(140,26,45,.22);color:var(--burg-lt);border-left:3px solid var(--burg)}
+.a-sand{background:var(--sand-bg);border:1px solid rgba(198,168,94,.35);color:#7a5e1a;border-left:3px solid var(--sand)}
+.a-slate{background:rgba(90,99,112,.05);border:1px solid rgba(90,99,112,.2);color:var(--slate);border-left:3px solid var(--slate)}
+.a-icon{flex-shrink:0;font-style:normal}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin:.75rem 0}
+th{
+  background:var(--ink);
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.6rem;text-transform:uppercase;
+  letter-spacing:.1em;padding:.7rem 1rem;
+  text-align:left;color:var(--sand-lt);
+}
+td{
+  padding:.75rem 1rem;border-bottom:1px solid var(--border);
+  color:var(--ink3);font-family:'Cormorant Garamond',serif;
+  font-weight:300;font-size:.97rem;vertical-align:top;
+}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(28,23,18,.02)}
+td code,p code,li code{
+  font-family:'Courier Prime',monospace;
+  background:var(--surf2);border:1px solid var(--border2);
+  padding:.07em .38em;border-radius:2px;
+  font-size:.8em;color:var(--burg);
+}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.2rem}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:.5rem}
+.step{
+  display:flex;gap:1.25rem;align-items:flex-start;
+  padding:1.25rem;background:var(--surf2);
+  border:1px solid var(--border);border-radius:4px;
+  transition:border-color .2s;
+}
+.step:hover{border-color:var(--border2)}
+.step-n{
+  width:32px;height:32px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;font-weight:700;font-style:italic;
+  background:var(--burg-bg);border:1px solid rgba(140,26,45,.22);
+  color:var(--burg);border-radius:3px;
+}
+.step h4{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.95rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;
+  margin-bottom:.22rem;color:var(--ink);
+}
+.step p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.97rem;color:var(--ink3);line-height:1.72;font-weight:300;
+}
+
+/* FORMULA */
+.formula{
+  background:var(--ink);border-radius:5px;
+  padding:1.5rem 1.75rem;margin:1.2rem 0;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;line-height:2.1;color:var(--bg);
+}
+.formula .gold{color:var(--sand-lt);font-style:italic}
+.formula .red{color:#e88a8a}
+.formula .dim{color:#4a4030;font-size:.88rem}
+
+/* PROMPT BLOCK */
+.pb{
+  background:var(--code-bg);
+  border:1px solid rgba(198,168,94,.12);
+  border-left:3px solid var(--sand);
+  border-radius:0 5px 5px 0;margin:1rem 0;overflow:hidden;
+}
+.pb-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.45rem 1rem;background:rgba(198,168,94,.05);
+  border-bottom:1px solid rgba(198,168,94,.08);
+}
+.pb-tag{
+  font-family:'Courier Prime',monospace;
+  font-size:.57rem;color:var(--sand);
+  text-transform:uppercase;letter-spacing:.1em;
+}
+
+/* COLOR ROW */
+.col-row{
+  display:grid;grid-template-columns:repeat(6,1fr);
+  gap:.5rem;margin:1rem 0;
+}
+.chip{border-radius:4px;overflow:hidden;border:1px solid var(--border)}
+.chip-sw{height:54px}
+.chip-info{padding:.38rem .5rem;background:var(--surf)}
+.chip-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.65rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;color:var(--ink);
+}
+.chip-hex{
+  font-family:'Courier Prime',monospace;font-size:.57rem;color:var(--muted);
+}
+
+/* ACCORDION */
+details{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:4px;margin-bottom:.6rem;overflow:hidden;
+}
+details:hover{border-color:var(--border2)}
+summary{
+  padding:.9rem 1.25rem;cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:.9rem;
+  text-transform:uppercase;letter-spacing:.07em;
+  list-style:none;display:flex;
+  align-items:center;justify-content:space-between;
+  color:var(--ink);user-select:none;
+}
+summary::after{content:'+';font-family:'Courier Prime',monospace;color:var(--burg);font-size:1rem}
+details[open] summary::after{content:'−'}
+.det-body{
+  padding:1.25rem;border-top:1px solid var(--border);
+  font-family:'Cormorant Garamond',serif;
+  color:var(--ink3);font-size:.97rem;line-height:1.8;font-weight:300;
+}
+
+/* METRIC ROW */
+.mrow{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border2);
+  border:1px solid var(--border2);border-radius:5px;
+  overflow:hidden;margin-bottom:1.2rem;
+}
+.mc{background:var(--surf);padding:1.2rem 1.5rem}
+.mc-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.2rem;color:var(--burg);
+  font-weight:700;font-style:italic;line-height:1;margin-bottom:.2rem;
+}
+.mc-d{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.9rem;color:var(--ink3);line-height:1.5;font-weight:300;
+}
+
+/* SHORTCUTS GRID */
+.shortcuts{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin:1rem 0}
+.sc-row{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.6rem .75rem;
+  background:var(--surf2);border:1px solid var(--border);border-radius:3px;
+}
+kbd{
+  font-family:'Courier Prime',monospace;
+  background:var(--ink);color:var(--sand-lt);
+  border:1px solid rgba(198,168,94,.3);
+  padding:.15em .5em;border-radius:3px;
+  font-size:.7rem;white-space:nowrap;flex-shrink:0;
+}
+.sc-d{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;color:var(--ink3);font-weight:400;letter-spacing:.03em}
+
+hr{border:none;height:1px;background:var(--border);margin:2rem 0}
+
+@media(max-width:720px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .g2,.g3{grid-template-columns:1fr}
+  .mrow{grid-template-columns:1fr}
+  .shortcuts{grid-template-columns:1fr}
+  .col-row{grid-template-columns:repeat(3,1fr)}
+  nav{display:none}
+  h1{font-size:3rem}
+  .mhd{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-mark">Branding & Identity</span>
+    <span class="logo-sep">Mastery · Sans Designer</span>
+  </div>
+  <nav>
+    <button class="nb active" onclick="show('intro')">Intro</button>
+    <button class="nb" onclick="show('fondations')">Fondations</button>
+    <button class="nb" onclick="show('couleurs')">Couleurs</button>
+    <button class="nb" onclick="show('typo')">Typographie</button>
+    <button class="nb" onclick="show('figma')">Figma</button>
+    <button class="nb" onclick="show('systeme')">Design System</button>
+    <button class="nb" onclick="show('execution')">Exécution</button>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-kicker">Tier 1 · Branding & Identity Mastery</div>
+    <h1>
+      Identité<br>
+      <em>Visuelle</em>
+      <span class="sub">Sans Designer. Sans Agence. Sans Compromis.</span>
+    </h1>
+    <p class="hero-desc">Figma, systèmes de design, couleurs, typographie, brand guidelines — les primitives d'une identité qui tient à l'échelle. Construire une marque cohérente quand on n'est pas designer : une discipline, pas un talent.</p>
+    <div class="hero-ctas">
+      <button class="cta-primary" onclick="show('fondations')">Commencer →</button>
+      <button class="cta-sec" onclick="show('figma')">Aller à Figma</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="swatch-strip">
+      <div class="sw" style="background:#1c1712"></div>
+      <div class="sw" style="background:#8c1a2d"></div>
+      <div class="sw" style="background:#c6a85e"></div>
+      <div class="sw" style="background:#5a6370"></div>
+      <div class="sw" style="background:#f4efe6;border:1px solid #d0c8b8"></div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-lbl">Display · Cormorant Garamond</div>
+      <div class="spec-big">Aa Bb Cc</div>
+      <div class="spec-body">BODY — BARLOW CONDENSED 500</div>
+    </div>
+    <div class="mod-list">
+      <div class="mod-item" onclick="show('fondations')"><span class="mn">§1</span>Fondations Stratégiques</div>
+      <div class="mod-item" onclick="show('couleurs')"><span class="mn">§2</span>Systèmes de Couleurs</div>
+      <div class="mod-item" onclick="show('typo')"><span class="mn">§3</span>Typographie</div>
+      <div class="mod-item" onclick="show('figma')"><span class="mn">§4</span>Figma Maîtrise</div>
+      <div class="mod-item" onclick="show('systeme')"><span class="mn">§5</span>Design System</div>
+      <div class="mod-item" onclick="show('execution')"><span class="mn">§6</span>Exécution & Assets</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- INTRO -->
+<div id="intro" class="sec active">
+  <div class="mhd">
+    <div>
+      <div class="eyebrow">Vue d'ensemble</div>
+      <h2>Ce que l'identité<br>visuelle <em>accomplit</em></h2>
+      <p class="mhd-sub">Une identité visuelle n'est pas une décoration. C'est un système de signalisation qui communique votre positionnement avant que vous ayez dit un mot. La cohérence crée la confiance. La confiance crée la conversion.</p>
+    </div>
+    <div class="fig-wrap">
+      <div class="fig-n">7"</div>
+      <div class="fig-d">pour former une<br>première impression</div>
+    </div>
+  </div>
+
+  <div class="alert a-burg">
+    <span class="a-icon">◆</span>
+    <div><strong>L'erreur fondatrice :</strong> commencer par le logo. Le logo est l'aboutissement d'une réflexion stratégique, pas son point de départ. Commencer par le logo sans stratégie revient à choisir une enseigne avant d'avoir décidé ce que vend le magasin.</div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-line"></div>
+      <h3>Ce qu'une identité visuelle EST</h3>
+      <ul>
+        <li>Un système de règles reproductibles</li>
+        <li>Une expression visuelle de votre positionnement</li>
+        <li>Un filtre de décisions design — ce qui rentre, ce qui sort</li>
+        <li>Un actif qui prend de la valeur avec la cohérence</li>
+        <li>Un langage partagé entre vous, vos devs, vos partenaires</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Ce qu'une identité visuelle N'EST PAS</h3>
+      <ul>
+        <li>Un logo seul</li>
+        <li>Un ensemble de couleurs "jolies"</li>
+        <li>La copie d'un concurrent qu'on admire</li>
+        <li>Un document créé une fois, jamais rouvert</li>
+        <li>Un problème à résoudre "quand on aura les moyens"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>La hiérarchie des décisions design</h3>
+    <div class="formula">
+      <span class="gold">Stratégie de marque</span> <span class="dim">(positionnement, valeurs, audience cible)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+      <span class="gold">Personnalité visuelle</span> <span class="dim">(adjectifs, références, émotions cibles)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+      Palette de couleurs · Système typographique · Ton de voix<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+      Logo · Iconographie · Photographie · Motion<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+      Composants UI · Templates · Assets<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+      <span class="dim">Brand Guidelines — la documentation finale vivante</span>
+    </div>
+  </div>
+
+  <div class="g3">
+    <div class="card">
+      <h3>Figma</h3>
+      <p>L'outil central. Variables, composants, auto-layout, styles — tout votre système de design vivra ici. Gratuit jusqu'à 3 projets.</p>
+    </div>
+    <div class="card">
+      <h3>Coolors · Realtime Colors</h3>
+      <p>Génération et validation des palettes. Test d'accessibilité WCAG intégré. Coolors pour explorer, Realtime Colors pour tester en contexte UI réel.</p>
+    </div>
+    <div class="card">
+      <h3>Google Fonts · Fontpair</h3>
+      <p>Sélection de paires typographiques. Licences libres, intégration directe dans Figma et dans le code. Fontpair pour trouver des combinaisons harmonieuses.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FONDATIONS -->
+<div id="fondations" class="sec">
+  <div class="mhd">
+    <div>
+      <div class="eyebrow">Module 01</div>
+      <h2>Fondations<br><em>Stratégiques</em></h2>
+      <p class="mhd-sub">Avant de choisir une couleur ou une police, il faut savoir ce que la marque doit communiquer, à qui, et dans quel territoire concurrentiel. Ce travail invisible détermine 80% du résultat final.</p>
+    </div>
+    <div class="fig-wrap">
+      <div class="fig-n">§1</div>
+      <div class="fig-d">Stratégie<br>avant esthétique</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag t-burg">Positioning</span>
+    <span class="tag t-burg">Brand Archetype</span>
+    <span class="tag t-sand">Moodboard</span>
+    <span class="tag">Competitive Mapping</span>
+    <span class="tag t-slate">Brand Voice</span>
+  </div>
+
+  <div class="card">
+    <div class="card-line"></div>
+    <h3>L'exercice des 3 mots — Point de départ absolu</h3>
+    <p>Avant tout outil, répondez : <strong>si votre marque était une personne, quels 3 adjectifs la décrirait le mieux ?</strong> Ces 3 mots deviennent le filtre de toutes les décisions futures. Tout élément visuel qui contredit les 3 mots est une mauvaise direction — indépendamment du fait que vous le trouviez "joli".</p>
+    <div class="pb">
+      <div class="pb-hd"><span class="pb-tag">Prompt IA — Définir la personnalité de marque</span><button class="cpbtn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="pk">CONTEXTE:</span>
+<span class="pv">Produit: [Description en 1 phrase — ce qu'il fait, pour qui]
+Audience primaire: [Titre/profil/âge/contexte d'usage]
+Problème résolu: [Le pain point exact, formulé comme le client le dit]
+Concurrents directs: [3 noms avec leur positionnement perçu]</span>
+
+<span class="pk">TÂCHE:</span>
+<span class="pv">1. Propose 5 séries de 3 adjectifs de personnalité distinctes et contrastées
+2. Pour chaque série, cite 2 marques existantes qui incarnent cette personnalité
+3. Identifie quelle série crée le plus de différenciation vs les concurrents
+4. Pour la série la plus différenciante, décris en 2 phrases comment elle se
+   traduirait visuellement (couleurs, typographie, imagerie)
+5. Identifie 2 risques d'exécution pour la série recommandée</span>
+
+<span class="pk">FORMAT:</span>
+<span class="pv">Série A: [adj1] · [adj2] · [adj3]
+Références: [Marque 1], [Marque 2]
+Différenciation: [Score 1-5] — [raison]
+Traduction visuelle: [2 phrases]
+---</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Les 12 archétypes de marque — Se positionner dans le territoire</h3>
+    <table>
+      <tr><th>Archétype</th><th>Essence</th><th>Couleurs typiques</th><th>Exemples</th></tr>
+      <tr><td><strong>Le Sage</strong></td><td>Savoir, vérité, expertise</td><td>Bleu profond, blanc, gris neutre</td><td>Google, McKinsey, BBC</td></tr>
+      <tr><td><strong>Le Héros</strong></td><td>Courage, dépassement, victoire</td><td>Rouge vif, noir, or</td><td>Nike, Red Bull, Army</td></tr>
+      <tr><td><strong>Le Rebelle</strong></td><td>Rupture, liberté, provocation</td><td>Noir, rouge, électrique</td><td>Harley-Davidson, Virgin, Oatly</td></tr>
+      <tr><td><strong>Le Créateur</strong></td><td>Innovation, vision, originalité</td><td>Variés, souvent saturés ou inattendus</td><td>Apple, Adobe, Lego</td></tr>
+      <tr><td><strong>L'Amant</strong></td><td>Désir, plaisir, sensualité, luxe</td><td>Bordeaux, or, rose profond</td><td>Chanel, Dior, Victoria's Secret</td></tr>
+      <tr><td><strong>L'Explorateur</strong></td><td>Aventure, liberté, découverte</td><td>Vert nature, orange terre, blanc</td><td>The North Face, Jeep, Patagonia</td></tr>
+      <tr><td><strong>L'Innocent</strong></td><td>Pureté, optimisme, authenticité</td><td>Blanc, pastel, vert doux</td><td>Dove, Innocent Drinks, Evian</td></tr>
+      <tr><td><strong>Le Souverain</strong></td><td>Prestige, contrôle, excellence</td><td>Or, marine foncé, blanc cassé</td><td>Rolex, Mercedes, American Express</td></tr>
+      <tr><td><strong>Le Magicien</strong></td><td>Transformation, vision, mystère</td><td>Violet, or, noir profond</td><td>Disney, Tesla, Dyson</td></tr>
+      <tr><td><strong>L'Ami</strong></td><td>Proximité, chaleur, fiabilité</td><td>Bleu clair, jaune, vert sage</td><td>IKEA, Innocent, McDonald's</td></tr>
+      <tr><td><strong>Le Jester</strong></td><td>Humour, légèreté, plaisir</td><td>Vifs, saturés, contrastés</td><td>M&M's, Old Spice, Innocent</td></tr>
+      <tr><td><strong>L'Aidant</strong></td><td>Service, générosité, protection</td><td>Bleu sécurisant, vert santé</td><td>UNICEF, NHS, Habitat for Humanity</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Moodboard — La méthode en 3 actes</h3>
+    <p>Collectez 20-30 références visuelles qui incarnent votre personnalité cible. Pas des logos — des <strong>atmosphères</strong> : photos, interfaces, packaging, architecture, mode, typographie en contexte. L'outil : Figma FigJam ou Pinterest.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <div>
+          <h4>Collecter sans filtrer — 30 minutes</h4>
+          <p>Pinterest ou Are.na. Tapez vos 3 adjectifs + "brand", "editorial", "packaging", "art direction". Sauvegardez tout ce qui résonne viscéralement, sans analyser. Quantité d'abord : minimum 40 images avant de commencer à trier.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div>
+          <h4>Identifier les patterns — 15 minutes</h4>
+          <p>Posez toutes les images côte à côte dans Figma. Quelles couleurs dominent ? Quel type d'imagerie (humain, abstrait, produit, typographique) ? Quelle densité visuelle (aéré vs dense) ? Quelle lumière (sombre dramatique, clair lumineux, contrasté) ? Ces patterns inconscients <em>sont</em> votre direction.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div>
+          <h4>Formuler les règles — 15 minutes</h4>
+          <p>Transformez les patterns en 5-7 règles explicites : "Les images sont toujours en clair obscur", "Les fonds sont ivoire ou charbon, jamais gris neutre", "La typographie est condensée et haute", "Les photos ne montrent jamais de visages souriants". Ces règles guideront chaque décision visuelle future.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Cartographie concurrentielle — Trouver l'espace libre</h3>
+    <p>Positionnez vos 5 concurrents sur une matrice 2×2. Les axes doivent être les <em>plus pertinents pour votre secteur</em> — pas toujours Premium/Accessible et Moderne/Classique. L'espace vide sur la matrice est votre opportunité de différenciation visuelle.</p>
+    <div class="pb">
+      <div class="pb-hd"><span class="pb-tag">Prompt IA — Cartographie concurrentielle visuelle</span><button class="cpbtn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="pk">TÂCHE:</span> <span class="pv">Analyse l'identité visuelle de ces 5 concurrents dans mon secteur</span>
+
+<span class="pk">CONCURRENTS:</span> <span class="pv">[A], [B], [C], [D], [E]</span>
+<span class="pk">MON SECTEUR:</span> <span class="pv">[Votre secteur]</span>
+
+<span class="pk">POUR CHAQUE CONCURRENT, ANALYSER:</span>
+<span class="pv">- Palette dominante (2-3 couleurs, HEX estimés, ton émotionnel)
+- Style typographique (serif/sans/mono, moderne/vintage, corps/display)
+- Densité visuelle (aéré vs dense, minimaliste vs expressif)
+- Promesse émotionnelle implicite de leur identité
+- Position axe 1 : Premium (5) ↔ Accessible (1)
+- Position axe 2 : Moderne (5) ↔ Classique (1)
+- Position axe 3 : [Choisir l'axe le plus pertinent pour le secteur]</span>
+
+<span class="pk">CONCLUSION:</span>
+<span class="pv">- Matrice 2D des 5 concurrents
+- Zone la moins occupée = territoire disponible
+- Combinaison de positioning recommandée pour se différencier
+- 3 directions créatives concrètes pour occuper ce territoire</span></pre>
+    </div>
+  </div>
+</div>
+
+<!-- COULEURS -->
+<div id="couleurs" class="sec">
+  <div class="mhd">
+    <div>
+      <div class="eyebrow">Module 02</div>
+      <h2>Systèmes de<br><em>Couleurs</em></h2>
+      <p class="mhd-sub">La couleur est le vecteur émotionnel le plus puissant de votre identité. Avant d'être esthétique, un système de couleurs est fonctionnel : il porte des significations, guide l'attention, crée la hiérarchie.</p>
+    </div>
+    <div class="fig-wrap">
+      <div class="fig-n">§2</div>
+      <div class="fig-d">60/30/10<br>la règle</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag t-burg">Primaire · Secondaire · Accent</span>
+    <span class="tag t-sand">Neutres</span>
+    <span class="tag">Sémantiques</span>
+    <span class="tag t-slate">WCAG AA/AAA</span>
+    <span class="tag">CSS Variables</span>
+    <span class="tag t-burg">Design Tokens</span>
+  </div>
+
+  <div class="card">
+    <div class="card-line"></div>
+    <h3>La règle 60/30/10 — Architecture d'une palette</h3>
+    <div class="formula">
+      <span class="gold">60%</span> — Couleur dominante <span class="dim">(fond, surfaces, espaces, zones de repos)</span><br>
+      <span class="gold">30%</span> — Couleur secondaire <span class="dim">(texte, sections majeures, navigation)</span><br>
+      <span class="gold">10%</span> — Couleur d'accent <span class="dim">(CTA, highlights, hovers, détails clés)</span><br>
+      <br>
+      <span class="dim">+ Sémantiques : Success (vert), Warning (orange/ambre), Error (rouge)</span><br>
+      <span class="dim">+ Neutres : 5 à 9 niveaux entre le fond et le texte principal</span>
+    </div>
+    <p>La plupart des identités échouent parce qu'elles inversent les proportions — trop d'accent, pas assez de neutre. <strong>L'accent fonctionne parce qu'il est rare.</strong> Un CTA bordeaux sur fond ivoire capte l'œil. Cinq éléments bordeaux sur la même page ne captent plus rien.</p>
+  </div>
+
+  <div class="card">
+    <h3>Construire une palette depuis une couleur primaire — Méthode</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <div>
+          <h4>Choisir la primaire par intention émotionnelle</h4>
+          <p>Pas par goût personnel — par archétype et positionnement. Bordeaux = prestige, passion, sophistication. Vert = growth, santé, nature. Bleu = confiance, technologie, sécurité. Orange = énergie, créativité, accessibilité. Votre moodboard révèle la couleur, pas vos préférences.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div>
+          <h4>Générer les variantes de la primaire</h4>
+          <p>Pour chaque couleur principale, créez 7-9 variations de luminosité (50, 100, 200, 300, 400, 500, 600, 700, 900). Outil recommandé : <strong>Realtime Colors</strong> ou le générateur de palette de <strong>Tailwind</strong>. Utilisez l'espace colorimétrique <code>oklch()</code> en CSS pour des variations perceptuellement uniformes — techniquement supérieur à HSL.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div>
+          <h4>Construire les neutres depuis la primaire</h4>
+          <p>Les neutres ne sont jamais du gris pur (#888). Ils doivent avoir une <em>teinte</em> tirée de votre couleur principale. Un beige chaud pour une marque bordeaux. Un gris légèrement bleuté pour une marque tech. Cette cohérence de teinte crée l'harmonie invisible qui distingue les identités professionnelles des amateurs.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div>
+          <h4>Valider le contraste WCAG sur chaque combinaison</h4>
+          <p>Chaque combinaison texte/fond doit atteindre WCAG AA minimum (ratio 4.5:1 pour le texte normal, 3:1 pour les grands titres et éléments interactifs). Non négociable — legal dans de nombreux pays. Outil : plugin Figma "Contrast", webaim.org/contrast-checker, ou "Able" pour les tests daltonisme.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Palette de ce cours — Exemple commenté</h3>
+    <div class="col-row">
+      <div class="chip">
+        <div class="chip-sw" style="background:#1c1712"></div>
+        <div class="chip-info"><div class="chip-name">Ink</div><div class="chip-hex">#1c1712</div></div>
+      </div>
+      <div class="chip">
+        <div class="chip-sw" style="background:#8c1a2d"></div>
+        <div class="chip-info"><div class="chip-name">Burgundy</div><div class="chip-hex">#8c1a2d</div></div>
+      </div>
+      <div class="chip">
+        <div class="chip-sw" style="background:#c6a85e"></div>
+        <div class="chip-info"><div class="chip-name">Sand</div><div class="chip-hex">#c6a85e</div></div>
+      </div>
+      <div class="chip">
+        <div class="chip-sw" style="background:#5a6370"></div>
+        <div class="chip-info"><div class="chip-name">Slate</div><div class="chip-hex">#5a6370</div></div>
+      </div>
+      <div class="chip">
+        <div class="chip-sw" style="background:#f4efe6;border:1px solid #d0c8b8"></div>
+        <div class="chip-info"><div class="chip-name">Ivory</div><div class="chip-hex">#f4efe6</div></div>
+      </div>
+      <div class="chip">
+        <div class="chip-sw" style="background:#4a9e72"></div>
+        <div class="chip-info"><div class="chip-name">Success</div><div class="chip-hex">#4a9e72</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>CSS Variables — Architecture primitive/sémantique</h3>
+    <p>La distinction est critique : les <strong>primitives</strong> sont des valeurs absolues. Les <strong>tokens sémantiques</strong> sont des intentions qui pointent vers des primitives. Le dark mode ne change que les sémantiques — jamais les primitives. Cette architecture permet le theming complet sans modifier une seule couleur brute.</p>
+    <div class="cb">
+      <div class="cb-hd"><span class="cb-title">css — Design tokens production</span><button class="cpbtn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">/* ══ PRIMITIVES — valeurs brutes, ne jamais utiliser directement ══ */</span>
+<span class="kw">:root</span> {
+  --burgundy-900: <span class="num">#5c0f1e</span>;
+  --burgundy-700: <span class="num">#8c1a2d</span>;
+  --burgundy-500: <span class="num">#c24760</span>;
+  --burgundy-300: <span class="num">#e89aaa</span>;
+  --burgundy-100: <span class="num">#fce8ec</span>;
+
+  --sand-700:     <span class="num">#9a7830</span>;
+  --sand-500:     <span class="num">#c6a85e</span>;
+  --sand-300:     <span class="num">#dfc37c</span>;
+
+  --ink-900:      <span class="num">#1c1712</span>;
+  --ink-700:      <span class="num">#332d25</span>;
+  --ink-500:      <span class="num">#5c5248</span>;
+  --ink-300:      <span class="num">#8a7e72</span>;
+  --ink-100:      <span class="num">#d4cec8</span>;
+
+  --ivory-100:    <span class="num">#f4efe6</span>;
+  --ivory-200:    <span class="num">#ece6d9</span>;
+}
+
+<span class="com">/* ══ SEMANTIC TOKENS — intentions, à utiliser dans le code ══ */</span>
+<span class="kw">:root</span> {
+  <span class="com">/* Text hierarchy */</span>
+  --text-primary:      <span class="kw">var</span>(--ink-900);
+  --text-secondary:    <span class="kw">var</span>(--ink-500);
+  --text-muted:        <span class="kw">var</span>(--ink-300);
+  --text-inverse:      <span class="kw">var</span>(--ivory-100);
+  --text-accent:       <span class="kw">var</span>(--burgundy-700);
+
+  <span class="com">/* Backgrounds */</span>
+  --bg-base:           <span class="kw">var</span>(--ivory-100);
+  --bg-surface:        <span class="num">#faf7f1</span>;
+  --bg-elevated:       <span class="kw">var</span>(--ivory-200);
+
+  <span class="com">/* Actions */</span>
+  --action-primary:    <span class="kw">var</span>(--burgundy-700);
+  --action-primary-hover: <span class="kw">var</span>(--burgundy-900);
+  --action-accent:     <span class="kw">var</span>(--sand-500);
+
+  <span class="com">/* Borders */</span>
+  --border-subtle:     <span class="num">rgba(28,23,18,.10)</span>;
+  --border-default:    <span class="num">rgba(28,23,18,.18)</span>;
+  --border-strong:     <span class="num">rgba(28,23,18,.35)</span>;
+}
+
+<span class="com">/* ══ DARK MODE — seuls les sémantiques changent ══ */</span>
+<span class="kw">@media</span> (prefers-color-scheme: dark) {
+  <span class="kw">:root</span> {
+    --text-primary:   <span class="kw">var</span>(--ink-100);
+    --text-secondary: <span class="kw">var</span>(--ink-300);
+    --bg-base:        <span class="kw">var</span>(--ink-900);
+    --bg-surface:     <span class="kw">var</span>(--ink-700);
+    --border-subtle:  <span class="num">rgba(244,239,230,.08)</span>;
+    --border-default: <span class="num">rgba(244,239,230,.16)</span>;
+    <span class="com">/* --action-primary reste identique — le rouge fonctionne sur fond sombre aussi */</span>
+  }
+}</pre>
+    </div>
+  </div>
+
+  <div class="alert a-sand">
+    <span class="a-icon">◆</span>
+    <div><strong>Test daltonisme — non optionnel :</strong> 4.5% de la population est daltonienne. Dans Figma : View → Color Blindness → tester Deuteranopia (rouge-vert, le plus fréquent) et Tritanopia (bleu-jaune). Si votre identité s'effondre sous simulation, votre système de couleurs a une dépendance non intentionnelle à la distinction chromatique seule. Ajoutez toujours une redondance : forme, taille, icône, ou contraste de luminosité.</div>
+  </div>
+</div>
+
+<!-- TYPOGRAPHIE -->
+<div id="typo" class="sec">
+  <div class="mhd">
+    <div>
+      <div class="eyebrow">Module 03</div>
+      <h2>Systèmes<br><em>Typographiques</em></h2>
+      <p class="mhd-sub">La typographie représente 95% du design web selon Oliver Reichenstein. Choisir 2 polices complémentaires et définir une échelle cohérente — c'est le socle de toute identité visuelle qui tient.</p>
+    </div>
+    <div class="fig-wrap">
+      <div class="fig-n">§3</div>
+      <div class="fig-d">2 polices<br>suffisent</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag t-burg">Display vs Body</span>
+    <span class="tag t-sand">Type Scale</span>
+    <span class="tag">Ratio Mathématique</span>
+    <span class="tag t-slate">Variable Fonts</span>
+    <span class="tag">Line-height</span>
+    <span class="tag t-burg">Mesure de colonne</span>
+  </div>
+
+  <div class="card">
+    <div class="card-line"></div>
+    <h3>La règle des 2 polices — Et leur contraste intentionnel</h3>
+    <p>Une identité forte utilise 2 familles maximum. La <strong>Display</strong> (titres, héros, accroches) et la <strong>Body</strong> (corps de texte, UI, labels). Le <em>contraste</em> entre les deux crée la tension visuelle qui donne du caractère. Un serif expressif + un sans condensé : la différence de nature entre les deux est le design.</p>
+    <table>
+      <tr><th>Combinaison</th><th>Display</th><th>Body</th><th>Personnalité</th></tr>
+      <tr><td><strong>Classique Premium</strong></td><td>Serif élégant (Cormorant, Playfair Display)</td><td>Sans condensé (Barlow, Archivo Narrow)</td><td>Luxe, éditorial, raffiné</td></tr>
+      <tr><td><strong>Tech Moderne</strong></td><td>Sans géométrique (DM Sans, Neue Haas)</td><td>Mono (JetBrains, Fira)</td><td>SaaS, IA, productivité</td></tr>
+      <tr><td><strong>Humain & Chaleureux</strong></td><td>Humanist sans (Nunito, Lato)</td><td>Slab serif (Zilla Slab, Roboto Slab)</td><td>Santé, éducation, B2C</td></tr>
+      <tr><td><strong>Brutaliste Fort</strong></td><td>Condensed black (Barlow 900, Anton)</td><td>Mono (Courier, IBM Plex Mono)</td><td>Startup, culture, médias</td></tr>
+      <tr><td><strong>Neutre Institutionnel</strong></td><td>Sans medium (Source Sans, Mulish)</td><td>Même famille, light</td><td>Finance, consulting, B2B sérieux</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Type Scale — L'échelle mathématique</h3>
+    <p>Une type scale est un ensemble de tailles basé sur un ratio mathématique. Chaque taille est "musicalement" liée aux autres — d'où l'harmonie visuelle. Utilisez <strong>typescale.com</strong> pour générer votre scale.</p>
+    <div class="cb">
+      <div class="cb-hd"><span class="cb-title">css — Type Scale responsive avec clamp()</span><button class="cpbtn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">/* Ratio 1.250 — Major Third. Calculé sur typescale.com */</span>
+<span class="kw">:root</span> {
+  <span class="com">/* Tailles fluides — s'adaptent entre mobile et desktop */</span>
+  --text-xs:    <span class="fn">clamp</span>(<span class="num">0.64rem</span>,  <span class="num">1vw</span>,   <span class="num">0.72rem</span>);   <span class="com">/* labels, captions */</span>
+  --text-sm:    <span class="fn">clamp</span>(<span class="num">0.80rem</span>,  <span class="num">1.2vw</span>, <span class="num">0.90rem</span>);   <span class="com">/* texte secondaire */</span>
+  --text-base:  <span class="fn">clamp</span>(<span class="num">1rem</span>,     <span class="num">1.5vw</span>, <span class="num">1.125rem</span>);  <span class="com">/* corps principal */</span>
+  --text-lg:    <span class="fn">clamp</span>(<span class="num">1.25rem</span>,  <span class="num">2vw</span>,   <span class="num">1.5rem</span>);    <span class="com">/* sous-titres */</span>
+  --text-xl:    <span class="fn">clamp</span>(<span class="num">1.5rem</span>,   <span class="num">3vw</span>,   <span class="num">2rem</span>);     <span class="com">/* h3 */</span>
+  --text-2xl:   <span class="fn">clamp</span>(<span class="num">2rem</span>,     <span class="num">4vw</span>,   <span class="num">3rem</span>);     <span class="com">/* h2 */</span>
+  --text-3xl:   <span class="fn">clamp</span>(<span class="num">2.5rem</span>,   <span class="num">6vw</span>,   <span class="num">4.5rem</span>);   <span class="com">/* h1 */</span>
+  --text-4xl:   <span class="fn">clamp</span>(<span class="num">3.5rem</span>,   <span class="num">8vw</span>,   <span class="num">7rem</span>);     <span class="com">/* hero display */</span>
+
+  <span class="com">/* Line heights par usage */</span>
+  --leading-tight:   <span class="num">1.05</span>;  <span class="com">/* titres héros condensés */</span>
+  --leading-snug:    <span class="num">1.30</span>;  <span class="com">/* sous-titres */</span>
+  --leading-normal:  <span class="num">1.65</span>;  <span class="com">/* corps de texte UI */</span>
+  --leading-loose:   <span class="num">1.90</span>;  <span class="com">/* prose longue, articles */</span>
+
+  <span class="com">/* Letter spacing */</span>
+  --tracking-tight:   <span class="num">-0.025em</span>;  <span class="com">/* gros display serif */</span>
+  --tracking-normal:   <span class="num">0em</span>;
+  --tracking-wide:     <span class="num">0.05em</span>;   <span class="com">/* sous-titres, labels */</span>
+  --tracking-widest:   <span class="num">0.15em</span>;   <span class="com">/* eyebrows, badges uppercase */</span>
+}
+
+<span class="com">/* ══ Application en classes ══ */</span>
+<span class="kw">.text-display</span> {
+  font-family: <span class="kw">var</span>(--font-display);
+  font-size: <span class="kw">var</span>(--text-4xl);
+  line-height: <span class="kw">var</span>(--leading-tight);
+  letter-spacing: <span class="kw">var</span>(--tracking-tight);
+  font-weight: <span class="num">700</span>;
+}
+
+<span class="kw">.text-eyebrow</span> {
+  font-family: <span class="kw">var</span>(--font-mono);
+  font-size: <span class="kw">var</span>(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: <span class="kw">var</span>(--tracking-widest);
+  color: <span class="kw">var</span>(--action-primary);
+}</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Règles typographiques pro — Les détails qui font la différence</h3>
+    <div class="g2">
+      <div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem;color:var(--ink)">Mesures & Rythme</p>
+        <ul>
+          <li>Corps de texte idéal : <strong>55-75 caractères par ligne</strong> — soit <code>max-width: 65ch</code></li>
+          <li>Différence de taille minimale entre niveaux : <strong>1.25× minimum</strong></li>
+          <li>Line-height corps de texte : jamais moins de 1.5</li>
+          <li>Ne jamais justifier le texte sur écran (alinéas disgracieux)</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem;color:var(--ink)">Hiérarchie optique</p>
+        <ul>
+          <li>Un seul changement par niveau hiérarchique : taille OU graisse, pas les deux</li>
+          <li>Italic = emphase éditoriale, jamais purement décorative</li>
+          <li>Majuscules toujours avec letter-spacing ≥ 0.08em</li>
+          <li>Couleur sur texte : réservée aux liens et micro-accents, jamais pour décorer</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert a-slate">
+      <span class="a-icon">◆</span>
+      <div><strong>Variable fonts — performance et flexibilité :</strong> une variable font est un seul fichier qui contient toutes les graisses, largeurs, et parfois italiques. Un seul requête réseau au lieu de 6. Interpolation fluide pour des animations de graisse. Disponibles sur Google Fonts avec le toggle "Variable fonts only". Préférez-les systématiquement pour tout projet production.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FIGMA -->
+<div id="figma" class="sec">
+  <div class="mhd">
+    <div>
+      <div class="eyebrow">Module 04</div>
+      <h2>Figma<br><em>Maîtrise</em></h2>
+      <p class="mhd-sub">Figma est l'outil central de tout designer moderne — et de tout fondateur qui veut contrôler son identité. Variables, composants, auto-layout : les primitives à maîtriser sans exception.</p>
+    </div>
+    <div class="fig-wrap">
+      <div class="fig-n">§4</div>
+      <div class="fig-d">L'outil<br>central</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag t-burg">Variables</span>
+    <span class="tag t-burg">Composants</span>
+    <span class="tag t-sand">Auto Layout</span>
+    <span class="tag">Variants</span>
+    <span class="tag t-slate">Styles</span>
+    <span class="tag">Tokens</span>
+    <span class="tag">Handoff</span>
+  </div>
+
+  <div class="card">
+    <div class="card-line"></div>
+    <h3>Architecture d'un fichier Figma professionnel</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">P1</div>
+        <div>
+          <h4>Cover — La page d'accueil du fichier</h4>
+          <p>Frame 1600×900 avec le nom du projet, la version (<code>v2.4.1</code>), la date de dernière mise à jour, et le responsable. Visible dans la grille des fichiers Figma — premier signal de professionnalisme visible par toute l'équipe.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">P2</div>
+        <div>
+          <h4>🎨 Brand Foundations — Les primitives</h4>
+          <p>Palette de couleurs complète avec chips annotées, type scale avec specimens sur fond clair ET sombre, spacing scale (8pt grid), logo et ses 6 déclinaisons, iconographie. La "source of truth" — tout doit être référencé ici, rien dupliqué ailleurs.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">P3</div>
+        <div>
+          <h4>🧩 Components — La bibliothèque UI</h4>
+          <p>Tous les composants avec leurs variants et états. Organisation atomique : Atoms (boutons, inputs, badges) → Molecules (cards, formulaires) → Organisms (headers, sections complètes). Chaque composant est utilisé depuis la bibliothèque — jamais détaché et dupliqué.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">P4</div>
+        <div>
+          <h4>📐 Pages & Flows — Les écrans</h4>
+          <p>Une page Figma par écran ou flux utilisateur. Flows annotés avec connecteurs natifs Figma. Desktop ET mobile côte à côte, même frame. Numérotation claire (<code>01_home</code>, <code>02_dashboard</code>) pour le handoff développeurs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Figma Variables — Le design token natif depuis 2023</h3>
+    <p>Les Variables remplacent les Styles pour les couleurs, typographies, et espacements. Elles permettent le theming multi-mode (light/dark/brand) et s'exportent directement en JSON pour les développeurs via le plugin Tokens Studio.</p>
+    <div class="cb">
+      <div class="cb-hd"><span class="cb-title">Figma Variables — Organisation en 2 collections</span><button class="cpbtn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// ══ Collection 1 : Primitives ══</span>
+<span class="com">// Ne jamais utiliser directement dans les designs</span>
+Primitives/Color/Burgundy/900  → #5c0f1e
+Primitives/Color/Burgundy/700  → #8c1a2d
+Primitives/Color/Burgundy/500  → #c24760
+Primitives/Color/Sand/500      → #c6a85e
+Primitives/Color/Ink/900       → #1c1712
+Primitives/Spacing/4           → 4px
+Primitives/Spacing/8           → 8px
+Primitives/Spacing/16          → 16px
+Primitives/Spacing/32          → 32px
+
+<span class="com">// ══ Collection 2 : Semantic (à utiliser dans les designs) ══</span>
+Semantic/Color/Action/Primary    → {Primitives/Color/Burgundy/700}
+Semantic/Color/Action/Hover      → {Primitives/Color/Burgundy/900}
+Semantic/Color/Text/Primary      → {Primitives/Color/Ink/900}
+Semantic/Color/Text/Secondary    → {Primitives/Color/Ink/500}
+Semantic/Color/Background/Base   → #f4efe6
+Semantic/Color/Surface           → #faf7f1
+Semantic/Spacing/Component/sm    → {Primitives/Spacing/8}
+Semantic/Spacing/Component/md    → {Primitives/Spacing/16}
+
+<span class="com">// ══ Mode Dark sur la même collection Semantic ══</span>
+Semantic/Color/Action/Primary    → {Primitives/Color/Burgundy/500}  ← change
+Semantic/Color/Text/Primary      → {Primitives/Color/Ink/100}       ← change
+Semantic/Color/Background/Base   → {Primitives/Color/Ink/900}       ← change
+<span class="com">// Résultat : un switch de mode = tout le fichier bascule.</span>
+<span class="com">// Aucune modification manuelle de composant.</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Auto Layout — La règle absolue des composants</h3>
+    <p>Tout composant qui sera utilisé dans un contexte à contenu variable <strong>doit être en Auto Layout.</strong> Un bouton sans Auto Layout qui se casse quand le label est plus long n'est pas un composant — c'est une illusion de composant. Le test : si vous changez le texte et la frame ne s'adapte pas, refaites-le.</p>
+    <div class="cb">
+      <div class="cb-hd"><span class="cb-title">Figma — Raccourcis Auto Layout essentiels</span><button class="cpbtn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Activer Auto Layout sur une sélection</span>
+Shift + A
+
+<span class="com">// Changer la direction</span>
+<span class="com">// Horizontal ↔ : enfants côte à côte (flex-direction: row)</span>
+<span class="com">// Vertical ↕   : enfants empilés    (flex-direction: column)</span>
+
+<span class="com">// Comportement des enfants :</span>
+<span class="com">// Hug content   → s'adapte au contenu (flex-shrink/grow auto)</span>
+<span class="com">// Fill container → prend tout l'espace disponible (flex: 1)</span>
+<span class="com">// Fixed         → taille fixée indépendamment du contenu</span>
+
+<span class="com">// Wrapping (flex-wrap: wrap)</span>
+<span class="com">// Options avancées Auto Layout → toggle "Wrap"</span>
+
+<span class="com">// Gap entre éléments     → champ "Gap" dans panneau Design</span>
+<span class="com">// Padding interne        → champ "Padding" (peut être asymétrique)</span>
+<span class="com">// Alignement des enfants → icônes d'alignement dans l'inspecteur</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Raccourcis clavier — Figma à vitesse de croisière</h3>
+    <div class="shortcuts">
+      <div class="sc-row"><kbd>Cmd+D</kbd><span class="sc-d">Dupliquer la sélection</span></div>
+      <div class="sc-row"><kbd>Cmd+G</kbd><span class="sc-d">Grouper</span></div>
+      <div class="sc-row"><kbd>Cmd+Opt+G</kbd><span class="sc-d">Frame autour de la sélection</span></div>
+      <div class="sc-row"><kbd>Shift+A</kbd><span class="sc-d">Auto Layout</span></div>
+      <div class="sc-row"><kbd>Cmd+K</kbd><span class="sc-d">Créer un composant</span></div>
+      <div class="sc-row"><kbd>Cmd+Alt+K</kbd><span class="sc-d">Créer un component set</span></div>
+      <div class="sc-row"><kbd>Cmd+\</kbd><span class="sc-d">Détacher l'instance</span></div>
+      <div class="sc-row"><kbd>Cmd+Opt+C</kbd><span class="sc-d">Copier les propriétés CSS</span></div>
+      <div class="sc-row"><kbd>Cmd+Opt+V</kbd><span class="sc-d">Coller les propriétés</span></div>
+      <div class="sc-row"><kbd>Cmd+E</kbd><span class="sc-d">Aplatir la sélection</span></div>
+      <div class="sc-row"><kbd>Cmd+L</kbd><span class="sc-d">Verrouiller la couche</span></div>
+      <div class="sc-row"><kbd>Cmd+Shift+H</kbd><span class="sc-d">Distribuer horizontalement</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Plugins essentiels — La sélection opérationnelle</h3>
+    <table>
+      <tr><th>Plugin</th><th>Usage</th><th>Criticité</th></tr>
+      <tr><td><strong>Contrast</strong></td><td>Vérification WCAG AA/AAA en temps réel sur la sélection</td><td>🔴 Indispensable</td></tr>
+      <tr><td><strong>Tokens Studio</strong></td><td>Export des design tokens en JSON → code (pipeline Figma → CSS)</td><td>🔴 Indispensable</td></tr>
+      <tr><td><strong>Iconify</strong></td><td>Accès à 200k+ icônes (Lucide, Feather, Phosphor, Material)</td><td>🔴 Indispensable</td></tr>
+      <tr><td><strong>Unsplash</strong></td><td>Photos HD libres de droits directement dans Figma</td><td>🟡 Très utile</td></tr>
+      <tr><td><strong>Font Scale</strong></td><td>Générer une type scale avec ratio mathématique dans Figma</td><td>🟡 Très utile</td></tr>
+      <tr><td><strong>Able</strong></td><td>Simulation daltonisme + test WCAG sur toute la page</td><td>🟡 Très utile</td></tr>
+      <tr><td><strong>Mockuuups Studio</strong></td><td>Mockups devices (iPhone, MacBook, etc.) pour présentations</td><td>🟡 Situationnel</td></tr>
+      <tr><td><strong>To Path</strong></td><td>Texte sur un chemin courbe — pour logos et badges</td><td>🟢 Occasionnel</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- DESIGN SYSTEM -->
+<div id="systeme" class="sec">
+  <div class="mhd">
+    <div>
+      <div class="eyebrow">Module 05</div>
+      <h2>Design<br><em>System</em></h2>
+      <p class="mhd-sub">Un design system est la bibliothèque partagée entre designers et développeurs. Il garantit la cohérence à l'échelle, accélère la production, et documente les décisions pour l'ensemble de l'équipe.</p>
+    </div>
+    <div class="fig-wrap">
+      <div class="fig-n">§5</div>
+      <div class="fig-d">Cohérence<br>à l'échelle</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag t-burg">Atomic Design</span>
+    <span class="tag t-sand">Tailwind CSS</span>
+    <span class="tag t-burg">shadcn/ui</span>
+    <span class="tag">Tokens Pipeline</span>
+    <span class="tag t-slate">States & Variants</span>
+    <span class="tag">Documentation</span>
+  </div>
+
+  <div class="card">
+    <div class="card-line"></div>
+    <h3>Atomic Design — La hiérarchie des composants</h3>
+    <div class="formula">
+      <span class="gold">Atoms</span> <span class="dim">— primitives UI : bouton, input, badge, label, icône, divider, avatar</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;↓ combinés forment<br>
+      <span class="gold">Molecules</span> <span class="dim">— card, searchbar, dropdown, form field (label + input + message d'erreur)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;↓ assemblés forment<br>
+      <span class="gold">Organisms</span> <span class="dim">— navigation, hero, pricing table, comment thread, data table</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;↓ organisés en<br>
+      <span class="gold">Templates</span> <span class="dim">— layouts de pages : dashboard, landing, onboarding, settings</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;↓ peuplés de contenu réel<br>
+      <span class="dim">Pages — les écrans finaux livrables</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Les 5 états de chaque composant — L'exigence minimum</h3>
+    <p>Un composant sans états documentés est incomplet. Chaque atome doit exister en 5 états au minimum dans Figma, implémentés en code. C'est la différence entre un composant et une capture d'écran statique.</p>
+    <table>
+      <tr><th>État</th><th>CSS/Tailwind</th><th>Signification</th></tr>
+      <tr><td><strong>Default</strong></td><td>Aucun modifier</td><td>État de repos au chargement</td></tr>
+      <tr><td><strong>Hover</strong></td><td><code>hover:</code></td><td>Survol — indique l'interactivité</td></tr>
+      <tr><td><strong>Focus</strong></td><td><code>focus-visible:</code></td><td>Navigation clavier — accessibilité critique</td></tr>
+      <tr><td><strong>Disabled</strong></td><td><code>disabled:</code> + <code>aria-disabled</code></td><td>Non interactif — opacity + cursor not-allowed</td></tr>
+      <tr><td><strong>Loading</strong></td><td>Skeleton ou spinner + aria-busy</td><td>Action en cours — évite les double-clics</td></tr>
+      <tr><td><strong>Error / Success</strong></td><td>Classes conditionnelles</td><td>Feedback sur les formulaires et actions</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Tailwind CSS — Le design system en code</h3>
+    <p>Tailwind n'est pas une liste de classes CSS — c'est un <strong>design system configurable</strong>. Votre <code>tailwind.config.ts</code> est le miroir exact de vos Variables Figma. Ce fichier de config EST votre design system côté code.</p>
+    <div class="cb">
+      <div class="cb-hd"><span class="cb-title">typescript — tailwind.config.ts aligné sur les tokens Figma</span><button class="cpbtn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">import type</span> { <span class="typ">Config</span> } <span class="kw">from</span> <span class="str">'tailwindcss'</span>
+
+<span class="kw">export default</span> {
+  content: [<span class="str">'./src/**/*.{ts,tsx}'</span>],
+  theme: {
+    extend: {
+      colors: {
+        <span class="com">// Miroir exact des primitives Figma Variables</span>
+        burgundy: {
+          <span class="num">900</span>: <span class="str">'#5c0f1e'</span>,
+          <span class="num">700</span>: <span class="str">'#8c1a2d'</span>,   <span class="com">// = --action-primary</span>
+          <span class="num">500</span>: <span class="str">'#c24760'</span>,
+          <span class="num">300</span>: <span class="str">'#e89aaa'</span>,
+          <span class="num">100</span>: <span class="str">'#fce8ec'</span>,
+        },
+        sand: {
+          <span class="num">700</span>: <span class="str">'#9a7830'</span>,
+          <span class="num">500</span>: <span class="str">'#c6a85e'</span>,
+          <span class="num">300</span>: <span class="str">'#dfc37c'</span>,
+        },
+        ink: {
+          <span class="num">900</span>: <span class="str">'#1c1712'</span>,
+          <span class="num">700</span>: <span class="str">'#332d25'</span>,
+          <span class="num">500</span>: <span class="str">'#5c5248'</span>,
+          <span class="num">300</span>: <span class="str">'#8a7e72'</span>,
+          <span class="num">100</span>: <span class="str">'#d4cec8'</span>,
+        },
+        ivory: {
+          DEFAULT: <span class="str">'#f4efe6'</span>,
+          <span class="num">200</span>: <span class="str">'#ece6d9'</span>,
+        }
+      },
+      fontFamily: {
+        display: [<span class="str">'Cormorant Garamond'</span>, <span class="str">'Georgia'</span>, <span class="str">'serif'</span>],
+        sans:    [<span class="str">'Barlow Condensed'</span>, <span class="str">'system-ui'</span>, <span class="str">'sans-serif'</span>],
+        mono:    [<span class="str">'Courier Prime'</span>, <span class="str">'Courier New'</span>, <span class="str">'monospace'</span>],
+      },
+      fontSize: {
+        <span class="com">// Type scale 1.250 — mirror exact de la Figma scale</span>
+        <span class="str">'hero'</span>:  [<span class="str">'clamp(3.5rem,8vw,7rem)'</span>,   { lineHeight: <span class="str">'0.92'</span>, letterSpacing: <span class="str">'-0.025em'</span> }],
+        <span class="str">'h1'</span>:    [<span class="str">'clamp(2.5rem,6vw,4.5rem)'</span>, { lineHeight: <span class="str">'0.95'</span>, letterSpacing: <span class="str">'-0.015em'</span> }],
+        <span class="str">'h2'</span>:    [<span class="str">'clamp(2rem,4.5vw,3rem)'</span>,   { lineHeight: <span class="str">'1.05'</span> }],
+        <span class="str">'body'</span>:  [<span class="str">'1rem'</span>,                      { lineHeight: <span class="str">'1.65'</span> }],
+        <span class="str">'label'</span>: [<span class="str">'0.72rem'</span>,                   { lineHeight: <span class="str">'1'</span>, letterSpacing: <span class="str">'0.12em'</span> }],
+      },
+      spacing: {
+        <span class="com">// 8pt grid — multiples de 4 et 8</span>
+        <span class="str">'1'</span>: <span class="str">'4px'</span>,  <span class="str">'2'</span>: <span class="str">'8px'</span>,  <span class="str">'3'</span>: <span class="str">'12px'</span>,
+        <span class="str">'4'</span>: <span class="str">'16px'</span>, <span class="str">'5'</span>: <span class="str">'20px'</span>, <span class="str">'6'</span>: <span class="str">'24px'</span>,
+        <span class="str">'8'</span>: <span class="str">'32px'</span>, <span class="str">'10'</span>:<span class="str">'40px'</span>, <span class="str">'12'</span>:<span class="str">'48px'</span>,
+        <span class="str">'16'</span>:<span class="str">'64px'</span>, <span class="str">'20'</span>:<span class="str">'80px'</span>, <span class="str">'24'</span>:<span class="str">'96px'</span>,
+      },
+      borderRadius: {
+        sm: <span class="str">'3px'</span>, DEFAULT: <span class="str">'5px'</span>, md: <span class="str">'8px'</span>, lg: <span class="str">'12px'</span>, full: <span class="str">'9999px'</span>
+      }
+    }
+  }
+} <span class="kw">satisfies</span> <span class="typ">Config</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>shadcn/ui — Brancher un design system sur votre identité</h3>
+    <p>shadcn/ui n'est pas une bibliothèque classique — le code est copié dans votre projet et vous appartient. Chaque composant est personnalisable via Tailwind et vos CSS variables. L'infrastructure idéale : vous n'avez pas à construire un bouton accessible et responsive from scratch.</p>
+    <div class="cb">
+      <div class="cb-hd"><span class="cb-title">bash + css — Installer shadcn et brancher votre palette</span><button class="cpbtn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com"># Initialiser dans un projet Next.js</span>
+npx shadcn@latest init
+
+<span class="com"># Ajouter des composants (copiés dans votre /components/ui)</span>
+npx shadcn@latest add button card input dialog badge
+
+<span class="com">/* globals.css — Remplacer les variables shadcn par votre palette */</span>
+<span class="com">/* shadcn utilise des variables HSL — convertir vos HEX */</span>
+<span class="kw">:root</span> {
+  --background:          <span class="num">42 30% 93%</span>;   <span class="com">/* ivory #f4efe6 */</span>
+  --foreground:          <span class="num">25 22% 10%</span>;   <span class="com">/* ink   #1c1712 */</span>
+  --card:                <span class="num">40 40% 97%</span>;   <span class="com">/* surf  #faf7f1 */</span>
+  --primary:             <span class="num">349 69% 33%</span>;  <span class="com">/* burgundy #8c1a2d */</span>
+  --primary-foreground:  <span class="num">42 30% 95%</span>;   <span class="com">/* ivory */</span>
+  --secondary:           <span class="num">38 45% 57%</span>;   <span class="com">/* sand   #c6a85e */</span>
+  --muted:               <span class="num">38 20% 88%</span>;
+  --muted-foreground:    <span class="num">25 10% 45%</span>;
+  --accent:              <span class="num">38 45% 57%</span>;
+  --border:              <span class="num">30 15% 85%</span>;
+  --ring:                <span class="num">349 69% 33%</span>;  <span class="com">/* focus ring = primary */</span>
+  --radius:              <span class="num">0.3rem</span>;
+}
+
+<span class="com">/* Résultat : tous les composants shadcn utilisent votre identité */</span>
+<span class="com">/* Les développeurs écrivent : &lt;Button&gt; et obtiennent votre style */</span></pre>
+    </div>
+  </div>
+</div>
+
+<!-- EXÉCUTION -->
+<div id="execution" class="sec">
+  <div class="mhd">
+    <div>
+      <div class="eyebrow">Module 06</div>
+      <h2>Exécution<br><em>&amp; Assets</em></h2>
+      <p class="mhd-sub">Brand guidelines, logo sans designer, exports Figma, OG images dynamiques, et l'outillage IA pour produire des assets cohérents. L'identité qui tient dans tous les contextes d'usage.</p>
+    </div>
+    <div class="fig-wrap">
+      <div class="fig-n">§6</div>
+      <div class="fig-d">Du système<br>aux assets</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag t-burg">Brand Guidelines</span>
+    <span class="tag t-sand">Logo SVG</span>
+    <span class="tag">Favicon complet</span>
+    <span class="tag t-burg">OG Images</span>
+    <span class="tag t-slate">Midjourney</span>
+    <span class="tag">Export Figma</span>
+  </div>
+
+  <div class="card">
+    <div class="card-line"></div>
+    <h3>Logo sans designer — Les 3 approches par niveau</h3>
+    <table>
+      <tr><th>Approche</th><th>Outil</th><th>Difficulté</th><th>Ce qu'on obtient</th></tr>
+      <tr><td><strong>Wordmark typographique</strong></td><td>Figma + Google Fonts</td><td>Accessible</td><td>Professionnel si bien exécuté. 70% des meilleurs logos tech sont des wordmarks purs.</td></tr>
+      <tr><td><strong>Lettermark + forme géométrique</strong></td><td>Figma shapes + Pen Tool</td><td>Intermédiaire</td><td>Initiales stylisées avec une forme distinctive. Mémorable et déclinable.</td></tr>
+      <tr><td><strong>Logomark généré IA + retravaillé</strong></td><td>Midjourney → Vectorizer.ai → Figma</td><td>Avancé</td><td>Direction créative forte, nécessite retravail vectoriel et simplification.</td></tr>
+    </table>
+    <div class="pb">
+      <div class="pb-hd"><span class="pb-tag">Prompt Midjourney — Logo brand identity</span><button class="cpbtn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Structure : [style] logo for [nom], [description une phrase],</span>
+<span class="com">//             [3 adjectifs], [couleurs], [contraintes techniques]</span>
+
+minimalist geometric wordmark logo for "ARKANA",
+music production SaaS for independent artists,
+sophisticated precise elegant,
+deep burgundy and ivory palette,
+clean vector lines, no gradients, no drop shadows,
+white background, scalable from 16px to 1000px,
+professional brand identity, editorial quality,
+--style raw --v 6.1 --ar 3:1 --no texture noise ornament
+
+<span class="com">// Post-traitement obligatoire :</span>
+<span class="com">// 1. Upscale 2× la version retenue dans Midjourney</span>
+<span class="com">// 2. vectorizer.ai ou Adobe Express → SVG propre</span>
+<span class="com">// 3. Figma → simplifier les paths, ajuster les courbes de Bézier</span>
+<span class="com">// 4. Valider la lisibilité à 16px ET 1000px de large</span>
+<span class="com">// 5. Exporter les 6 déclinaisons (voir table ci-dessous)</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Déclinaisons du logo — Les 6 versions obligatoires</h3>
+    <p>Un logo professionnel existe en 6 déclinaisons minimum. Les créer comme composants avec variants dans Figma. Exportées ensemble = un logo kit.</p>
+    <table>
+      <tr><th>Version</th><th>Usage</th><th>Format d'export</th></tr>
+      <tr><td><strong>Horizontal positif</strong></td><td>Header web, présentations, documents sur fond clair</td><td>SVG + PNG transparent 1x/2x/3x</td></tr>
+      <tr><td><strong>Horizontal négatif</strong></td><td>Header sur fond sombre, vidéos, écrans noirs</td><td>SVG + PNG transparent 1x/2x/3x</td></tr>
+      <tr><td><strong>Vertical/Empilé</strong></td><td>Cartes de visite, packaging carré, profil social</td><td>SVG + PNG transparent</td></tr>
+      <tr><td><strong>Monochrome noir</strong></td><td>Impression, contrats, documents officiels</td><td>SVG + PDF</td></tr>
+      <tr><td><strong>Monochrome blanc</strong></td><td>Broderie, gravure, sérigraphie, fond coloré</td><td>SVG + PDF</td></tr>
+      <tr><td><strong>Icône seule</strong></td><td>Favicon, avatar app, app icon, très petite taille</td><td>SVG + PNG 16/32/64/180/512px</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>OG Images dynamiques — Branding automatisé à l'échelle</h3>
+    <div class="cb">
+      <div class="cb-hd"><span class="cb-title">typescript — OG Image Vercel Edge / Next.js</span><button class="cpbtn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// app/api/og/route.tsx</span>
+<span class="kw">import</span> { <span class="fn">ImageResponse</span> } <span class="kw">from</span> <span class="str">'next/og'</span>
+
+<span class="kw">export const</span> runtime = <span class="str">'edge'</span>
+
+<span class="kw">export async function</span> <span class="fn">GET</span>(req: <span class="typ">Request</span>) {
+  <span class="kw">const</span> { searchParams } = <span class="kw">new</span> <span class="fn">URL</span>(req.url)
+  <span class="kw">const</span> title    = searchParams.<span class="fn">get</span>(<span class="str">'title'</span>)    ?? <span class="str">'Mon Produit'</span>
+  <span class="kw">const</span> subtitle = searchParams.<span class="fn">get</span>(<span class="str">'subtitle'</span>) ?? <span class="str">''</span>
+  <span class="kw">const</span> category = searchParams.<span class="fn">get</span>(<span class="str">'category'</span>) ?? <span class="str">''</span>
+
+  <span class="kw">return new</span> <span class="fn">ImageResponse</span>(
+    &lt;div style={{
+      background: <span class="str">'#f4efe6'</span>,
+      width: <span class="str">'100%'</span>, height: <span class="str">'100%'</span>,
+      display: <span class="str">'flex'</span>, flexDirection: <span class="str">'column'</span>,
+      alignItems: <span class="str">'flex-start'</span>, justifyContent: <span class="str">'space-between'</span>,
+      padding: <span class="str">'72px 80px'</span>,
+    }}&gt;
+      <span class="com">/* Barre de couleur en haut */</span>
+      &lt;div style={{ position: <span class="str">'absolute'</span>, top: <span class="num">0</span>, left: <span class="num">0</span>, right: <span class="num">0</span>,
+        height: <span class="str">'6px'</span>, background: <span class="str">'#8c1a2d'</span> }} /&gt;
+      <span class="com">/* Category / eyebrow */</span>
+      &lt;div style={{ fontSize: <span class="num">22</span>, color: <span class="str">'#8c1a2d'</span>, fontWeight: <span class="num">600</span>,
+        letterSpacing: <span class="str">'0.15em'</span>, textTransform: <span class="str">'uppercase'</span> }}&gt;
+        {category}
+      &lt;/div&gt;
+      <span class="com">/* Titre principal */</span>
+      &lt;div style={{ fontSize: <span class="num">80</span>, fontWeight: <span class="num">700</span>, color: <span class="str">'#1c1712'</span>,
+        lineHeight: <span class="num">1.0</span>, maxWidth: <span class="str">'900px'</span> }}&gt;
+        {title}
+      &lt;/div&gt;
+      <span class="com">/* Footer avec subtitle + domaine */</span>
+      &lt;div style={{ display: <span class="str">'flex'</span>, justifyContent: <span class="str">'space-between'</span>,
+        width: <span class="str">'100%'</span>, alignItems: <span class="str">'flex-end'</span> }}&gt;
+        &lt;div style={{ fontSize: <span class="num">30</span>, color: <span class="str">'#5c5248'</span> }}&gt;{subtitle}&lt;/div&gt;
+        &lt;div style={{ fontSize: <span class="num">26</span>, color: <span class="str">'#8c1a2d'</span> }}&gt;monsite.com&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;,
+    { width: <span class="num">1200</span>, height: <span class="num">630</span> }
+  )
+}
+
+<span class="com">// Dans generateMetadata() :</span>
+<span class="com">// openGraph: { images: [{ url: `/api/og?title=${encodeURI(title)}&category=${cat}` }] }</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Brand Guidelines — Structure du document vivant</h3>
+    <details>
+      <summary>01 — Brand Story (1-2 pages)</summary>
+      <div class="det-body">Mission, valeurs, personnalité en 3 adjectifs, ton de voix avec exemples de formulations "on dit / on ne dit pas", audience cible, et positionnement concurrentiel en une phrase. Ce module est le contexte que chaque nouveau collaborateur lit en premier.</div>
+    </details>
+    <details>
+      <summary>02 — Logo & Règles d'usage</summary>
+      <div class="det-body">Les 6 déclinaisons avec fond de présentation, zone de protection minimum (= hauteur du X du logo), tailles minimales par support, et usages interdits illustrés : ne pas déformer, ne pas pivoter, ne pas recolorer, ne pas ajouter d'effets, ne pas utiliser le texte seul sans le logomark.</div>
+    </details>
+    <details>
+      <summary>03 — Palette de couleurs complète</summary>
+      <div class="det-body">Chaque couleur avec HEX, RGB, HSL, CMJN, Pantone. Proportion d'usage (60/30/10). Combinaisons fond/texte validées WCAG AA. Exemples de combinaisons interdites. Palette de couleurs sémantiques (success, warning, error) distincte de la palette brand.</div>
+    </details>
+    <details>
+      <summary>04 — Typographie</summary>
+      <div class="det-body">Les 2 familles avec spécimens sur fond clair ET sombre. Type scale complète (H1→H2→H3→body→caption→label). Line-height et letter-spacing pour chaque niveau. Cas d'usage (quand utiliser le display serif vs le condensed sans). Lien de téléchargement ou référence Google Fonts.</div>
+    </details>
+    <details>
+      <summary>05 — Photographie & Imagerie</summary>
+      <div class="det-body">Style photographique : traitement colorimétrique (désaturé, contraste élevé, palette restreinte), sujets permis et interdits, composition (plein cadre, beaucoup d'air, noir & blanc seulement). Banques recommandées avec liens. Règles pour l'illustration et les icônes. Exemples "do/don't".</div>
+    </details>
+    <details>
+      <summary>06 — Templates prêts à l'emploi</summary>
+      <div class="det-body">Signature email (HTML + image), template présentation (Figma ou Google Slides), post social (format carré 1080×1080 + format horizontal), en-tête document Word/PDF, proposition commerciale. Tous disponibles en téléchargement direct depuis le document.</div>
+    </details>
+  </div>
+
+  <div class="mrow">
+    <div class="mc">
+      <div class="mc-n">2h</div>
+      <div class="mc-d">Pour créer une identité complète — du moodboard aux tokens CSS — avec ce workflow</div>
+    </div>
+    <div class="mc">
+      <div class="mc-n">0€</div>
+      <div class="mc-d">Stack complet gratuit : Figma Free + Google Fonts + shadcn/ui + Coolors</div>
+    </div>
+    <div class="mc">
+      <div class="mc-n">1×</div>
+      <div class="mc-d">Un design system bien structuré se crée une fois et s'étend sans refonte</div>
+    </div>
+  </div>
+
+  <div class="alert a-burg">
+    <span class="a-icon">◆</span>
+    <div><strong>Axes de progression non demandés :</strong> (1) <strong>Motion Design System</strong> — définir les durées, easings, et animations comme tokens (50ms interaction, 150ms transitions, 300ms modals + courbes cubic-bezier) pour une cohérence d'animation à l'échelle. (2) <strong>Tokens Pipeline automatisé</strong> — Figma Variables → Tokens Studio → Style Dictionary → CSS Variables + Tailwind config simultanément, sans synchronisation manuelle. (3) <strong>Brand in AI prompts</strong> — documenter dans vos brand guidelines les prompts Midjourney/Flux calibrés sur votre identité visuelle, pour que n'importe qui dans l'équipe génère des images cohérentes avec votre charte.</div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+function show(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const map={intro:'Intro',fondations:'Fondations',couleurs:'Couleurs',
+    typo:'Typographie',figma:'Figma',systeme:'Design System',execution:'Exécution'};
+  document.querySelectorAll('.nb').forEach(b=>{
+    b.classList.toggle('active',b.textContent.trim()===(map[id]||''));
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function copyCode(btn){
+  const c=btn.closest('.cb,.pb');
+  const pre=c.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{
+    btn.textContent='copied!';btn.style.color='#c6a85e';
+    setTimeout(()=>{btn.textContent='copy';btn.style.color=''},2000);
+  });
+}
+document.addEventListener('keydown',e=>{
+  const ss=['intro','fondations','couleurs','typo','figma','systeme','execution'];
+  const cur=ss.findIndex(s=>document.getElementById(s).classList.contains('active'));
+  if(e.key==='ArrowRight'&&cur<ss.length-1)show(ss[cur+1]);
+  if(e.key==='ArrowLeft'&&cur>0)show(ss[cur-1]);
+});
+</script>
+</body>
+</html>

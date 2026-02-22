@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUPABASE MASTERY</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #18181f;
+    --border: #2a2a38;
+    --green: #3ecf8e;
+    --green-dim: #1a6b47;
+    --green-glow: rgba(62,207,142,0.12);
+    --cyan: #00d4ff;
+    --orange: #ff6b35;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --code-bg: #0d1117;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--green);
+    letter-spacing: 0.1em;
+  }
+
+  .logo span { color: var(--muted); }
+
+  nav {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-btn:hover, .nav-btn.active {
+    color: var(--green);
+    border-color: var(--green-dim);
+    background: var(--green-glow);
+  }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 2rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(62,207,142,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--green);
+    border: 1px solid var(--green-dim);
+    background: var(--green-glow);
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  h1 .highlight { color: var(--green); }
+  h1 .dim { color: var(--muted); }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+  }
+
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .module-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+  }
+
+  .module-chip:hover {
+    border-color: var(--green-dim);
+    background: var(--green-glow);
+    transform: translateY(-1px);
+  }
+
+  .chip-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .chip-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+  }
+
+  .chip-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* MODULE HEADER */
+  .module-header {
+    border-left: 3px solid var(--green);
+    padding: 2rem 2rem 2rem;
+    background: var(--surface);
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .module-header::after {
+    content: attr(data-icon);
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 4rem;
+    opacity: 0.08;
+  }
+
+  .module-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .module-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  .module-header p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .card h3::before {
+    content: '▸';
+    color: var(--green);
+    font-size: 0.8rem;
+  }
+
+  .card p, .card li {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.8;
+  }
+
+  .card ul {
+    list-style: none;
+    padding-left: 1rem;
+  }
+
+  .card ul li::before {
+    content: '→ ';
+    color: var(--green);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 1rem 0;
+    overflow: hidden;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-lang {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .copy-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .copy-btn:hover { color: var(--green); border-color: var(--green-dim); }
+
+  pre {
+    padding: 1.25rem;
+    overflow-x: auto;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: #c9d1d9;
+  }
+
+  .kw { color: #ff7b72; }
+  .str { color: #a5d6ff; }
+  .fn { color: #d2a8ff; }
+  .com { color: #8b949e; font-style: italic; }
+  .num { color: #79c0ff; }
+  .var { color: #ffa657; }
+  .type { color: #3ecf8e; }
+
+  /* ALERT */
+  .alert {
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .alert-warn {
+    background: rgba(255,107,53,0.08);
+    border: 1px solid rgba(255,107,53,0.3);
+    color: #ff9d6b;
+  }
+
+  .alert-info {
+    background: var(--green-glow);
+    border: 1px solid var(--green-dim);
+    color: var(--green);
+  }
+
+  .alert-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin: 1rem 0;
+  }
+
+  th {
+    background: var(--surface2);
+    color: var(--green);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(42,42,56,0.5);
+    color: var(--muted);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  td code, p code, li code {
+    font-family: 'Space Mono', monospace;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    font-size: 0.82em;
+    color: var(--cyan);
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 2rem 0;
+  }
+
+  /* GRID 2 */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    .modules-grid { grid-template-columns: repeat(2, 1fr); }
+    nav { display: none; }
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 3rem;
+  }
+
+  .progress-segment {
+    height: 3px;
+    flex: 1;
+    background: var(--border);
+    border-radius: 2px;
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+
+  .progress-segment.done { background: var(--green); }
+
+  /* CONCEPT TAG */
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .tag.green { border-color: var(--green-dim); color: var(--green); background: var(--green-glow); }
+  .tag.orange { border-color: rgba(255,107,53,0.4); color: var(--orange); background: rgba(255,107,53,0.08); }
+  .tag.cyan { border-color: rgba(0,212,255,0.3); color: var(--cyan); background: rgba(0,212,255,0.05); }
+
+  /* ACCORDION */
+  details {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+  }
+
+  summary {
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text);
+  }
+
+  summary::after { content: '+'; color: var(--green); font-size: 1.2rem; }
+  details[open] summary::after { content: '−'; }
+
+  details .details-content {
+    padding: 0 1.25rem 1.25rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0;
+    padding-top: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">SUPABASE<span>_</span>MASTERY</div>
+  <nav>
+    <button class="nav-btn active" onclick="showSection('intro')">Intro</button>
+    <button class="nav-btn" onclick="showSection('auth')">Auth</button>
+    <button class="nav-btn" onclick="showSection('postgres')">Postgres</button>
+    <button class="nav-btn" onclick="showSection('rls')">RLS</button>
+    <button class="nav-btn" onclick="showSection('realtime')">Realtime</button>
+    <button class="nav-btn" onclick="showSection('storage')">Storage</button>
+    <button class="nav-btn" onclick="showSection('edge')">Edge Fn</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">Cours complet · Backend as a Service</div>
+  <h1>
+    <span class="highlight">Supabase</span><br>
+    <span class="dim">Mastery</span>
+  </h1>
+  <p class="hero-sub">
+    Auth, Postgres, RLS, Realtime, Storage, Edge Functions — maîtrisez l'infrastructure complète qui remplace Firebase avec la puissance du SQL.
+  </p>
+  <div class="modules-grid">
+    <div class="module-chip" onclick="showSection('auth')">
+      <div class="chip-icon">🔐</div>
+      <span class="chip-label">Module 1</span>
+      <div class="chip-title">Authentication</div>
+    </div>
+    <div class="module-chip" onclick="showSection('postgres')">
+      <div class="chip-icon">🐘</div>
+      <span class="chip-label">Module 2</span>
+      <div class="chip-title">Postgres</div>
+    </div>
+    <div class="module-chip" onclick="showSection('rls')">
+      <div class="chip-icon">🛡️</div>
+      <span class="chip-label">Module 3</span>
+      <div class="chip-title">RLS</div>
+    </div>
+    <div class="module-chip" onclick="showSection('realtime')">
+      <div class="chip-icon">⚡</div>
+      <span class="chip-label">Module 4</span>
+      <div class="chip-title">Realtime</div>
+    </div>
+    <div class="module-chip" onclick="showSection('storage')">
+      <div class="chip-icon">📦</div>
+      <span class="chip-label">Module 5</span>
+      <div class="chip-title">Storage</div>
+    </div>
+    <div class="module-chip" onclick="showSection('edge')">
+      <div class="chip-icon">🌐</div>
+      <span class="chip-label">Module 6</span>
+      <div class="chip-title">Edge Functions</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- INTRO SECTION -->
+<div id="intro" class="section active">
+  <div class="module-header" data-icon="∑">
+    <div class="module-number">Vue d'ensemble</div>
+    <h2>Qu'est-ce que Supabase ?</h2>
+    <p>L'alternative open-source à Firebase — PostgreSQL + Auth + Storage + Realtime + Edge Functions dans une seule plateforme.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Architecture globale</h3>
+      <p>Supabase est une couche d'abstraction au-dessus de PostgreSQL. Chaque projet Supabase est une instance Postgres dédiée, exposée via une API REST auto-générée (PostgREST), un websocket Realtime, un serveur Auth (GoTrue), et un serveur de stockage S3-compatible.</p>
+    </div>
+    <div class="card">
+      <h3>Pourquoi pas Firebase ?</h3>
+      <ul>
+        <li>SQL réel = requêtes complexes, joins, agrégations</li>
+        <li>Open-source = auto-hébergeable</li>
+        <li>PostgreSQL = écosystème massif (pgvector, PostGIS...)</li>
+        <li>Row Level Security = sécurité côté base de données</li>
+        <li>Pas de vendor lock-in</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Stack technique sous le capot</h3>
+    <table>
+      <tr><th>Composant</th><th>Technologie</th><th>Rôle</th></tr>
+      <tr><td>Base de données</td><td><code>PostgreSQL 15+</code></td><td>Source de vérité principale</td></tr>
+      <tr><td>API REST</td><td><code>PostgREST</code></td><td>API auto-générée depuis le schéma</td></tr>
+      <tr><td>Authentification</td><td><code>GoTrue</code></td><td>JWT, OAuth, Magic Link</td></tr>
+      <tr><td>Realtime</td><td><code>Elixir Phoenix</code></td><td>Postgres WAL → WebSockets</td></tr>
+      <tr><td>Storage</td><td><code>S3-compatible</code></td><td>Fichiers avec policies RLS</td></tr>
+      <tr><td>Edge Functions</td><td><code>Deno</code></td><td>Serverless TypeScript</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Setup initial</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com"># Installer la CLI Supabase</span>
+npm install -g supabase
+
+<span class="com"># Initialiser un projet local</span>
+supabase init
+supabase start  <span class="com"># Lance Docker localement</span>
+
+<span class="com"># Installer le client JS</span>
+npm install @supabase/supabase-js</pre>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">import</span> { <span class="type">createClient</span> } <span class="kw">from</span> <span class="str">'@supabase/supabase-js'</span>
+
+<span class="kw">const</span> <span class="var">supabase</span> = <span class="fn">createClient</span>(
+  <span class="var">process</span>.env.<span class="var">NEXT_PUBLIC_SUPABASE_URL</span>,
+  <span class="var">process</span>.env.<span class="var">NEXT_PUBLIC_SUPABASE_ANON_KEY</span>
+)
+
+<span class="com">// Le client respecte automatiquement le JWT de l'user connecté</span>
+<span class="com">// → RLS s'applique de facto sur toutes les requêtes</span></pre>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">💡</span>
+    <span><strong>Clé anon vs service_role :</strong> La clé <code>anon</code> est publique (front-end) et soumise au RLS. La clé <code>service_role</code> bypass le RLS — ne jamais l'exposer côté client.</span>
+  </div>
+</div>
+
+<!-- AUTH SECTION -->
+<div id="auth" class="section">
+  <div class="module-header" data-icon="🔐">
+    <div class="module-number">Module 01</div>
+    <h2>Authentication</h2>
+    <p>Gestion complète des identités : email/password, OAuth providers, Magic Link, Phone OTP, et sessions JWT.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag green">JWT</span><span class="tag green">OAuth2</span><span class="tag">Sessions</span><span class="tag">Magic Link</span><span class="tag cyan">SSO</span><span class="tag orange">Sécurité</span>
+  </div>
+
+  <div class="card">
+    <h3>Flux d'authentification</h3>
+    <p>Supabase Auth (GoTrue) émet des <strong>JWT tokens</strong> contenant l'<code>user.id</code>, le <code>role</code>, et les <code>app_metadata</code>. Ce token est automatiquement injecté dans chaque requête Supabase → le RLS peut lire <code>auth.uid()</code> directement en base.</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// ── EMAIL / PASSWORD ──────────────────────────────</span>
+
+<span class="com">// Inscription</span>
+<span class="kw">const</span> { <span class="var">data</span>, <span class="var">error</span> } = <span class="kw">await</span> <span class="var">supabase</span>.auth.<span class="fn">signUp</span>({
+  email: <span class="str">'user@example.com'</span>,
+  password: <span class="str">'motdepasse123'</span>,
+  options: {
+    data: { full_name: <span class="str">'Jean Dupont'</span> }  <span class="com">// → user_metadata</span>
+  }
+})
+
+<span class="com">// Connexion</span>
+<span class="kw">const</span> { <span class="var">data</span>, <span class="var">error</span> } = <span class="kw">await</span> <span class="var">supabase</span>.auth.<span class="fn">signInWithPassword</span>({
+  email: <span class="str">'user@example.com'</span>,
+  password: <span class="str">'motdepasse123'</span>
+})
+
+<span class="com">// Déconnexion</span>
+<span class="kw">await</span> <span class="var">supabase</span>.auth.<span class="fn">signOut</span>()</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>OAuth Providers</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Google, GitHub, Discord, Apple, etc.</span>
+<span class="kw">const</span> { <span class="var">data</span>, <span class="var">error</span> } = <span class="kw">await</span> <span class="var">supabase</span>.auth.<span class="fn">signInWithOAuth</span>({
+  provider: <span class="str">'google'</span>,
+  options: {
+    redirectTo: <span class="str">'https://monapp.com/auth/callback'</span>,
+    scopes: <span class="str">'email profile'</span>,
+    queryParams: { access_type: <span class="str">'offline'</span> }
+  }
+})
+
+<span class="com">// Magic Link (lien email sans mot de passe)</span>
+<span class="kw">await</span> <span class="var">supabase</span>.auth.<span class="fn">signInWithOtp</span>({
+  email: <span class="str">'user@example.com'</span>,
+  options: { emailRedirectTo: <span class="str">'https://monapp.com/welcome'</span> }
+})
+
+<span class="com">// OTP SMS (nécessite un provider Twilio/MessageBird)</span>
+<span class="kw">await</span> <span class="var">supabase</span>.auth.<span class="fn">signInWithOtp</span>({ phone: <span class="str">'+33612345678'</span> })</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Gestion des sessions & listeners</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Récupérer la session courante</span>
+<span class="kw">const</span> { <span class="var">data</span>: { session } } = <span class="kw">await</span> <span class="var">supabase</span>.auth.<span class="fn">getSession</span>()
+<span class="kw">const</span> { <span class="var">data</span>: { user } } = <span class="kw">await</span> <span class="var">supabase</span>.auth.<span class="fn">getUser</span>()
+
+<span class="com">// Écouter les changements d'état auth</span>
+<span class="var">supabase</span>.auth.<span class="fn">onAuthStateChange</span>((<span class="var">event</span>, <span class="var">session</span>) => {
+  <span class="com">// events: SIGNED_IN | SIGNED_OUT | TOKEN_REFRESHED | USER_UPDATED</span>
+  <span class="kw">if</span> (<span class="var">event</span> === <span class="str">'SIGNED_IN'</span>) {
+    console.<span class="fn">log</span>(<span class="str">'User connecté:'</span>, <span class="var">session</span>.user.id)
+  }
+  <span class="kw">if</span> (<span class="var">event</span> === <span class="str">'TOKEN_REFRESHED'</span>) {
+    <span class="com">// Token auto-refresh toutes les 60min</span>
+  }
+})</pre>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Mettre à jour le profil</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">ts</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+        <pre><span class="kw">await</span> <span class="var">supabase</span>.auth.<span class="fn">updateUser</span>({
+  email: <span class="str">'nouveau@email.com'</span>,
+  password: <span class="str">'nouveauMdp'</span>,
+  data: { avatar_url: <span class="str">'...'</span> }
+})</pre>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Reset de mot de passe</h3>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">ts</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+        <pre><span class="kw">await</span> <span class="var">supabase</span>.auth
+  .<span class="fn">resetPasswordForEmail</span>(
+    <span class="str">'user@example.com'</span>,
+    { redirectTo: <span class="str">'https://app.com/reset'</span> }
+  )</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Custom JWT Claims (avancé)</h3>
+    <p>Pour ajouter des claims custom (rôle, organisation...) dans le JWT, on utilise une <strong>PostgreSQL Hook Function</strong> :</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">sql</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">-- Fonction appelée à chaque émission de token</span>
+<span class="kw">CREATE OR REPLACE FUNCTION</span> public.<span class="fn">custom_access_token_hook</span>(event jsonb)
+<span class="kw">RETURNS</span> jsonb
+<span class="kw">LANGUAGE</span> plpgsql
+<span class="kw">AS</span> $$
+<span class="kw">DECLARE</span>
+  claims jsonb;
+  user_role <span class="type">TEXT</span>;
+<span class="kw">BEGIN</span>
+  <span class="com">-- Récupérer le rôle depuis votre table</span>
+  <span class="kw">SELECT</span> role <span class="kw">INTO</span> user_role <span class="kw">FROM</span> public.user_profiles
+    <span class="kw">WHERE</span> id = (event->>&#39;user_id&#39;)::<span class="type">UUID</span>;
+
+  claims := event-><span class="str">'claims'</span>;
+  claims := jsonb_set(claims, <span class="str">'{user_role}'</span>, to_jsonb(user_role));
+
+  <span class="kw">RETURN</span> jsonb_set(event, <span class="str">'{claims}'</span>, claims);
+<span class="kw">END</span>;
+$$;</pre>
+    </div>
+  </div>
+
+  <div class="alert alert-warn">
+    <span class="alert-icon">⚠️</span>
+    <span><strong>Pattern à éviter :</strong> Ne stockez pas l'état auth dans votre propre state management. Utilisez <code>onAuthStateChange</code> comme source unique de vérité. Les sessions Supabase persistent dans localStorage automatiquement.</span>
+  </div>
+</div>
+
+<!-- POSTGRES SECTION -->
+<div id="postgres" class="section">
+  <div class="module-header" data-icon="🐘">
+    <div class="module-number">Module 02</div>
+    <h2>PostgreSQL & API</h2>
+    <p>Requêtes CRUD, relations, filtres avancés, fonctions stockées, et migrations avec Supabase CLI.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag green">PostgREST</span><span class="tag green">SQL</span><span class="tag">Migrations</span><span class="tag cyan">pgvector</span><span class="tag">RPC</span><span class="tag orange">Performance</span>
+  </div>
+
+  <div class="card">
+    <h3>CRUD de base</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// ── SELECT ────────────────────────────────────────</span>
+<span class="kw">const</span> { <span class="var">data</span>, <span class="var">error</span> } = <span class="kw">await</span> <span class="var">supabase</span>
+  .<span class="fn">from</span>(<span class="str">'posts'</span>)
+  .<span class="fn">select</span>(<span class="str">'id, title, created_at, author:profiles(name, avatar)'</span>)
+  .<span class="fn">eq</span>(<span class="str">'published'</span>, <span class="num">true</span>)
+  .<span class="fn">order</span>(<span class="str">'created_at'</span>, { ascending: <span class="num">false</span> })
+  .<span class="fn">range</span>(<span class="num">0</span>, <span class="num">19</span>)  <span class="com">// pagination : 20 éléments</span>
+
+<span class="com">// ── INSERT ────────────────────────────────────────</span>
+<span class="kw">const</span> { <span class="var">data</span> } = <span class="kw">await</span> <span class="var">supabase</span>
+  .<span class="fn">from</span>(<span class="str">'posts'</span>)
+  .<span class="fn">insert</span>({ title: <span class="str">'Mon article'</span>, user_id: <span class="var">user</span>.id })
+  .<span class="fn">select</span>()  <span class="com">// retourner la ligne créée</span>
+  .<span class="fn">single</span>()
+
+<span class="com">// ── UPDATE ────────────────────────────────────────</span>
+<span class="kw">await</span> <span class="var">supabase</span>
+  .<span class="fn">from</span>(<span class="str">'posts'</span>)
+  .<span class="fn">update</span>({ published: <span class="num">true</span>, updated_at: <span class="kw">new</span> <span class="type">Date</span>().toISOString() })
+  .<span class="fn">eq</span>(<span class="str">'id'</span>, postId)
+
+<span class="com">// ── DELETE ────────────────────────────────────────</span>
+<span class="kw">await</span> <span class="var">supabase</span>
+  .<span class="fn">from</span>(<span class="str">'posts'</span>)
+  .<span class="fn">delete</span>()
+  .<span class="fn">eq</span>(<span class="str">'id'</span>, postId)</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Filtres avancés</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="var">supabase</span>.<span class="fn">from</span>(<span class="str">'products'</span>).<span class="fn">select</span>(<span class="str">'*'</span>)
+  .<span class="fn">gte</span>(<span class="str">'price'</span>, <span class="num">10</span>).<span class="fn">lte</span>(<span class="str">'price'</span>, <span class="num">100</span>)     <span class="com">// BETWEEN</span>
+  .<span class="fn">in</span>(<span class="str">'category'</span>, [<span class="str">'music'</span>, <span class="str">'tech'</span>])       <span class="com">// IN</span>
+  .<span class="fn">ilike</span>(<span class="str">'name'</span>, <span class="str">'%guitar%'</span>)              <span class="com">// ILIKE (case insensitive)</span>
+  .<span class="fn">not</span>(<span class="str">'deleted_at'</span>, <span class="str">'is'</span>, <span class="num">null</span>)          <span class="com">// IS NOT NULL</span>
+  .<span class="fn">contains</span>(<span class="str">'tags'</span>, [<span class="str">'featured'</span>])         <span class="com">// Array contains</span>
+  .<span class="fn">overlaps</span>(<span class="str">'tags'</span>, [<span class="str">'new'</span>, <span class="str">'sale'</span>])       <span class="com">// Array overlap</span>
+  .<span class="fn">textSearch</span>(<span class="str">'description'</span>, <span class="str">'acoustic guitar'</span>, {
+    type: <span class="str">'websearch'</span>,
+    config: <span class="str">'french'</span>
+  })                                         <span class="com">// Full-text search</span>
+
+<span class="com">// OR condition</span>
+.<span class="fn">or</span>(<span class="str">'status.eq.active,status.eq.pending'</span>)
+
+<span class="com">// Filtre sur relation imbriquée</span>
+.<span class="fn">eq</span>(<span class="str">'profiles.role'</span>, <span class="str">'admin'</span>)</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Fonctions stockées (RPC)</h3>
+    <p>Quand PostgREST ne suffit pas, écrivez des fonctions SQL appelées via <code>rpc()</code>. Elles s'exécutent côté Postgres = performances maximales.</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">sql</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">-- Exemple : incrémenter les vues atomiquement</span>
+<span class="kw">CREATE OR REPLACE FUNCTION</span> public.<span class="fn">increment_views</span>(post_id <span class="type">UUID</span>)
+<span class="kw">RETURNS</span> <span class="type">INT</span>
+<span class="kw">LANGUAGE</span> sql
+<span class="kw">SECURITY DEFINER</span>  <span class="com">-- Exécute avec les droits du créateur</span>
+<span class="kw">AS</span> $$
+  <span class="kw">UPDATE</span> posts
+  <span class="kw">SET</span> views = views + <span class="num">1</span>
+  <span class="kw">WHERE</span> id = post_id
+  <span class="kw">RETURNING</span> views;
+$$;</pre>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Appel depuis le client</span>
+<span class="kw">const</span> { <span class="var">data</span> } = <span class="kw">await</span> <span class="var">supabase</span>
+  .<span class="fn">rpc</span>(<span class="str">'increment_views'</span>, { post_id: <span class="str">'uuid-123'</span> })
+
+<span class="com">// Fonction qui retourne une table</span>
+<span class="kw">const</span> { <span class="var">data</span> } = <span class="kw">await</span> <span class="var">supabase</span>
+  .<span class="fn">rpc</span>(<span class="str">'get_user_feed'</span>, { user_id: <span class="var">user</span>.id })
+  .<span class="fn">limit</span>(<span class="num">20</span>)</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Migrations avec Supabase CLI</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com"># Créer une migration</span>
+supabase migration new create_posts_table
+
+<span class="com"># Le fichier créé : supabase/migrations/20240101_create_posts_table.sql</span>
+<span class="com"># → écrire le SQL dedans</span>
+
+<span class="com"># Appliquer en local</span>
+supabase db reset
+
+<span class="com"># Appliquer en production</span>
+supabase db push
+
+<span class="com"># Générer les types TypeScript depuis le schéma</span>
+supabase gen types typescript --linked > types/supabase.ts</pre>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">sql — migration exemple</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">CREATE TABLE</span> public.posts (
+  id          <span class="type">UUID</span>        <span class="kw">DEFAULT</span> <span class="fn">gen_random_uuid</span>() <span class="kw">PRIMARY KEY</span>,
+  user_id     <span class="type">UUID</span>        <span class="kw">REFERENCES</span> auth.users(<span class="var">id</span>) <span class="kw">ON DELETE CASCADE</span>,
+  title       <span class="type">TEXT</span>        <span class="kw">NOT NULL</span>,
+  content     <span class="type">TEXT</span>,
+  published   <span class="type">BOOLEAN</span>     <span class="kw">DEFAULT</span> <span class="num">false</span>,
+  views       <span class="type">INT</span>         <span class="kw">DEFAULT</span> <span class="num">0</span>,
+  tags        <span class="type">TEXT[]</span>,
+  created_at  <span class="type">TIMESTAMPTZ</span> <span class="kw">DEFAULT</span> <span class="fn">now</span>()
+);
+
+<span class="com">-- Index pour les performances</span>
+<span class="kw">CREATE INDEX</span> posts_user_id_idx <span class="kw">ON</span> posts(user_id);
+<span class="kw">CREATE INDEX</span> posts_tags_gin_idx <span class="kw">ON</span> posts <span class="kw">USING</span> GIN(tags);
+
+<span class="com">-- Activer RLS</span>
+<span class="kw">ALTER TABLE</span> posts <span class="kw">ENABLE ROW LEVEL SECURITY</span>;</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>pgvector — Recherche sémantique</h3>
+    <p>Extension PostgreSQL pour stocker et requêter des embeddings vectoriels. Idéal pour la recherche IA.</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">sql</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">-- Activer l'extension</span>
+<span class="kw">CREATE EXTENSION IF NOT EXISTS</span> vector;
+
+<span class="com">-- Table avec colonne embedding</span>
+<span class="kw">ALTER TABLE</span> documents <span class="kw">ADD COLUMN</span> embedding <span class="type">vector(1536)</span>;
+
+<span class="com">-- Recherche par similarité cosinus</span>
+<span class="kw">SELECT</span> id, title, <span class="num">1</span> - (embedding <=> <span class="str">'[0.1,0.2,...]'</span>::vector) <span class="kw">AS</span> similarity
+<span class="kw">FROM</span> documents
+<span class="kw">ORDER BY</span> embedding <=> <span class="str">'[0.1,0.2,...]'</span>::vector
+<span class="kw">LIMIT</span> <span class="num">5</span>;
+
+<span class="com">-- Index HNSW pour les performances à grande échelle</span>
+<span class="kw">CREATE INDEX ON</span> documents <span class="kw">USING</span> hnsw (embedding vector_cosine_ops);</pre>
+    </div>
+  </div>
+</div>
+
+<!-- RLS SECTION -->
+<div id="rls" class="section">
+  <div class="module-header" data-icon="🛡️">
+    <div class="module-number">Module 03</div>
+    <h2>Row Level Security</h2>
+    <p>La sécurité au niveau de la base de données. Chaque ligne est protégée selon l'identité de l'utilisateur.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag orange">Sécurité critique</span><span class="tag green">Policies</span><span class="tag green">auth.uid()</span><span class="tag">RBAC</span><span class="tag cyan">Multi-tenant</span>
+  </div>
+
+  <div class="card">
+    <h3>Concept fondamental</h3>
+    <p>Sans RLS, n'importe qui avec votre clé <code>anon</code> peut lire toute la base. Avec RLS, PostgreSQL évalue une policy pour <strong>chaque ligne</strong> avant de la retourner. C'est transparent pour l'application — la sécurité est dans la base.</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">sql — pattern fondateur</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">-- 1. Activer RLS sur la table</span>
+<span class="kw">ALTER TABLE</span> posts <span class="kw">ENABLE ROW LEVEL SECURITY</span>;
+
+<span class="com">-- 2. Sans policy = PERSONNE ne peut rien faire</span>
+<span class="com">-- 3. Créer des policies explicites</span>
+
+<span class="com">-- Tout le monde peut lire les posts publiés</span>
+<span class="kw">CREATE POLICY</span> <span class="str">"public read published"</span> <span class="kw">ON</span> posts
+  <span class="kw">FOR SELECT USING</span> (published = <span class="num">true</span>);
+
+<span class="com">-- Un user ne peut lire QUE ses propres brouillons</span>
+<span class="kw">CREATE POLICY</span> <span class="str">"owner read drafts"</span> <span class="kw">ON</span> posts
+  <span class="kw">FOR SELECT USING</span> (
+    user_id = <span class="fn">auth.uid</span>()  <span class="com">-- auth.uid() = ID du user connecté</span>
+  );
+
+<span class="com">-- Un user ne peut modifier QUE ses propres posts</span>
+<span class="kw">CREATE POLICY</span> <span class="str">"owner update"</span> <span class="kw">ON</span> posts
+  <span class="kw">FOR UPDATE USING</span> (user_id = <span class="fn">auth.uid</span>());
+
+<span class="com">-- Insertion : forcer user_id = user connecté</span>
+<span class="kw">CREATE POLICY</span> <span class="str">"owner insert"</span> <span class="kw">ON</span> posts
+  <span class="kw">FOR INSERT WITH CHECK</span> (user_id = <span class="fn">auth.uid</span>());</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>USING vs WITH CHECK</h3>
+    <table>
+      <tr><th>Clause</th><th>Opération</th><th>Rôle</th></tr>
+      <tr><td><code>USING</code></td><td>SELECT, UPDATE, DELETE</td><td>Filtre les lignes <em>existantes</em> visibles</td></tr>
+      <tr><td><code>WITH CHECK</code></td><td>INSERT, UPDATE</td><td>Valide les données <em>écrites</em></td></tr>
+    </table>
+    <div class="alert alert-warn">
+      <span class="alert-icon">⚠️</span>
+      <span>Pour un UPDATE, les deux clauses s'appliquent : <code>USING</code> détermine quelles lignes peuvent être modifiées, <code>WITH CHECK</code> valide les nouvelles valeurs.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Patterns avancés</h3>
+    <details>
+      <summary>RBAC — Rôles applicatifs</summary>
+      <div class="details-content">
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">sql</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre><span class="com">-- Table des rôles</span>
+<span class="kw">CREATE TABLE</span> user_roles (
+  user_id <span class="type">UUID</span> <span class="kw">REFERENCES</span> auth.users,
+  role    <span class="type">TEXT</span> <span class="kw">CHECK</span> (role <span class="kw">IN</span> (<span class="str">'admin'</span>, <span class="str">'editor'</span>, <span class="str">'viewer'</span>))
+);
+
+<span class="com">-- Policy admin : accès total</span>
+<span class="kw">CREATE POLICY</span> <span class="str">"admin full access"</span> <span class="kw">ON</span> posts
+  <span class="kw">FOR ALL USING</span> (
+    <span class="kw">EXISTS</span> (
+      <span class="kw">SELECT</span> <span class="num">1</span> <span class="kw">FROM</span> user_roles
+      <span class="kw">WHERE</span> user_id = <span class="fn">auth.uid</span>() <span class="kw">AND</span> role = <span class="str">'admin'</span>
+    )
+  );</pre>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary>Multi-tenant — Isolation par organisation</summary>
+      <div class="details-content">
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">sql</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre><span class="com">-- Chaque ressource appartient à une org</span>
+<span class="kw">CREATE TABLE</span> documents (
+  id      <span class="type">UUID</span> <span class="kw">PRIMARY KEY DEFAULT gen_random_uuid</span>(),
+  org_id  <span class="type">UUID</span> <span class="kw">NOT NULL</span>,
+  content <span class="type">TEXT</span>
+);
+
+<span class="com">-- Table de membership</span>
+<span class="kw">CREATE TABLE</span> org_members (
+  org_id  <span class="type">UUID</span>,
+  user_id <span class="type">UUID</span> <span class="kw">REFERENCES</span> auth.users
+);
+
+<span class="com">-- Seuls les membres de l'org voient les documents</span>
+<span class="kw">CREATE POLICY</span> <span class="str">"org member access"</span> <span class="kw">ON</span> documents
+  <span class="kw">FOR SELECT USING</span> (
+    org_id <span class="kw">IN</span> (
+      <span class="kw">SELECT</span> org_id <span class="kw">FROM</span> org_members
+      <span class="kw">WHERE</span> user_id = <span class="fn">auth.uid</span>()
+    )
+  );</pre>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary>Service role — Bypass RLS côté serveur</summary>
+      <div class="details-content">
+        <div class="code-block">
+          <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre><span class="com">// Client admin côté serveur uniquement</span>
+<span class="kw">import</span> { <span class="type">createClient</span> } <span class="kw">from</span> <span class="str">'@supabase/supabase-js'</span>
+
+<span class="kw">const</span> <span class="var">adminClient</span> = <span class="fn">createClient</span>(
+  <span class="var">process</span>.env.<span class="var">SUPABASE_URL</span>,
+  <span class="var">process</span>.env.<span class="var">SUPABASE_SERVICE_ROLE_KEY</span>  <span class="com">// bypass RLS</span>
+)
+
+<span class="com">// OU : utiliser le client normal en impersonnant un user</span>
+<span class="kw">const</span> <span class="var">userClient</span> = <span class="fn">createClient</span>(url, anonKey, {
+  global: { headers: { Authorization: <span class="str">`Bearer </span>${userJwt}<span class="str">`</span> } }
+})</pre>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>Déboguer les policies</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">sql</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">-- Voir toutes les policies d'une table</span>
+<span class="kw">SELECT</span> schemaname, tablename, policyname, cmd, qual
+<span class="kw">FROM</span> pg_policies
+<span class="kw">WHERE</span> tablename = <span class="str">'posts'</span>;
+
+<span class="com">-- Tester en tant qu'user spécifique</span>
+<span class="kw">SET</span> request.jwt.claims = <span class="str">'{"sub": "uuid-de-l-user"}'</span>;
+<span class="kw">SET</span> role authenticated;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> posts;  <span class="com">-- Verra ce que l'user voit</span>
+<span class="kw">RESET</span> role;</pre>
+    </div>
+  </div>
+</div>
+
+<!-- REALTIME SECTION -->
+<div id="realtime" class="section">
+  <div class="module-header" data-icon="⚡">
+    <div class="module-number">Module 04</div>
+    <h2>Realtime</h2>
+    <p>Synchronisation temps-réel via WebSockets : changements de base de données, broadcast, et présence utilisateur.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag green">WebSockets</span><span class="tag green">Postgres WAL</span><span class="tag cyan">Broadcast</span><span class="tag cyan">Presence</span><span class="tag">CDC</span>
+  </div>
+
+  <div class="card">
+    <h3>3 modes Realtime</h3>
+    <table>
+      <tr><th>Mode</th><th>Source</th><th>Usage typique</th></tr>
+      <tr><td><code>postgres_changes</code></td><td>Postgres WAL (Write-Ahead Log)</td><td>Sync DB → UI en temps réel</td></tr>
+      <tr><td><code>broadcast</code></td><td>Messages applicatifs</td><td>Chat, notifications push</td></tr>
+      <tr><td><code>presence</code></td><td>État des clients connectés</td><td>Curseurs collaboratifs, "X est en ligne"</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>postgres_changes — Écouter la DB</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Écouter les INSERT sur une table</span>
+<span class="kw">const</span> <span class="var">channel</span> = <span class="var">supabase</span>
+  .<span class="fn">channel</span>(<span class="str">'posts-changes'</span>)
+  .<span class="fn">on</span>(
+    <span class="str">'postgres_changes'</span>,
+    {
+      event: <span class="str">'INSERT'</span>,   <span class="com">// 'INSERT' | 'UPDATE' | 'DELETE' | '*'</span>
+      schema: <span class="str">'public'</span>,
+      table: <span class="str">'posts'</span>,
+      filter: <span class="str">`user_id=eq.${userId}`</span>  <span class="com">// Filtre optionnel</span>
+    },
+    (<span class="var">payload</span>) => {
+      console.<span class="fn">log</span>(<span class="str">'Nouveau post:'</span>, <span class="var">payload</span>.new)
+      <span class="com">// payload.old = ancienne valeur (UPDATE/DELETE)</span>
+      <span class="com">// payload.new = nouvelle valeur (INSERT/UPDATE)</span>
+    }
+  )
+  .<span class="fn">subscribe</span>((<span class="var">status</span>) => {
+    <span class="kw">if</span> (<span class="var">status</span> === <span class="str">'SUBSCRIBED'</span>) console.<span class="fn">log</span>(<span class="str">'Connected!'</span>)
+  })
+
+<span class="com">// Désabonnement (IMPORTANT dans useEffect cleanup)</span>
+<span class="kw">return</span> () => { <span class="var">supabase</span>.<span class="fn">removeChannel</span>(<span class="var">channel</span>) }</pre>
+    </div>
+    <div class="alert alert-warn">
+      <span class="alert-icon">⚠️</span>
+      <span>Activer <strong>Replication</strong> sur la table dans Dashboard → Database → Replication, sinon aucun événement ne sera reçu.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Broadcast — Messages custom</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Créer un channel partagé (room)</span>
+<span class="kw">const</span> <span class="var">room</span> = <span class="var">supabase</span>.<span class="fn">channel</span>(<span class="str">'room:projet-123'</span>)
+
+<span class="com">// Écouter les messages</span>
+<span class="var">room</span>.<span class="fn">on</span>(<span class="str">'broadcast'</span>, { event: <span class="str">'cursor-move'</span> }, (<span class="var">payload</span>) => {
+  <span class="fn">updateCursor</span>(<span class="var">payload</span>.userId, <span class="var">payload</span>.x, <span class="var">payload</span>.y)
+})
+
+<span class="var">room</span>.<span class="fn">subscribe</span>(<span class="kw">async</span> (<span class="var">status</span>) => {
+  <span class="kw">if</span> (<span class="var">status</span> === <span class="str">'SUBSCRIBED'</span>) {
+    <span class="com">// Envoyer un message</span>
+    <span class="kw">await</span> <span class="var">room</span>.<span class="fn">send</span>({
+      type: <span class="str">'broadcast'</span>,
+      event: <span class="str">'cursor-move'</span>,
+      payload: { userId: <span class="str">'user-1'</span>, x: <span class="num">100</span>, y: <span class="num">200</span> }
+    })
+  }
+})</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Presence — Qui est en ligne ?</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">const</span> <span class="var">room</span> = <span class="var">supabase</span>.<span class="fn">channel</span>(<span class="str">'collab-doc-42'</span>)
+
+<span class="var">room</span>
+  .<span class="fn">on</span>(<span class="str">'presence'</span>, { event: <span class="str">'sync'</span> }, () => {
+    <span class="kw">const</span> <span class="var">state</span> = <span class="var">room</span>.<span class="fn">presenceState</span>()
+    <span class="com">// { 'key1': [{ user_id, name, cursor_color }], ... }</span>
+    <span class="fn">updateActiveUsers</span>(<span class="var">state</span>)
+  })
+  .<span class="fn">on</span>(<span class="str">'presence'</span>, { event: <span class="str">'join'</span> }, ({ key, newPresences }) => {
+    console.<span class="fn">log</span>(<span class="str">'Rejoint:'</span>, newPresences)
+  })
+  .<span class="fn">on</span>(<span class="str">'presence'</span>, { event: <span class="str">'leave'</span> }, ({ key, leftPresences }) => {
+    console.<span class="fn">log</span>(<span class="str">'Parti:'</span>, leftPresences)
+  })
+  .<span class="fn">subscribe</span>(<span class="kw">async</span> (<span class="var">status</span>) => {
+    <span class="kw">if</span> (<span class="var">status</span> === <span class="str">'SUBSCRIBED'</span>) {
+      <span class="com">// Se déclarer présent</span>
+      <span class="kw">await</span> <span class="var">room</span>.<span class="fn">track</span>({
+        user_id: <span class="var">user</span>.id,
+        name: <span class="var">user</span>.user_metadata.full_name,
+        cursor_color: <span class="str">'#3ecf8e'</span>,
+        online_at: <span class="kw">new</span> <span class="type">Date</span>().<span class="fn">toISOString</span>()
+      })
+    }
+  })</pre>
+    </div>
+  </div>
+</div>
+
+<!-- STORAGE SECTION -->
+<div id="storage" class="section">
+  <div class="module-header" data-icon="📦">
+    <div class="module-number">Module 05</div>
+    <h2>Storage</h2>
+    <p>Stockage de fichiers S3-compatible avec policies RLS, transformations d'images, et CDN intégré.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag green">S3-compatible</span><span class="tag green">Policies</span><span class="tag cyan">Image Transform</span><span class="tag">CDN</span><span class="tag">Signed URLs</span>
+  </div>
+
+  <div class="card">
+    <h3>Buckets : Public vs Private</h3>
+    <table>
+      <tr><th>Type</th><th>Accès</th><th>Usage</th></tr>
+      <tr><td>Public</td><td>URL directe sans auth</td><td>Avatars, assets publics, images produit</td></tr>
+      <tr><td>Private</td><td>Signed URL (temporaire) ou auth</td><td>Documents confidentiels, factures</td></tr>
+    </table>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript — Upload</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Upload d'un fichier</span>
+<span class="kw">const</span> { <span class="var">data</span>, <span class="var">error</span> } = <span class="kw">await</span> <span class="var">supabase</span>.storage
+  .<span class="fn">from</span>(<span class="str">'avatars'</span>)
+  .<span class="fn">upload</span>(<span class="str">`public/${user.id}/avatar.jpg`</span>, file, {
+    contentType: <span class="str">'image/jpeg'</span>,
+    upsert: <span class="num">true</span>  <span class="com">// Écraser si existe</span>
+  })
+
+<span class="com">// Récupérer l'URL publique</span>
+<span class="kw">const</span> { <span class="var">data</span>: { publicUrl } } = <span class="var">supabase</span>.storage
+  .<span class="fn">from</span>(<span class="str">'avatars'</span>)
+  .<span class="fn">getPublicUrl</span>(<span class="str">`public/${user.id}/avatar.jpg`</span>)
+
+<span class="com">// Signed URL (fichier privé, expire dans 1h)</span>
+<span class="kw">const</span> { <span class="var">data</span>: { signedUrl } } = <span class="kw">await</span> <span class="var">supabase</span>.storage
+  .<span class="fn">from</span>(<span class="str">'documents'</span>)
+  .<span class="fn">createSignedUrl</span>(<span class="str">'invoice.pdf'</span>, <span class="num">3600</span>)  <span class="com">// 3600 secondes</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Transformations d'images (CDN)</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Resize, crop, quality — tout dans l'URL</span>
+<span class="kw">const</span> { <span class="var">data</span> } = <span class="var">supabase</span>.storage
+  .<span class="fn">from</span>(<span class="str">'photos'</span>)
+  .<span class="fn">getPublicUrl</span>(<span class="str">'landscape.jpg'</span>, {
+    transform: {
+      width: <span class="num">800</span>,
+      height: <span class="num">600</span>,
+      resize: <span class="str">'cover'</span>,   <span class="com">// 'cover' | 'contain' | 'fill'</span>
+      quality: <span class="num">80</span>,        <span class="com">// 1-100</span>
+      format: <span class="str">'webp'</span>      <span class="com">// Conversion automatique</span>
+    }
+  })
+
+<span class="com">// Résultat : URL CDN avec paramètres de transformation</span>
+<span class="com">// Supabase génère et cache la version transformée</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Policies Storage (RLS)</h3>
+    <p>Les policies storage sont des policies SQL sur la table <code>storage.objects</code>. Elles permettent de contrôler qui peut lire, écrire, supprimer des fichiers.</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">sql</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">-- Permettre à un user de gérer SES propres fichiers</span>
+<span class="com">-- Le path doit commencer par son user_id</span>
+<span class="kw">CREATE POLICY</span> <span class="str">"user owns their files"</span>
+  <span class="kw">ON</span> storage.objects <span class="kw">FOR ALL</span>
+  <span class="kw">TO</span> authenticated
+  <span class="kw">USING</span> (
+    bucket_id = <span class="str">'avatars'</span>
+    <span class="kw">AND</span> (<span class="fn">storage.foldername</span>(name))[<span class="num">1</span>] = <span class="fn">auth.uid</span>()::<span class="type">text</span>
+  );
+
+<span class="com">-- Lecture publique d'un bucket public</span>
+<span class="kw">CREATE POLICY</span> <span class="str">"public read"</span>
+  <span class="kw">ON</span> storage.objects <span class="kw">FOR SELECT</span>
+  <span class="kw">USING</span> (bucket_id = <span class="str">'public-assets'</span>);
+
+<span class="com">-- Helpers utiles</span>
+<span class="com">-- storage.foldername(name) → ['folder', 'subfolder']</span>
+<span class="com">-- storage.filename(name)   → 'file.jpg'</span>
+<span class="com">-- storage.extension(name)  → 'jpg'</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Opérations courantes</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Lister les fichiers d'un dossier</span>
+<span class="kw">const</span> { <span class="var">data</span> } = <span class="kw">await</span> <span class="var">supabase</span>.storage
+  .<span class="fn">from</span>(<span class="str">'uploads'</span>)
+  .<span class="fn">list</span>(<span class="str">`${userId}/documents`</span>, {
+    limit: <span class="num">20</span>,
+    sortBy: { column: <span class="str">'created_at'</span>, order: <span class="str">'desc'</span> }
+  })
+
+<span class="com">// Télécharger un fichier</span>
+<span class="kw">const</span> { <span class="var">data</span> } = <span class="kw">await</span> <span class="var">supabase</span>.storage
+  .<span class="fn">from</span>(<span class="str">'documents'</span>)
+  .<span class="fn">download</span>(<span class="str">'rapport.pdf'</span>)
+<span class="com">// data = Blob</span>
+
+<span class="com">// Déplacer / Copier</span>
+<span class="kw">await</span> <span class="var">supabase</span>.storage
+  .<span class="fn">from</span>(<span class="str">'uploads'</span>)
+  .<span class="fn">move</span>(<span class="str">'old/path.jpg'</span>, <span class="str">'new/path.jpg'</span>)
+
+<span class="com">// Supprimer</span>
+<span class="kw">await</span> <span class="var">supabase</span>.storage
+  .<span class="fn">from</span>(<span class="str">'uploads'</span>)
+  .<span class="fn">remove</span>([<span class="str">'file1.jpg'</span>, <span class="str">'file2.pdf'</span>])</pre>
+    </div>
+  </div>
+</div>
+
+<!-- EDGE FUNCTIONS SECTION -->
+<div id="edge" class="section">
+  <div class="module-header" data-icon="🌐">
+    <div class="module-number">Module 06</div>
+    <h2>Edge Functions</h2>
+    <p>Serverless TypeScript (Deno) au plus près des utilisateurs. Webhooks, intégrations tier, logique métier sensible.</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag green">Deno</span><span class="tag green">TypeScript</span><span class="tag cyan">Webhooks</span><span class="tag">Stripe</span><span class="tag orange">Secrets</span><span class="tag">JWT</span>
+  </div>
+
+  <div class="card">
+    <h3>Anatomie d'une Edge Function</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript — supabase/functions/hello/index.ts</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">import</span> { serve } <span class="kw">from</span> <span class="str">'https://deno.land/std@0.168.0/http/server.ts'</span>
+<span class="kw">import</span> { <span class="type">createClient</span> } <span class="kw">from</span> <span class="str">'https://esm.sh/@supabase/supabase-js@2'</span>
+
+<span class="fn">serve</span>(<span class="kw">async</span> (<span class="var">req</span>: <span class="type">Request</span>) => {
+  <span class="com">// CORS headers</span>
+  <span class="kw">if</span> (<span class="var">req</span>.method === <span class="str">'OPTIONS'</span>) {
+    <span class="kw">return new</span> <span class="type">Response</span>(<span class="str">'ok'</span>, { headers: <span class="var">corsHeaders</span> })
+  }
+
+  <span class="kw">try</span> {
+    <span class="com">// Récupérer le JWT de l'user depuis Authorization header</span>
+    <span class="kw">const</span> <span class="var">authHeader</span> = <span class="var">req</span>.headers.<span class="fn">get</span>(<span class="str">'Authorization'</span>)!
+    
+    <span class="com">// Créer un client Supabase avec le JWT de l'user</span>
+    <span class="com">// → les requêtes respecteront le RLS de cet user</span>
+    <span class="kw">const</span> <span class="var">supabase</span> = <span class="fn">createClient</span>(
+      <span class="type">Deno</span>.env.<span class="fn">get</span>(<span class="str">'SUPABASE_URL'</span>)!,
+      <span class="type">Deno</span>.env.<span class="fn">get</span>(<span class="str">'SUPABASE_ANON_KEY'</span>)!,
+      { global: { headers: { Authorization: <span class="var">authHeader</span> } } }
+    )
+
+    <span class="kw">const</span> { <span class="var">data</span>: { user } } = <span class="kw">await</span> <span class="var">supabase</span>.auth.<span class="fn">getUser</span>()
+    
+    <span class="kw">const</span> { <span class="var">name</span> } = <span class="kw">await</span> <span class="var">req</span>.<span class="fn">json</span>()
+
+    <span class="kw">return new</span> <span class="type">Response</span>(
+      <span class="type">JSON</span>.<span class="fn">stringify</span>({ message: <span class="str">`Hello ${name}, user: ${user?.id}`</span> }),
+      { headers: { ...<span class="var">corsHeaders</span>, <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span> } }
+    )
+  } <span class="kw">catch</span> (<span class="var">error</span>) {
+    <span class="kw">return new</span> <span class="type">Response</span>(
+      <span class="type">JSON</span>.<span class="fn">stringify</span>({ error: <span class="var">error</span>.message }),
+      { status: <span class="num">400</span>, headers: <span class="var">corsHeaders</span> }
+    )
+  }
+})
+
+<span class="kw">const</span> <span class="var">corsHeaders</span> = {
+  <span class="str">'Access-Control-Allow-Origin'</span>: <span class="str">'*'</span>,
+  <span class="str">'Access-Control-Allow-Headers'</span>: <span class="str">'authorization, content-type'</span>,
+}</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Déploiement & Secrets</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com"># Créer une fonction</span>
+supabase functions new stripe-webhook
+
+<span class="com"># Déployer</span>
+supabase functions deploy stripe-webhook
+
+<span class="com"># Gérer les secrets (variables d'env)</span>
+supabase secrets set STRIPE_SECRET_KEY=sk_live_xxx
+supabase secrets set RESEND_API_KEY=re_xxx
+
+<span class="com"># Lister les secrets</span>
+supabase secrets list
+
+<span class="com"># Tester en local</span>
+supabase functions serve stripe-webhook --env-file .env.local</pre>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript — Appel depuis le client</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">const</span> { <span class="var">data</span>, <span class="var">error</span> } = <span class="kw">await</span> <span class="var">supabase</span>.functions
+  .<span class="fn">invoke</span>(<span class="str">'stripe-checkout'</span>, {
+    body: { priceId: <span class="str">'price_xxx'</span>, quantity: <span class="num">1</span> }
+  })</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Cas d'usage — Webhook Stripe</h3>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">typescript — webhook Stripe complet</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">import</span> Stripe <span class="kw">from</span> <span class="str">'https://esm.sh/stripe@12?target=deno'</span>
+
+<span class="kw">const</span> <span class="var">stripe</span> = <span class="kw">new</span> <span class="fn">Stripe</span>(<span class="type">Deno</span>.env.<span class="fn">get</span>(<span class="str">'STRIPE_SECRET_KEY'</span>)!, {
+  apiVersion: <span class="str">'2023-10-16'</span>,
+  httpClient: Stripe.<span class="fn">createFetchHttpClient</span>()
+})
+
+<span class="fn">serve</span>(<span class="kw">async</span> (<span class="var">req</span>) => {
+  <span class="kw">const</span> <span class="var">sig</span> = <span class="var">req</span>.headers.<span class="fn">get</span>(<span class="str">'stripe-signature'</span>)!
+  <span class="kw">const</span> <span class="var">body</span> = <span class="kw">await</span> <span class="var">req</span>.<span class="fn">text</span>()
+
+  <span class="com">// Vérifier la signature Stripe</span>
+  <span class="kw">const</span> <span class="var">event</span> = <span class="kw">await</span> <span class="var">stripe</span>.webhooks.<span class="fn">constructEventAsync</span>(
+    <span class="var">body</span>, <span class="var">sig</span>, <span class="type">Deno</span>.env.<span class="fn">get</span>(<span class="str">'STRIPE_WEBHOOK_SECRET'</span>)!
+  )
+
+  <span class="com">// Client admin (bypass RLS pour les opérations système)</span>
+  <span class="kw">const</span> <span class="var">adminClient</span> = <span class="fn">createClient</span>(
+    <span class="type">Deno</span>.env.<span class="fn">get</span>(<span class="str">'SUPABASE_URL'</span>)!,
+    <span class="type">Deno</span>.env.<span class="fn">get</span>(<span class="str">'SUPABASE_SERVICE_ROLE_KEY'</span>)!
+  )
+
+  <span class="kw">switch</span> (<span class="var">event</span>.type) {
+    <span class="kw">case</span> <span class="str">'checkout.session.completed'</span>: {
+      <span class="kw">const</span> <span class="var">session</span> = <span class="var">event</span>.data.object
+      <span class="kw">await</span> <span class="var">adminClient</span>
+        .<span class="fn">from</span>(<span class="str">'subscriptions'</span>)
+        .<span class="fn">upsert</span>({
+          user_id: <span class="var">session</span>.metadata.userId,
+          stripe_customer_id: <span class="var">session</span>.customer,
+          status: <span class="str">'active'</span>
+        })
+      <span class="kw">break</span>
+    }
+  }
+
+  <span class="kw">return new</span> <span class="type">Response</span>(<span class="type">JSON</span>.<span class="fn">stringify</span>({ received: <span class="num">true</span> }))
+})</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Database Webhooks (triggers vers Edge Functions)</h3>
+    <p>Déclencher automatiquement une Edge Function quand des données changent en base, sans polling.</p>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">sql — Trigger Supabase</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">-- Dans Dashboard → Database → Webhooks</span>
+<span class="com">-- Ou via SQL avec pg_net (extension HTTP pour Postgres)</span>
+
+<span class="kw">SELECT</span> supabase_functions.<span class="fn">http_request</span>(
+  <span class="str">'https://xxxx.supabase.co/functions/v1/on-user-created'</span>,
+  <span class="str">'POST'</span>,
+  <span class="str">'{"Content-Type":"application/json"}'</span>,
+  <span class="fn">row_to_json</span>(<span class="var">NEW</span>)::<span class="type">text</span>,
+  <span class="num">5000</span>  <span class="com">-- timeout ms</span>
+);</pre>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">🚀</span>
+    <span><strong>Axes de progression :</strong> 1) Implémenter un système d'emails transactionnels (Resend + Edge Functions) déclenché par des triggers DB. 2) Construire une pipeline d'embedding avec pgvector + OpenAI API dans une Edge Function. 3) Mettre en place une architecture multi-tenant complète avec organisations, membres et RLS croisé.</span>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const sectionMap = { intro:'Intro', auth:'Auth', postgres:'Postgres', rls:'RLS', realtime:'Realtime', storage:'Storage', edge:'Edge Fn' };
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    if(b.textContent.trim() === (sectionMap[id]||'')) b.classList.add('active');
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = 'copied!';
+    btn.style.color = '#3ecf8e';
+    setTimeout(() => { btn.textContent = 'copy'; btn.style.color = ''; }, 2000);
+  });
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  const sections = ['intro','auth','postgres','rls','realtime','storage','edge'];
+  const current = sections.findIndex(s => document.getElementById(s).classList.contains('active'));
+  if(e.key === 'ArrowRight' && current < sections.length-1) showSection(sections[current+1]);
+  if(e.key === 'ArrowLeft' && current > 0) showSection(sections[current-1]);
+});
+</script>
+</body>
+</html>

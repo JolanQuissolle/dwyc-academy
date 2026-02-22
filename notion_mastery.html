@@ -1,0 +1,2262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notion Mastery — Du débutant au power user</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0e0e;
+  --bg2: #161616;
+  --bg3: #1e1e1e;
+  --line: rgba(255,255,255,0.07);
+  --txt: #f0ede8;
+  --txt2: #a09d98;
+  --txt3: #605d58;
+  --notion: #f5c842;
+  --notion2: #f0b429;
+  --red: #ff4d4f;
+  --green: #52c41a;
+  --blue: #4096ff;
+  --purple: #a855f7;
+  --orange: #fa8c16;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--txt3); border-radius: 4px; }
+
+/* SIDEBAR + MAIN LAYOUT */
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  background: var(--bg2);
+  border-right: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 28px 20px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--notion);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: #000;
+  font-family: 'Instrument Serif', serif;
+  flex-shrink: 0;
+}
+
+.sidebar-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.sidebar-subtitle {
+  font-size: 11px;
+  color: var(--txt3);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.sidebar-progress {
+  margin-top: 12px;
+  height: 3px;
+  background: var(--bg3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--notion);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+
+.progress-text {
+  font-size: 10px;
+  color: var(--txt3);
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 4px;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 12px 0;
+  overflow-y: auto;
+}
+
+.nav-section {
+  padding: 8px 20px 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--txt3);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--txt2);
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+  position: relative;
+}
+
+.nav-item:hover {
+  background: rgba(255,255,255,0.04);
+  color: var(--txt);
+}
+
+.nav-item.active {
+  color: var(--notion);
+  background: rgba(245,200,66,0.06);
+  border-left-color: var(--notion);
+}
+
+.nav-item.done {
+  color: var(--green);
+}
+
+.nav-item.done::after {
+  content: '✓';
+  position: absolute;
+  right: 20px;
+  font-size: 10px;
+  color: var(--green);
+}
+
+.nav-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--txt3);
+  min-width: 20px;
+}
+
+.nav-emoji { font-size: 14px; min-width: 20px; text-align: center; }
+
+/* MAIN */
+.main {
+  overflow-y: auto;
+  height: 100vh;
+}
+
+/* PAGE */
+.page {
+  display: none;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 80px 60px 120px;
+  animation: fadeIn 0.3s ease;
+}
+
+.page.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity:0; transform: translateY(12px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+/* PAGE HEADER */
+.page-cover {
+  height: 160px;
+  border-radius: 16px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-emoji {
+  font-size: 48px;
+  margin-bottom: -8px;
+  position: relative;
+  z-index: 1;
+}
+
+.breadcrumb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--txt3);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.breadcrumb span { color: var(--txt3); }
+
+h1.page-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  color: var(--txt);
+}
+
+.page-desc {
+  font-size: 16px;
+  color: var(--txt2);
+  line-height: 1.6;
+  max-width: 640px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 32px;
+}
+
+/* CONTENT ELEMENTS */
+h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: 48px 0 16px;
+  color: var(--txt);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h2::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 24px;
+  background: var(--notion);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--txt3);
+  margin: 32px 0 12px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+p {
+  color: var(--txt2);
+  margin-bottom: 14px;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+p strong { color: var(--txt); font-weight: 600; }
+
+/* NOTION BLOCK SIMULATOR */
+.notion-block {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.notion-block-header {
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid var(--line);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--txt3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notion-block-body {
+  padding: 20px;
+}
+
+/* SHORTCUT TABLE */
+.shortcut-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0;
+  margin: 16px 0;
+}
+
+.shortcut-row {
+  display: contents;
+}
+
+.shortcut-row:hover .kbd,
+.shortcut-row:hover .shortcut-desc {
+  background: rgba(255,255,255,0.03);
+}
+
+.kbd {
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--line);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.shortcut-desc {
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--txt2);
+  display: flex;
+  align-items: center;
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg3);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 2px solid rgba(255,255,255,0.06);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--txt);
+  min-width: 24px;
+  text-align: center;
+}
+
+/* CARDS */
+.card-grid { display: grid; gap: 12px; }
+.card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.card:hover {
+  border-color: rgba(245,200,66,0.25);
+  transform: translateY(-2px);
+}
+
+.card-icon { font-size: 24px; margin-bottom: 12px; display: block; }
+.card-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--txt); }
+.card-desc { font-size: 13px; color: var(--txt2); line-height: 1.6; margin: 0; }
+
+/* CALLOUT */
+.callout {
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.callout-yellow { background: rgba(245,200,66,0.08); border: 1px solid rgba(245,200,66,0.2); }
+.callout-blue { background: rgba(64,150,255,0.08); border: 1px solid rgba(64,150,255,0.2); }
+.callout-red { background: rgba(255,77,79,0.08); border: 1px solid rgba(255,77,79,0.2); }
+.callout-green { background: rgba(82,196,26,0.08); border: 1px solid rgba(82,196,26,0.2); }
+.callout-purple { background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.2); }
+
+.callout-emoji { font-size: 20px; line-height: 1.5; flex-shrink: 0; margin-top: 1px; }
+.callout-content { font-size: 14px; color: var(--txt2); line-height: 1.6; }
+.callout-content strong { color: var(--txt); }
+
+/* CODE */
+.code {
+  background: #0a0a0a;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: #a0aec0;
+  line-height: 1.9;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+.ck { color: var(--notion); }
+.cs { color: #86efac; }
+.cc { color: #374151; font-style: italic; }
+.cv { color: #60a5fa; }
+.cn { color: #f59e0b; }
+.cp { color: #c084fc; }
+
+/* STEPS */
+.steps { margin: 20px 0; }
+
+.step {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+
+.step:last-child { border-bottom: none; }
+
+.step-num {
+  width: 32px;
+  height: 32px;
+  background: var(--bg3);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--notion);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step-title { font-size: 15px; font-weight: 600; color: var(--txt); margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--txt2); line-height: 1.6; margin: 0; }
+
+/* FORMULA BOX */
+.formula {
+  background: #0a0a0a;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--notion);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--notion);
+  margin: 12px 0;
+  line-height: 1.8;
+}
+
+.formula .fc { color: var(--blue); }
+.formula .fa { color: #a0aec0; }
+.formula .fs { color: var(--green); }
+.formula .fn { color: var(--orange); }
+
+/* TABLE */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+th {
+  background: var(--bg3);
+  padding: 10px 14px;
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--txt3);
+  border-bottom: 1px solid var(--line);
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--txt2);
+  background: var(--bg2);
+  vertical-align: top;
+}
+td:first-child { color: var(--txt); font-weight: 600; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* BADGE */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  margin: 0 2px;
+}
+.badge-yellow { background: rgba(245,200,66,0.15); color: var(--notion); border: 1px solid rgba(245,200,66,0.3); }
+.badge-blue { background: rgba(64,150,255,0.12); color: var(--blue); border: 1px solid rgba(64,150,255,0.25); }
+.badge-purple { background: rgba(168,85,247,0.12); color: var(--purple); border: 1px solid rgba(168,85,247,0.25); }
+.badge-green { background: rgba(82,196,26,0.12); color: var(--green); border: 1px solid rgba(82,196,26,0.25); }
+.badge-red { background: rgba(255,77,79,0.12); color: var(--red); border: 1px solid rgba(255,77,79,0.25); }
+
+/* DIVIDER */
+.divider { height: 1px; background: var(--line); margin: 40px 0; }
+
+/* NAV BOTTOM */
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.page-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--txt2);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.page-nav-btn:hover {
+  border-color: var(--notion);
+  color: var(--notion);
+}
+
+.page-nav-btn span { font-size: 16px; }
+
+/* PROPERTY SHOWCASE */
+.property-list { margin: 16px 0; }
+.property-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.property-icon { font-size: 16px; min-width: 24px; text-align: center; }
+.property-name { font-size: 13px; font-weight: 600; color: var(--txt); min-width: 120px; }
+.property-desc { font-size: 13px; color: var(--txt2); flex: 1; }
+.property-example { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--notion); background: rgba(245,200,66,0.08); padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+
+/* TEMPLATE PREVIEW */
+.template-preview {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.tp-header {
+  background: var(--bg3);
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tp-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.tp-body { padding: 20px; }
+
+.tp-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--txt);
+  margin-bottom: 12px;
+}
+
+.tp-props {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.tp-prop {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.tp-prop-key { color: var(--txt3); font-family: 'JetBrains Mono', monospace; min-width: 80px; }
+.tp-prop-val { color: var(--txt2); }
+
+.tp-content {
+  font-size: 13px;
+  color: var(--txt3);
+  line-height: 1.7;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+/* ADVANCED FORMULA */
+.formula-explain {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 16px 0;
+}
+
+.fe-code {
+  background: #0a0a0a;
+  padding: 16px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--notion);
+  border-bottom: 1px solid var(--line);
+}
+
+.fe-explain {
+  padding: 14px 20px;
+  font-size: 13px;
+  color: var(--txt2);
+  line-height: 1.6;
+}
+
+/* LEVEL BADGE */
+.level {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.level-1 { background: rgba(82,196,26,0.1); color: var(--green); border: 1px solid rgba(82,196,26,0.25); }
+.level-2 { background: rgba(64,150,255,0.1); color: var(--blue); border: 1px solid rgba(64,150,255,0.25); }
+.level-3 { background: rgba(245,200,66,0.1); color: var(--notion); border: 1px solid rgba(245,200,66,0.25); }
+.level-4 { background: rgba(255,77,79,0.1); color: var(--red); border: 1px solid rgba(255,77,79,0.25); }
+
+.level::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* COVER GRADIENTS */
+.cover-1 { background: linear-gradient(135deg, #1a1a1a 0%, #2d2000 100%); }
+.cover-2 { background: linear-gradient(135deg, #0d1b2a 0%, #1a3a5c 100%); }
+.cover-3 { background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 100%); }
+.cover-4 { background: linear-gradient(135deg, #0a1a0a 0%, #1a3a1a 100%); }
+.cover-5 { background: linear-gradient(135deg, #1a0000 0%, #3a1a1a 100%); }
+.cover-6 { background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 100%); }
+.cover-7 { background: linear-gradient(135deg, #1a0a00 0%, #3a2a00 100%); }
+.cover-8 { background: linear-gradient(135deg, #001a1a 0%, #003a3a 100%); }
+.cover-home { background: linear-gradient(135deg, #0e0e0e 0%, #2a2000 50%, #0e0e0e 100%); }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: fixed; left: -280px; z-index: 1000; transition: left 0.3s; }
+  .sidebar.open { left: 0; }
+  .main { height: 100vh; }
+  .page { padding: 40px 24px 80px; }
+  .menu-btn { display: flex; }
+}
+
+.menu-btn {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--notion);
+  color: #000;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 999;
+  border: none;
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">N</div>
+      <div>
+        <div class="sidebar-title">Notion Mastery</div>
+        <div class="sidebar-subtitle">Cours complet</div>
+      </div>
+    </div>
+    <div class="sidebar-progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText">0 / 9 modules</div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section">Introduction</div>
+    <div class="nav-item active" onclick="goTo('home')">
+      <span class="nav-num">00</span>
+      <span class="nav-emoji">🏠</span>
+      Vue d'ensemble
+    </div>
+
+    <div class="nav-section">Fondamentaux</div>
+    <div class="nav-item" onclick="goTo('bases')">
+      <span class="nav-num">01</span>
+      <span class="nav-emoji">📄</span>
+      Blocs & Pages
+    </div>
+    <div class="nav-item" onclick="goTo('shortcuts')">
+      <span class="nav-num">02</span>
+      <span class="nav-emoji">⌨️</span>
+      Raccourcis & Commandes
+    </div>
+
+    <div class="nav-section">Bases de données</div>
+    <div class="nav-item" onclick="goTo('databases')">
+      <span class="nav-num">03</span>
+      <span class="nav-emoji">🗃️</span>
+      Bases de données
+    </div>
+    <div class="nav-item" onclick="goTo('views')">
+      <span class="nav-num">04</span>
+      <span class="nav-emoji">👁️</span>
+      Vues & Filtres
+    </div>
+    <div class="nav-item" onclick="goTo('relations')">
+      <span class="nav-num">05</span>
+      <span class="nav-emoji">🔗</span>
+      Relations & Rollups
+    </div>
+
+    <div class="nav-section">Avancé</div>
+    <div class="nav-item" onclick="goTo('formulas')">
+      <span class="nav-num">06</span>
+      <span class="nav-emoji">🧮</span>
+      Formules avancées
+    </div>
+    <div class="nav-item" onclick="goTo('automation')">
+      <span class="nav-num">07</span>
+      <span class="nav-emoji">⚡</span>
+      Automatisations
+    </div>
+
+    <div class="nav-section">Systèmes</div>
+    <div class="nav-item" onclick="goTo('systems')">
+      <span class="nav-num">08</span>
+      <span class="nav-emoji">🏗️</span>
+      Systèmes & Templates
+    </div>
+    <div class="nav-item" onclick="goTo('api')">
+      <span class="nav-num">09</span>
+      <span class="nav-emoji">🔌</span>
+      API & Intégrations
+    </div>
+  </nav>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main" id="main">
+
+<!-- ═══════════════════════════════════ HOME ═══════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <div class="page-cover cover-home">
+    <div class="page-emoji">📓</div>
+  </div>
+
+  <h1 class="page-title">Notion Mastery</h1>
+  <p class="page-desc">Du débutant complet au power user qui construit des systèmes complexes. Ce cours couvre chaque aspect de Notion — blocs, bases de données, formules, automatisations, API, et les templates pour une startup.</p>
+
+  <h2>Ce que tu vas maîtriser</h2>
+  <div class="card-grid card-grid-3">
+    <div class="card">
+      <span class="card-icon">📄</span>
+      <div class="card-title">Pages & Blocs</div>
+      <div class="card-desc">La syntaxe complète de Notion, tous les types de blocs, et comment structurer ton espace de travail.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">⌨️</span>
+      <div class="card-title">Raccourcis</div>
+      <div class="card-desc">Les 40+ raccourcis qui transforment ta vitesse de travail. Les commandes slash les plus utiles.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🗃️</span>
+      <div class="card-title">Bases de données</div>
+      <div class="card-desc">L'âme de Notion. Propriétés, types, vues, filtres, tris. Penser en database.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔗</span>
+      <div class="card-title">Relations & Rollups</div>
+      <div class="card-desc">Connecter tes bases entre elles. Créer des systèmes où les données se parlent.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🧮</span>
+      <div class="card-title">Formules</div>
+      <div class="card-desc">if(), dateAdd(), prop(), format() — les formules qui automatisent tes calculs.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">⚡</span>
+      <div class="card-title">Automatisations</div>
+      <div class="card-desc">Triggers, actions, Zapier/Make. Faire tourner Notion en arrière-plan.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🏗️</span>
+      <div class="card-title">Systèmes complets</div>
+      <div class="card-desc">CRM, OKR, project tracker, wiki. Les templates pour une startup.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔌</span>
+      <div class="card-title">API & Intégrations</div>
+      <div class="card-desc">L'API officielle Notion. Lire et écrire des données depuis du code Python/JS.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-yellow">
+    <span class="callout-emoji">💡</span>
+    <div class="callout-content"><strong>Notion en 1 phrase :</strong> C'est une application qui te permet de créer n'importe quel outil de gestion (notes, tâches, CRM, wiki, roadmap) en combinant des blocs de contenu et des bases de données — le tout dans une seule interface.</div>
+  </div>
+
+  <div class="page-nav">
+    <div></div>
+    <div class="page-nav-btn" onclick="goTo('bases')"><span>→</span> Module 01 : Blocs & Pages</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ BASES ═══════════════════════════════════ -->
+<div class="page" id="page-bases">
+  <div class="page-cover cover-1">
+    <div class="page-emoji">📄</div>
+  </div>
+
+  <div class="breadcrumb">Notion Mastery <span>/</span> Module 01</div>
+  <div class="level level-1">Niveau débutant</div>
+  <h1 class="page-title">Blocs & Pages</h1>
+  <p class="page-desc">Tout dans Notion est un bloc. Maîtriser les blocs, c'est maîtriser le langage de base de l'outil.</p>
+
+  <h2>La philosophie des blocs</h2>
+  <p>Chaque élément que tu vois dans Notion — un paragraphe, une image, un titre, une todo — est un <strong>bloc</strong>. Tu peux déplacer n'importe quel bloc avec un drag & drop. Tu peux le transformer en un autre type. Tu peux le mettre en colonne. Cette flexibilité est ce qui rend Notion si puissant.</p>
+
+  <div class="callout callout-blue">
+    <span class="callout-emoji">ℹ️</span>
+    <div class="callout-content">Une <strong>page</strong> est elle-même un bloc. Tu peux imbriquer des pages à l'infini. La structure de Notion = une arborescence de pages contenant des blocs contenant parfois d'autres pages.</div>
+  </div>
+
+  <h2>Tous les types de blocs</h2>
+
+  <h3>Blocs de texte</h3>
+  <div class="card-grid card-grid-2">
+    <div class="card">
+      <div class="card-title">📝 Text</div>
+      <div class="card-desc">Le bloc de base. Supporte le markdown : **gras**, *italique*, `code inline`, ~~barré~~, et les couleurs.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">H1 / H2 / H3</div>
+      <div class="card-desc">Titres de 3 niveaux. <code>#</code>, <code>##</code>, <code>###</code> en markdown. H1 est le plus grand, génère une section navigable.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">📋 Bulleted List</div>
+      <div class="card-desc">Liste à puces. <code>-</code> ou <code>*</code> pour créer. Tab pour indenter. Imbricable à l'infini.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔢 Numbered List</div>
+      <div class="card-desc">Liste numérotée. Commence par <code>1.</code>. La numérotation est automatique et se recalcule si tu réorganises.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">☑️ To-do</div>
+      <div class="card-desc">Case à cocher. <code>[]</code> pour créer. Quand cochée, le texte est barré automatiquement. Parfait pour les checklists.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">💬 Quote</div>
+      <div class="card-desc">Bloc de citation. <code>"</code> pour créer. Barre verticale à gauche. Pour mettre en avant une idée ou citer quelqu'un.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">📢 Callout</div>
+      <div class="card-desc">Bloc coloré avec emoji. Très lisible pour les notes importantes, warnings ou tips. Personnalisable en couleur.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">⁄ Divider</div>
+      <div class="card-desc">Ligne horizontale de séparation. <code>---</code> en markdown. Pour structurer visuellement une page longue.</div>
+    </div>
+  </div>
+
+  <h3>Blocs média & embed</h3>
+  <div class="card-grid card-grid-2">
+    <div class="card">
+      <div class="card-title">🖼️ Image</div>
+      <div class="card-desc">Upload direct, URL externe, ou depuis Unsplash intégré. Peut être redimensionnée. Caption ajoutée dessous.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🎥 Video / Audio</div>
+      <div class="card-desc">Embed YouTube, Loom, Vimeo par URL. Player intégré directement dans la page. Pour les cours asynchrones.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">📎 File</div>
+      <div class="card-desc">Attacher n'importe quel fichier (PDF, doc, zip). Stocké dans Notion. Lien de téléchargement automatique.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔗 Bookmark</div>
+      <div class="card-desc">Aperçu enrichi d'un lien externe (titre, description, favicon). Plus joli qu'un simple lien texte.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">💻 Code</div>
+      <div class="card-desc">Bloc de code avec coloration syntaxique. 30+ langages supportés. Bouton "Copy" automatique.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">📐 Math (LaTeX)</div>
+      <div class="card-desc">Équations mathématiques en LaTeX. <code>$$E = mc^2$$</code>. Rendu en temps réel. Pour les ingénieurs et scientifiques.</div>
+    </div>
+  </div>
+
+  <h3>Blocs de mise en page</h3>
+  <div class="card-grid card-grid-2">
+    <div class="card">
+      <div class="card-title">📊 Table (simple)</div>
+      <div class="card-desc">Tableau simple (pas une database). Pour des données statiques non-filtrables. Différent d'une vraie base de données Notion.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">📐 Columns</div>
+      <div class="card-desc">Divise la page en 2, 3, 4+ colonnes. Drag n'importe quel bloc vers le côté pour créer une colonne.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔄 Synced Block</div>
+      <div class="card-desc">Bloc synchronisé entre plusieurs pages. Modifie-le à un endroit, il se met à jour partout. Idéal pour les footers et disclaimers.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🗂️ Toggle</div>
+      <div class="card-desc">Bloc accordéon. Masque du contenu jusqu'au clic. Parfait pour les FAQs, les détails techniques ou les longues notes.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-yellow">
+    <span class="callout-emoji">🔑</span>
+    <div class="callout-content"><strong>Tip pro :</strong> Le bloc <strong>Synced Block</strong> est extrêmement sous-utilisé. Si tu as un "header" de navigation ou un disclaimer légal qui doit apparaître sur 20 pages, crée-le en Synced Block. Une seule modification se répercute partout.</div>
+  </div>
+
+  <h2>Transformer un bloc</h2>
+  <p>Clique sur les <strong>6 points (⋮⋮)</strong> à gauche d'un bloc → <strong>"Turn into"</strong>. Tu peux convertir un paragraphe en H1, une liste en toggle, etc. Très utile quand tu reorganises tes notes.</p>
+
+  <h2>Structure recommandée d'un espace Notion</h2>
+  <div class="notion-block">
+    <div class="notion-block-header">📁 Structure idéale pour une startup</div>
+    <div class="notion-block-body">
+      <div class="code">
+<span class="ck">🏠 Home</span>          <span class="cc"># Page d'accueil avec liens rapides</span>
+<span class="ck">├── 📋 Projects</span>   <span class="cc"># Base de données projets</span>
+<span class="ck">├── ✅ Tasks</span>      <span class="cc"># Base de données tâches</span>
+<span class="ck">├── 👥 CRM</span>        <span class="cc"># Base de données contacts/clients</span>
+<span class="ck">├── 📝 Docs</span>       <span class="cc"># Wiki & documentation</span>
+<span class="ck">│   ├── 📖 Handbook</span>
+<span class="ck">│   ├── 🔧 Tech Docs</span>
+<span class="ck">│   └── 📊 Reporting</span>
+<span class="ck">├── 💡 Ideas</span>      <span class="cc"># Brain dump et idéation</span>
+<span class="ck">└── 🎯 OKRs</span>       <span class="cc"># Objectifs et résultats</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <div class="page-nav-btn" onclick="goTo('home')"><span>←</span> Vue d'ensemble</div>
+    <div class="page-nav-btn" onclick="goTo('shortcuts')"><span>→</span> Module 02 : Raccourcis</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ SHORTCUTS ═══════════════════════════════════ -->
+<div class="page" id="page-shortcuts">
+  <div class="page-cover cover-2">
+    <div class="page-emoji">⌨️</div>
+  </div>
+
+  <div class="breadcrumb">Notion Mastery <span>/</span> Module 02</div>
+  <div class="level level-1">Niveau débutant</div>
+  <h1 class="page-title">Raccourcis & Commandes /</h1>
+  <p class="page-desc">Les raccourcis qui multiplient ta vitesse par 3. La commande slash est le superpouvoir de Notion — apprends-la par cœur.</p>
+
+  <h2>La commande Slash /</h2>
+  <p>En tapant <span class="badge badge-yellow">/</span> n'importe où dans une page, tu ouvres le menu de toutes les commandes disponibles. C'est le moyen le plus rapide de créer n'importe quel type de bloc.</p>
+
+  <div class="notion-block">
+    <div class="notion-block-header">⌨️ Les commandes / les plus utilisées</div>
+    <div class="notion-block-body">
+      <div class="shortcut-grid">
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/h1</span></div>
+          <div class="shortcut-desc">Titre H1</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/todo</span></div>
+          <div class="shortcut-desc">Case à cocher</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/table</span></div>
+          <div class="shortcut-desc">Base de données inline (database table)</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/board</span></div>
+          <div class="shortcut-desc">Vue Kanban (Board view)</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/cal</span></div>
+          <div class="shortcut-desc">Vue calendrier</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/gallery</span></div>
+          <div class="shortcut-desc">Vue galerie (cartes avec preview)</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/code</span></div>
+          <div class="shortcut-desc">Bloc de code avec syntaxe highlight</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/toggle</span></div>
+          <div class="shortcut-desc">Bloc accordéon</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/callout</span></div>
+          <div class="shortcut-desc">Bloc callout coloré</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/embed</span></div>
+          <div class="shortcut-desc">Embed un contenu externe (Figma, Loom, etc.)</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/date</span></div>
+          <div class="shortcut-desc">Inline date picker</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/reminder</span></div>
+          <div class="shortcut-desc">Rappel avec notification</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/mention</span></div>
+          <div class="shortcut-desc">Mentionner une personne (@)</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/synced</span></div>
+          <div class="shortcut-desc">Créer un bloc synchronisé</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">/columns</span></div>
+          <div class="shortcut-desc">Disposition en colonnes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Raccourcis clavier essentiels</h2>
+
+  <h3>Navigation & Édition</h3>
+  <div class="notion-block">
+    <div class="notion-block-body">
+      <div class="shortcut-grid">
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">K</span></div>
+          <div class="shortcut-desc">🔑 Recherche rapide — ouvre n'importe quelle page</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">P</span></div>
+          <div class="shortcut-desc">Idem (Windows: Ctrl+P)</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">N</span></div>
+          <div class="shortcut-desc">Nouvelle page</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">[</span></div>
+          <div class="shortcut-desc">Page précédente (historique)</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">]</span></div>
+          <div class="shortcut-desc">Page suivante (historique)</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">⇧</span><span class="key">L</span></div>
+          <div class="shortcut-desc">Toggle Dark Mode / Light Mode</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">⇧</span><span class="key">F</span></div>
+          <div class="shortcut-desc">Mode plein écran (Full screen)</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">Esc</span></div>
+          <div class="shortcut-desc">Sortir du mode édition / Sélectionner le bloc courant</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">Enter</span></div>
+          <div class="shortcut-desc">Ouvrir une page sélectionnée</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">Enter</span></div>
+          <div class="shortcut-desc">Ouvrir une page en plein écran (depuis une database)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Formatage de texte</h3>
+  <div class="notion-block">
+    <div class="notion-block-body">
+      <div class="shortcut-grid">
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">B</span></div>
+          <div class="shortcut-desc"><strong>Gras</strong></div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">I</span></div>
+          <div class="shortcut-desc"><em>Italique</em></div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">U</span></div>
+          <div class="shortcut-desc"><u>Souligné</u></div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">⇧</span><span class="key">S</span></div>
+          <div class="shortcut-desc">~~Barré~~</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">E</span></div>
+          <div class="shortcut-desc"><code>Code inline</code></div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">⇧</span><span class="key">H</span></div>
+          <div class="shortcut-desc">Couleur de surlignage</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">⇧</span><span class="key">K</span></div>
+          <div class="shortcut-desc">Ajouter un lien hypertexte</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Manipulation de blocs</h3>
+  <div class="notion-block">
+    <div class="notion-block-body">
+      <div class="shortcut-grid">
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">D</span></div>
+          <div class="shortcut-desc">Dupliquer le bloc sélectionné</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">Del</span></div>
+          <div class="shortcut-desc">Supprimer le bloc sélectionné</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">⇧</span><span class="key">↑/↓</span></div>
+          <div class="shortcut-desc">Déplacer un bloc vers le haut / bas</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">Tab</span></div>
+          <div class="shortcut-desc">Indenter (créer une sous-liste)</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⇧</span><span class="key">Tab</span></div>
+          <div class="shortcut-desc">Désindenter</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">A</span></div>
+          <div class="shortcut-desc">Sélectionner tous les blocs de la page</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="kbd"><span class="key">⌘</span><span class="key">Z</span></div>
+          <div class="shortcut-desc">Annuler — fonctionne même sur les suppressions de blocs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Markdown natif dans Notion</h2>
+  <p>Notion supporte le markdown directement — pas besoin de passer par les menus :</p>
+  <div class="code">
+<span class="ck">#</span>  → Titre H1 (auto-converti dès que tu appuies sur Espace)
+<span class="ck">##</span> → Titre H2
+<span class="ck">-</span>  → Liste à puces
+<span class="ck">1.</span> → Liste numérotée
+<span class="ck">[]</span> → Case à cocher (todo)
+<span class="ck">></span>  → Citation (quote)
+<span class="ck">---</span> → Séparateur horizontal
+<span class="ck">**texte**</span> → <strong>Gras</strong>
+<span class="ck">*texte*</span>  → <em>Italique</em>
+<span class="ck">`code`</span>   → Code inline
+<span class="ck">~~texte~~</span> → ~~Barré~~
+  </div>
+
+  <div class="callout callout-green">
+    <span class="callout-emoji">🚀</span>
+    <div class="callout-content"><strong>Workflow pro :</strong> Commence toujours par <strong>⌘+K</strong> pour naviguer entre tes pages. C'est bien plus rapide que de cliquer dans la sidebar. Et utilise <strong>/</strong> à la place de la souris pour créer des blocs — ça seul peut doubler ta vitesse.</div>
+  </div>
+
+  <div class="page-nav">
+    <div class="page-nav-btn" onclick="goTo('bases')"><span>←</span> Module 01</div>
+    <div class="page-nav-btn" onclick="goTo('databases')"><span>→</span> Module 03 : Databases</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ DATABASES ═══════════════════════════════════ -->
+<div class="page" id="page-databases">
+  <div class="page-cover cover-3">
+    <div class="page-emoji">🗃️</div>
+  </div>
+
+  <div class="breadcrumb">Notion Mastery <span>/</span> Module 03</div>
+  <div class="level level-2">Niveau intermédiaire</div>
+  <h1 class="page-title">Bases de données</h1>
+  <p class="page-desc">Le cœur de la puissance de Notion. Une database te permet de stocker, filtrer, trier et afficher des données structurées de multiples façons.</p>
+
+  <h2>Database vs Table simple</h2>
+  <p>Une <strong>table simple</strong> (bloc /table) est juste une grille statique, comme dans Word. Une <strong>database Notion</strong> est une vraie base de données : chaque ligne est une "page" avec des propriétés, elle peut être filtrée, triée, vue sous différentes formes, et reliée à d'autres databases.</p>
+
+  <div class="callout callout-yellow">
+    <span class="callout-emoji">💡</span>
+    <div class="callout-content">Pense à une database Notion comme à un <strong>tableur Excel intelligent</strong> où chaque ligne peut s'ouvrir comme une page avec du contenu riche (texte, images, notes), et où les colonnes peuvent être des dates, formules, relations vers d'autres tables, etc.</div>
+  </div>
+
+  <h2>Les types de propriétés (colonnes)</h2>
+  <div class="property-list">
+    <div class="property-row">
+      <span class="property-icon">📝</span>
+      <span class="property-name">Title</span>
+      <span class="property-desc">Le nom de l'entrée. Obligatoire. Unique par database.</span>
+      <span class="property-example">ex: "Lancement V2"</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">💬</span>
+      <span class="property-name">Text</span>
+      <span class="property-desc">Texte libre. Pour les descriptions courtes, URLs, notes.</span>
+      <span class="property-example">"En attente de design"</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">#️⃣</span>
+      <span class="property-name">Number</span>
+      <span class="property-desc">Nombre entier ou décimal. Supporte des formats : $, %, étoiles, barre.</span>
+      <span class="property-example">1500 → $1,500</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">🔽</span>
+      <span class="property-name">Select</span>
+      <span class="property-desc">Choix unique parmi une liste d'options colorées. Parfait pour les statuts.</span>
+      <span class="property-example">🟢 En cours</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">☑️</span>
+      <span class="property-name">Multi-select</span>
+      <span class="property-desc">Plusieurs choix possibles. Pour les tags, catégories.</span>
+      <span class="property-example">🏷️ IA, Frontend</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">📅</span>
+      <span class="property-name">Date</span>
+      <span class="property-desc">Date et/ou heure, avec option de date de fin (pour les plages). Intégré au calendrier.</span>
+      <span class="property-example">15 jan → 28 jan</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">👤</span>
+      <span class="property-name">Person</span>
+      <span class="property-desc">Membre de l'espace de travail. Pour assigner des tâches.</span>
+      <span class="property-example">@Alice</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">📎</span>
+      <span class="property-name">Files & Media</span>
+      <span class="property-desc">Upload de fichiers ou URL externe. Pour attacher des documents à une entrée.</span>
+      <span class="property-example">brief.pdf</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">✅</span>
+      <span class="property-name">Checkbox</span>
+      <span class="property-desc">Booléen vrai/faux. Utile comme flag, ou pour les formules conditionnelles.</span>
+      <span class="property-example">✓ / ☐</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">🔗</span>
+      <span class="property-name">URL</span>
+      <span class="property-desc">Lien cliquable. Séparé du champ Text pour les URLs.</span>
+      <span class="property-example">notion.so/...</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">📧</span>
+      <span class="property-name">Email / Phone</span>
+      <span class="property-desc">Cliquable (ouvre le client mail / l'appel). Pour les CRMs.</span>
+      <span class="property-example"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="01606d68626441727560737574712f686e">[email&#160;protected]</a></span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">🔢</span>
+      <span class="property-name">Formula</span>
+      <span class="property-desc">Calcul basé sur d'autres propriétés. Le plus puissant. Voir module 06.</span>
+      <span class="property-example">if(done, "✅", "⏳")</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">↗️</span>
+      <span class="property-name">Relation</span>
+      <span class="property-desc">Lien vers une autre database. Crée des connexions entre tables. Voir module 05.</span>
+      <span class="property-example">→ Projet: Feature X</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">📊</span>
+      <span class="property-name">Rollup</span>
+      <span class="property-desc">Agrège des données depuis une relation (somme, count, min, max). Voir module 05.</span>
+      <span class="property-example">Σ 5 tâches</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">🕐</span>
+      <span class="property-name">Created / Edited time</span>
+      <span class="property-desc">Automatique. Date de création ou de dernière modification. Non-éditable.</span>
+      <span class="property-example">14 jan, 10:32</span>
+    </div>
+    <div class="property-row">
+      <span class="property-icon">👁️</span>
+      <span class="property-name">ID (unique)</span>
+      <span class="property-desc">Identifiant unique auto-incrémenté. Parfait pour référencer des items (TASK-001).</span>
+      <span class="property-example">TASK-042</span>
+    </div>
+  </div>
+
+  <h2>Créer une database — pratique</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Créer une nouvelle database</div>
+        <div class="step-desc">Tape <span class="badge badge-yellow">/table</span> pour une database en vue tableau. Ou <span class="badge badge-yellow">/board</span> pour commencer en Kanban. Chaque database est aussi une page — elle peut vivre dans ta sidebar.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Ajouter des propriétés</div>
+        <div class="step-desc">Clique sur <strong>+</strong> à droite des colonnes existantes. Choisis le type. Renomme-la. Chaque propriété est une colonne visible dans la vue tableau, et un champ dans chaque entrée.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Configurer les options Select</div>
+        <div class="step-desc">Pour les propriétés Select/Multi-select, clique sur la propriété → "Edit property" → Ajoute tes options avec des couleurs. Exemple statuts : <span class="badge badge-blue">🔵 Backlog</span> <span class="badge badge-yellow">🟡 En cours</span> <span class="badge badge-green">🟢 Terminé</span></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Masquer des propriétés selon la vue</div>
+        <div class="step-desc">Dans la toolbar en haut → <strong>Properties</strong> → toggle off les propriétés que tu veux masquer dans cette vue. Elles restent dans la page, juste cachées dans cette vue spécifique.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <div class="page-nav-btn" onclick="goTo('shortcuts')"><span>←</span> Module 02</div>
+    <div class="page-nav-btn" onclick="goTo('views')"><span>→</span> Module 04 : Vues</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ VIEWS ═══════════════════════════════════ -->
+<div class="page" id="page-views">
+  <div class="page-cover cover-4">
+    <div class="page-emoji">👁️</div>
+  </div>
+
+  <div class="breadcrumb">Notion Mastery <span>/</span> Module 04</div>
+  <div class="level level-2">Niveau intermédiaire</div>
+  <h1 class="page-title">Vues, Filtres & Tris</h1>
+  <p class="page-desc">Une même database peut s'afficher de 6 façons différentes. Chaque vue peut avoir ses propres filtres et tris — sans affecter les données.</p>
+
+  <h2>Les 6 vues disponibles</h2>
+  <div class="card-grid card-grid-2">
+    <div class="card">
+      <span class="card-icon">📋</span>
+      <div class="card-title">Table (Tableau)</div>
+      <div class="card-desc">La vue classique type Excel. Toutes les propriétés en colonnes. Idéale pour voir beaucoup de données d'un coup. Tri par colonne d'un clic.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">📌</span>
+      <div class="card-title">Board (Kanban)</div>
+      <div class="card-desc">Cartes organisées en colonnes basées sur une propriété Select. <strong>La vue numéro 1 pour le project management.</strong> Drag & drop pour changer de statut.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">📅</span>
+      <div class="card-title">Calendar</div>
+      <div class="card-desc">Affiche les entrées sur un calendrier basé sur une propriété Date. Parfait pour les roadmaps, éditoriaux, ou plannings de sprint.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🖼️</span>
+      <div class="card-title">Gallery</div>
+      <div class="card-desc">Cartes avec préview de l'image de couverture ou contenu. Idéale pour les portfolios, bases de connaissance visuelles, ou bibliothèques de ressources.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">📜</span>
+      <div class="card-title">List</div>
+      <div class="card-desc">Vue minimaliste. Juste le titre + quelques propriétés. Rapide à parcourir. Parfaite pour les notes, le journal, ou les listes de lecture.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">📊</span>
+      <div class="card-title">Timeline (Gantt)</div>
+      <div class="card-desc">Vue Gantt chronologique. Nécessite une propriété Date avec début ET fin. Parfaite pour les roadmaps produit et la gestion de projet.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <span class="callout-emoji">💡</span>
+    <div class="callout-content"><strong>Power tip :</strong> Une database peut avoir <strong>autant de vues que tu veux</strong>, chacune avec ses filtres. Ex: une database "Tasks" avec une vue Board pour le Kanban quotidien, une vue Calendar pour la vue hebdo, et une vue Table pour l'export. Même données, 3 perspectives différentes.</div>
+  </div>
+
+  <h2>Filtres — l'essentiel</h2>
+  <p>Les filtres permettent de n'afficher que les entrées qui correspondent à certains critères, dans une vue spécifique.</p>
+
+  <div class="notion-block">
+    <div class="notion-block-header">🔍 Exemple : Vue "Mes tâches aujourd'hui"</div>
+    <div class="notion-block-body">
+      <div class="code">
+<span class="cc"># Filtres combinés avec AND</span>
+<span class="ck">Assigné à</span>      <span class="cs">est</span>  <span class="cv">Moi (current user)</span>
+<span class="ck">Statut</span>         <span class="cs">n'est pas</span>  <span class="cv">Terminé</span>
+<span class="ck">Date d'échéance</span> <span class="cs">est avant</span>  <span class="cv">Demain</span>
+
+<span class="cc"># Résultat : Uniquement MES tâches non-terminées dues aujourd'hui</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notion-block">
+    <div class="notion-block-header">🔍 Exemple : Vue "Pipeline commercial" (OR logic)</div>
+    <div class="notion-block-body">
+      <div class="code">
+<span class="cc"># Filtres avec OR</span>
+<span class="ck">Statut</span>  <span class="cs">est</span>  <span class="cv">Prospect</span>
+<span class="ck">OU</span>
+<span class="ck">Statut</span>  <span class="cs">est</span>  <span class="cv">Proposition envoyée</span>
+<span class="ck">OU</span>
+<span class="ck">Statut</span>  <span class="cs">est</span>  <span class="cv">Négociation</span>
+
+<span class="cc"># Résultat : Toutes les opportunités "en cours" sauf Won/Lost</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>Tris — logique et priorités</h2>
+  <p>Les tris s'appliquent dans l'ordre. Le premier tri est prioritaire, puis le second en cas d'égalité.</p>
+
+  <div class="code">
+<span class="cc"># Tri multi-niveau pour un project tracker</span>
+<span class="ck">1. Priorité</span>    → <span class="cs">Descendant</span>  <span class="cc"># Haute priorité en premier</span>
+<span class="ck">2. Date limite</span> → <span class="cs">Ascendant</span>   <span class="cc"># Puis par deadline la plus proche</span>
+<span class="ck">3. Assigné</span>     → <span class="cs">Ascendant</span>   <span class="cc"># Puis par ordre alphabétique du nom</span>
+  </div>
+
+  <h2>Grouping — organiser par propriété</h2>
+  <p>En vue Table ou List, le grouping permet de regrouper les entrées par valeur d'une propriété. Exemple : grouper par "Assigné" pour voir les tâches de chaque personne. Ou grouper par "Sprint" pour voir les sprints séparément.</p>
+
+  <div class="callout callout-yellow">
+    <span class="callout-emoji">⭐</span>
+    <div class="callout-content"><strong>Filtres dynamiques :</strong> Utilise le filtre <strong>"Me" (current user)</strong> dans la propriété Person — la vue affichera automatiquement les tâches de la personne qui est connectée. Chaque membre de l'équipe voit ses propres données dans la même vue.</div>
+  </div>
+
+  <h2>Linked Database Views</h2>
+  <p>Tu peux afficher une database existante sur une autre page, avec ses propres filtres. Exemple : sur ta "Home page", créer une vue filtrée de ta database Tasks qui ne montre que tes tâches du jour. Les données sont partagées, la vue est locale.</p>
+
+  <div class="code">
+<span class="cc"># Comment créer une Linked Database View</span>
+<span class="cn">1.</span> Sur ta page Home, tape <span class="ck">/linked</span>
+<span class="cn">2.</span> Sélectionne ta database "Tasks"
+<span class="cn">3.</span> La database apparaît avec <span class="cs">ses données originales</span>
+<span class="cn">4.</span> Ajoute un filtre : <span class="ck">Assigné = Moi</span> + <span class="ck">Statut ≠ Terminé</span>
+<span class="cn">5.</span> Cette vue est <span class="cs">locale</span> — elle n'affecte pas la database principale
+  </div>
+
+  <div class="page-nav">
+    <div class="page-nav-btn" onclick="goTo('databases')"><span>←</span> Module 03</div>
+    <div class="page-nav-btn" onclick="goTo('relations')"><span>→</span> Module 05 : Relations</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ RELATIONS ═══════════════════════════════════ -->
+<div class="page" id="page-relations">
+  <div class="page-cover cover-5">
+    <div class="page-emoji">🔗</div>
+  </div>
+
+  <div class="breadcrumb">Notion Mastery <span>/</span> Module 05</div>
+  <div class="level level-3">Niveau avancé</div>
+  <h1 class="page-title">Relations & Rollups</h1>
+  <p class="page-desc">Le saut quantitatif de Notion. Relier des databases entre elles transforme une collection de tableaux en un vrai système de données connecté.</p>
+
+  <h2>Les Relations</h2>
+  <p>Une propriété <strong>Relation</strong> crée un lien bidirectionnel entre deux databases. Une tâche peut être liée à un projet. Un contact peut être lié à une opportunité CRM. C'est la base des systèmes complexes.</p>
+
+  <div class="notion-block">
+    <div class="notion-block-header">🔗 Exemple : Projects ↔ Tasks</div>
+    <div class="notion-block-body">
+      <div class="code">
+<span class="cc">## Database 1 : Projects</span>
+<span class="ck">│</span> Nom projet      │ Statut   │ Tasks (relation) │
+<span class="ck">│</span> Lancement V2    │ En cours │ → Task A, Task B │
+<span class="ck">│</span> Refonte UX      │ Backlog  │ → Task C         │
+
+<span class="cc">## Database 2 : Tasks</span>
+<span class="ck">│</span> Tâche     │ Projet (relation) │ Assigné │
+<span class="ck">│</span> Task A    │ → Lancement V2    │ Alice   │
+<span class="ck">│</span> Task B    │ → Lancement V2    │ Bob     │
+<span class="ck">│</span> Task C    │ → Refonte UX      │ Alice   │
+
+<span class="cc"># En cliquant sur "Lancement V2" → on voit Task A et Task B</span>
+<span class="cc"># En cliquant sur "Task A" → on voit son projet "Lancement V2"</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>Types de relations</h3>
+  <div class="card-grid card-grid-2">
+    <div class="card">
+      <div class="card-title">🔄 Bidirectionnelle (défaut)</div>
+      <div class="card-desc">La relation est visible dans les deux databases. Si Task A est liée à "Lancement V2", dans le projet "Lancement V2" on voit aussi "Task A". Le plus courant.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">➡️ Unidirectionnelle</div>
+      <div class="card-desc">La relation n'est visible que dans la database source. L'autre database n'a pas de propriété de retour. Utile pour éviter le bruit dans des databases très chargées.</div>
+    </div>
+  </div>
+
+  <h2>Les Rollups</h2>
+  <p>Un <strong>Rollup</strong> est une propriété qui <strong>agrège des données depuis une relation</strong>. Tu as une relation "Tasks" sur tes projets ? Avec un Rollup, tu peux calculer combien de tâches sont terminées, leur somme totale de points, leur date la plus tardive, etc.</p>
+
+  <h3>Les fonctions Rollup disponibles</h3>
+  <table>
+    <tr><th>Fonction</th><th>Description</th><th>Exemple</th></tr>
+    <tr><td>Count all</td><td>Nombre total d'entrées liées</td><td>5 tâches au total</td></tr>
+    <tr><td>Count values</td><td>Nombre de valeurs non-vides</td><td>3 tâches avec deadline</td></tr>
+    <tr><td>Count unique</td><td>Valeurs uniques distinctes</td><td>2 assignés différents</td></tr>
+    <tr><td>Count checked</td><td>Nombre de checkbox cochées</td><td>3 tâches terminées sur 5</td></tr>
+    <tr><td>Sum</td><td>Somme d'une propriété Number</td><td>Total : 120 points</td></tr>
+    <tr><td>Average</td><td>Moyenne d'une propriété Number</td><td>Moy. : 24 pts/tâche</td></tr>
+    <tr><td>Min / Max</td><td>Valeur minimum / maximum</td><td>Plus proche deadline : 15 jan</td></tr>
+    <tr><td>Show original</td><td>Affiche les valeurs brutes</td><td>Alice, Bob, Alice</td></tr>
+    <tr><td>Show unique</td><td>Valeurs sans doublons</td><td>Alice, Bob</td></tr>
+    <tr><td>Percent checked</td><td>% de checkbox cochées</td><td>60% terminé</td></tr>
+  </table>
+
+  <div class="notion-block">
+    <div class="notion-block-header">📊 Exemple complet : Dashboard projet avec Rollups</div>
+    <div class="notion-block-body">
+      <div class="code">
+<span class="cc">## Database "Projects" avec Rollups depuis "Tasks"</span>
+
+<span class="ck">Nom</span>           │ <span class="ck">Tasks</span> │ <span class="ck">Tâches totales</span> │ <span class="ck">Terminées</span> │ <span class="ck">% Done</span>
+Lancement V2  │ [...] │ <span class="cs">Count all → 8</span>  │ <span class="cs">Count ✓ → 5</span>│ <span class="cn">62%</span>
+Refonte UX    │ [...] │ <span class="cs">Count all → 3</span>  │ <span class="cs">Count ✓ → 0</span>│ <span class="cn">0%</span>
+
+<span class="cc"># "% Done" = Formule : prop("Terminées") / prop("Tâches totales")</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>Système à 3 tables — exemple startup</h2>
+  <div class="code">
+<span class="ck">Clients</span>  ←→  <span class="ck">Projets</span>  ←→  <span class="ck">Tâches</span>
+
+<span class="cc">## Clients</span>
+<span class="cv">Startup ABC</span>
+  └── Projets liés : [Site web, App mobile]
+  └── Rollup MRR : sum(Projets.Valeur) = $8,500
+  └── Rollup Tâches ouvertes : count non-done
+
+<span class="cc">## Projets</span>
+<span class="cv">Site web (Startup ABC)</span>
+  └── Client lié : → Startup ABC
+  └── Tâches liées : [Design, Dev, QA]
+  └── Rollup % avancement : percent checked
+
+<span class="cc">## Tâches</span>
+<span class="cv">Design Homepage</span>
+  └── Projet lié : → Site web
+  └── Assigné : Alice
+  └── Statut : ✅ Terminé
+  </div>
+
+  <div class="callout callout-purple">
+    <span class="callout-emoji">🧠</span>
+    <div class="callout-content"><strong>Le mindset "graph"</strong> : Pense tes données comme un graphe de nœuds connectés, pas comme des tableurs isolés. Clients → Projets → Tâches → Membres. Chaque relation est une arête du graphe. Les Rollups te permettent de remonter des informations à travers ce graphe.</div>
+  </div>
+
+  <div class="page-nav">
+    <div class="page-nav-btn" onclick="goTo('views')"><span>←</span> Module 04</div>
+    <div class="page-nav-btn" onclick="goTo('formulas')"><span>→</span> Module 06 : Formules</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ FORMULAS ═══════════════════════════════════ -->
+<div class="page" id="page-formulas">
+  <div class="page-cover cover-6">
+    <div class="page-emoji">🧮</div>
+  </div>
+
+  <div class="breadcrumb">Notion Mastery <span>/</span> Module 06</div>
+  <div class="level level-4">Niveau expert</div>
+  <h1 class="page-title">Formules avancées</h1>
+  <p class="page-desc">Les formules Notion te permettent de calculer, transformer et automatiser des valeurs dans tes databases. Une syntaxe proche d'Excel mais plus puissante.</p>
+
+  <div class="callout callout-yellow">
+    <span class="callout-emoji">⚠️</span>
+    <div class="callout-content">Les formules Notion 2.0 (sortie 2023) ont <strong>changé la syntaxe</strong>. On utilise maintenant <code>prop("NomPropriété")</code> au lieu de juste <code>prop.NomPropriété</code>. Ce cours utilise la nouvelle syntaxe.</div>
+  </div>
+
+  <h2>Fonctions de base</h2>
+
+  <h3>Référencer une propriété</h3>
+  <div class="formula">
+prop(<span class="fs">"Nom de la propriété"</span>)
+
+<span class="cc">// Ex: afficher le texte d'une propriété "Titre"</span>
+prop(<span class="fs">"Title"</span>)
+  </div>
+
+  <h3>Conditions — if()</h3>
+  <div class="formula-explain">
+    <div class="fe-code">if(<span class="fc">condition</span>, <span class="fn">si_vrai</span>, <span class="fn">si_faux</span>)</div>
+    <div class="fe-explain">Si la condition est vraie, retourne la première valeur. Sinon, la seconde.</div>
+  </div>
+
+  <div class="code">
+<span class="cc">// Afficher un emoji selon le statut</span>
+if(prop(<span class="cs">"Statut"</span>) == <span class="cs">"Terminé"</span>, <span class="cs">"✅"</span>, <span class="cs">"⏳"</span>)
+
+<span class="cc">// Priorité haute → badge rouge</span>
+if(prop(<span class="cs">"Priorité"</span>) == <span class="cs">"Haute"</span>, <span class="cs">"🔴 Urgent"</span>, <span class="cs">"🟢 Normal"</span>)
+
+<span class="cc">// if imbriqués (multiple conditions)</span>
+if(prop(<span class="cs">"Score"</span>) >= <span class="cn">90</span>, <span class="cs">"⭐ Excellent"</span>,
+  if(prop(<span class="cs">"Score"</span>) >= <span class="cn">70</span>, <span class="cs">"👍 Bien"</span>,
+    if(prop(<span class="cs">"Score"</span>) >= <span class="cn">50</span>, <span class="cs">"😐 Moyen"</span>, <span class="cs">"❌ Insuffisant"</span>)))
+  </div>
+
+  <h3>Dates — calculs temporels</h3>
+  <div class="code">
+<span class="cc">// Nombre de jours restants avant deadline</span>
+dateBetween(prop(<span class="cs">"Deadline"</span>), now(), <span class="cs">"days"</span>)
+
+<span class="cc">// Est-ce que la deadline est passée ?</span>
+prop(<span class="cs">"Deadline"</span>) < now()
+
+<span class="cc">// Afficher "En retard" si deadline dépassée et non terminé</span>
+if(
+  and(prop(<span class="cs">"Deadline"</span>) < now(), prop(<span class="cs">"Statut"</span>) != <span class="cs">"Terminé"</span>),
+  <span class="cs">"🔴 En retard"</span>,
+  <span class="cs">"🟢 OK"</span>
+)
+
+<span class="cc">// Ajouter 7 jours à une date</span>
+dateAdd(prop(<span class="cs">"Date de début"</span>), <span class="cn">7</span>, <span class="cs">"days"</span>)
+
+<span class="cc">// Formater une date</span>
+formatDate(prop(<span class="cs">"Date"</span>), <span class="cs">"DD MMMM YYYY"</span>)
+<span class="cc">// → "15 janvier 2025"</span>
+
+<span class="cc">// Extraire le mois, l'année</span>
+month(prop(<span class="cs">"Date"</span>))  <span class="cc">// → 1 (janvier)</span>
+year(prop(<span class="cs">"Date"</span>))   <span class="cc">// → 2025</span>
+  </div>
+
+  <h3>Texte et chaînes</h3>
+  <div class="code">
+<span class="cc">// Concaténer du texte</span>
+<span class="cs">"Bonjour, "</span> + prop(<span class="cs">"Prénom"</span>) + <span class="cs">" !"</span>
+
+<span class="cc">// Convertir en majuscules/minuscules</span>
+toUpperCase(prop(<span class="cs">"Nom"</span>))
+toLowerCase(prop(<span class="cs">"Email"</span>))
+
+<span class="cc">// Contient une chaîne</span>
+contains(prop(<span class="cs">"Tags"</span>), <span class="cs">"IA"</span>)
+
+<span class="cc">// Longueur d'un texte</span>
+length(prop(<span class="cs">"Description"</span>))
+
+<span class="cc">// Remplacer dans un texte</span>
+replaceAll(prop(<span class="cs">"Texte"</span>), <span class="cs">" "</span>, <span class="cs">"-"</span>)
+<span class="cc">// "Hello World" → "Hello-World"</span>
+
+<span class="cc">// Convertir number en string</span>
+format(prop(<span class="cs">"Prix"</span>)) + <span class="cs">" €"</span>
+  </div>
+
+  <h3>Maths</h3>
+  <div class="code">
+<span class="cc">// Opérations de base</span>
+prop(<span class="cs">"Revenus"</span>) - prop(<span class="cs">"Dépenses"</span>)
+prop(<span class="cs">"Tâches terminées"</span>) / prop(<span class="cs">"Total tâches"</span>) * <span class="cn">100</span>
+
+<span class="cc">// Arrondir</span>
+round(prop(<span class="cs">"Montant"</span>) * <span class="cn">1.2</span>)   <span class="cc">// Arrondi au plus proche</span>
+ceil(prop(<span class="cs">"Valeur"</span>))            <span class="cc">// Arrondi au supérieur</span>
+floor(prop(<span class="cs">"Valeur"</span>))           <span class="cc">// Arrondi à l'inférieur</span>
+
+<span class="cc">// Min / Max entre deux valeurs</span>
+max(prop(<span class="cs">"Valeur A"</span>), prop(<span class="cs">"Valeur B"</span>))
+
+<span class="cc">// Valeur absolue</span>
+abs(prop(<span class="cs">"Écart"</span>))
+  </div>
+
+  <h2>Formules complexes — cas réels</h2>
+
+  <h3>Barre de progression visuelle</h3>
+  <div class="formula-explain">
+    <div class="fe-code">
+slice(<span class="fs">"██████████"</span>, <span class="fn">0</span>, floor(prop(<span class="fs">"% Done"</span>) / <span class="fn">10</span>)) +
+slice(<span class="fs">"░░░░░░░░░░"</span>, <span class="fn">0</span>, <span class="fn">10</span> - floor(prop(<span class="fs">"% Done"</span>) / <span class="fn">10</span>)) +
+<span class="fs">" "</span> + format(prop(<span class="fs">"% Done"</span>)) + <span class="fs">"%"</span>
+    </div>
+    <div class="fe-explain">Génère : <strong>██████░░░░ 60%</strong> — une barre de progression visuelle dans une colonne texte.</div>
+  </div>
+
+  <h3>Calcul de durée (jours ouvrés)</h3>
+  <div class="formula-explain">
+    <div class="fe-code">
+let(
+  <span class="fc">total</span>, dateBetween(prop(<span class="fs">"Fin"</span>), prop(<span class="fs">"Début"</span>), <span class="fs">"days"</span>),
+  <span class="fc">semaines</span>, floor(<span class="fc">total</span> / <span class="fn">7</span>),
+  <span class="fc">total</span> - (<span class="fc">semaines</span> * <span class="fn">2</span>)
+)
+    </div>
+    <div class="fe-explain">Calcule les jours ouvrés (hors weekends) entre deux dates. La variable <code>let()</code> permet de déclarer des variables locales dans une formule.</div>
+  </div>
+
+  <h3>Score de priorité pondéré</h3>
+  <div class="formula-explain">
+    <div class="fe-code">
+(prop(<span class="fs">"Impact"</span>) * <span class="fn">0.5</span>) +
+(prop(<span class="fs">"Urgence"</span>) * <span class="fn">0.3</span>) +
+(prop(<span class="fs">"Facilité"</span>) * <span class="fn">0.2</span>)
+    </div>
+    <div class="fe-explain">Score RICE simplifié. Impact = valeur business (1-10), Urgence = timing (1-10), Facilité = facilité d'implémentation (1-10). Utilisé pour prioriser les features.</div>
+  </div>
+
+  <h3>Badge de statut avec délai</h3>
+  <div class="formula-explain">
+    <div class="fe-code">
+if(prop(<span class="fs">"Statut"</span>) == <span class="fs">"Terminé"</span>, <span class="fs">"✅ Done"</span>,
+  if(
+    and(
+      prop(<span class="fs">"Deadline"</span>) < now(),
+      prop(<span class="fs">"Statut"</span>) != <span class="fs">"Terminé"</span>
+    ),
+    <span class="fs">"🔴 En retard de "</span> + format(abs(dateBetween(prop(<span class="fs">"Deadline"</span>), now(), <span class="fs">"days"</span>))) + <span class="fs">"j"</span>,
+    <span class="fs">"⏳ J-"</span> + format(dateBetween(prop(<span class="fs">"Deadline"</span>), now(), <span class="fs">"days"</span>))
+  )
+)
+    </div>
+    <div class="fe-explain">Affiche : <strong>✅ Done</strong> | <strong>🔴 En retard de 3j</strong> | <strong>⏳ J-7</strong> selon l'état de la tâche.</div>
+  </div>
+
+  <div class="callout callout-purple">
+    <span class="callout-emoji">🧮</span>
+    <div class="callout-content"><strong>Toutes les fonctions Notion :</strong> La documentation officielle liste toutes les fonctions disponibles sur <strong>notion.so/fr-fr/help/formulas</strong>. Les plus utiles : <code>if()</code>, <code>dateBetween()</code>, <code>formatDate()</code>, <code>contains()</code>, <code>let()</code>, <code>and()</code>, <code>or()</code>, <code>empty()</code>.</div>
+  </div>
+
+  <div class="page-nav">
+    <div class="page-nav-btn" onclick="goTo('relations')"><span>←</span> Module 05</div>
+    <div class="page-nav-btn" onclick="goTo('automation')"><span>→</span> Module 07 : Automatisations</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ AUTOMATION ═══════════════════════════════════ -->
+<div class="page" id="page-automation">
+  <div class="page-cover cover-7">
+    <div class="page-emoji">⚡</div>
+  </div>
+
+  <div class="breadcrumb">Notion Mastery <span>/</span> Module 07</div>
+  <div class="level level-3">Niveau avancé</div>
+  <h1 class="page-title">Automatisations</h1>
+  <p class="page-desc">Les automatisations Notion native + les intégrations externes (Zapier, Make) pour que ton espace de travail tourne en arrière-plan.</p>
+
+  <h2>Automatisations Notion native</h2>
+  <p>Depuis 2023, Notion a intégré un moteur d'automatisation direct dans les databases. Accessible via le bouton <strong>"Automate"</strong> dans la toolbar.</p>
+
+  <h3>Structure : Trigger → Condition → Action</h3>
+  <div class="code">
+<span class="ck">TRIGGER</span> (quand ?)
+  ├── Propriété modifiée
+  ├── Entrée ajoutée
+  ├── Entrée supprimée
+  └── Date atteinte (scheduled)
+
+<span class="ck">CONDITION</span> (si ?)     <span class="cc"># Optionnel</span>
+  ├── Propriété = valeur X
+  ├── Propriété contient X
+  └── Propriété est vide
+
+<span class="ck">ACTIONS</span> (faire quoi ?)
+  ├── Modifier une propriété
+  ├── Ajouter/retirer un tag
+  ├── Assigner à quelqu'un
+  ├── Envoyer une notification Slack
+  ├── Créer une nouvelle page
+  └── Ajouter à une autre database
+  </div>
+
+  <h3>Exemples concrets</h3>
+  <div class="card-grid card-grid-2">
+    <div class="card">
+      <div class="card-title">📋 Auto-assign à la création</div>
+      <div class="card-desc"><strong>Trigger</strong> : Entrée ajoutée<br><strong>Action</strong> : Assigner "Assigné" = current user<br>Toute nouvelle tâche est automatiquement assignée à la personne qui la crée.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">📅 Notification deadline proche</div>
+      <div class="card-desc"><strong>Trigger</strong> : Propriété Date = aujourd'hui + 2 jours<br><strong>Action</strong> : Notifier l'assigné + changer le statut en "Urgent"</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔄 Archivage automatique</div>
+      <div class="card-desc"><strong>Trigger</strong> : Statut = "Terminé"<br><strong>Condition</strong> : Date modifiée > 7 jours<br><strong>Action</strong> : Déplacer vers la database "Archive"</div>
+    </div>
+    <div class="card">
+      <div class="card-title">✅ Workflow de validation</div>
+      <div class="card-desc"><strong>Trigger</strong> : Checkbox "Revu par QA" cochée<br><strong>Action</strong> : Changer statut → "Prêt à déployer" + notifier le dev lead</div>
+    </div>
+  </div>
+
+  <h2>Zapier + Notion — Connexions externes</h2>
+  <p>Zapier (et Make/Integromat) permettent de connecter Notion avec 5000+ applications. Un "Zap" = Trigger + Action entre deux apps.</p>
+
+  <h3>Les Zaps Notion les plus utiles</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Formulaire Typeform → Notion CRM</div>
+        <div class="step-desc">Quand quelqu'un remplit ton formulaire de contact → une nouvelle entrée est créée dans ta database CRM Notion avec toutes les infos. Zéro copier-coller.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Email → Notion Inbox</div>
+        <div class="step-desc">Chaque email reçu avec un sujet spécifique (ex: "NOTION:") est automatiquement créé comme entrée dans ta database "Inbox". Transforme ton email en système de tasks.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">GitHub Issue → Notion Task</div>
+        <div class="step-desc">Quand une issue est créée sur GitHub → tâche créée dans Notion avec lien vers la PR. Les devs travaillent dans GitHub, le PM voit tout dans Notion.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Notion → Slack notification</div>
+        <div class="step-desc">Quand une propriété change dans Notion (ex: "Statut" → "Prêt pour review") → message automatique dans le channel Slack #product. Tout le monde est informé sans effort.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div>
+        <div class="step-title">Stripe → Notion CRM</div>
+        <div class="step-desc">Nouveau paiement Stripe → mise à jour du client dans ton CRM Notion (MRR, date de souscription, plan). Ton CRM est toujours à jour automatiquement.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <span class="callout-emoji">🔧</span>
+    <div class="callout-content"><strong>Make vs Zapier :</strong> Zapier est plus simple et user-friendly. Make (ex-Integromat) est plus puissant et moins cher pour les gros volumes. Pour débuter : Zapier. Pour des workflows complexes avec branches et transformations de données : Make.</div>
+  </div>
+
+  <div class="page-nav">
+    <div class="page-nav-btn" onclick="goTo('formulas')"><span>←</span> Module 06</div>
+    <div class="page-nav-btn" onclick="goTo('systems')"><span>→</span> Module 08 : Systèmes</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ SYSTEMS ═══════════════════════════════════ -->
+<div class="page" id="page-systems">
+  <div class="page-cover cover-8">
+    <div class="page-emoji">🏗️</div>
+  </div>
+
+  <div class="breadcrumb">Notion Mastery <span>/</span> Module 08</div>
+  <div class="level level-4">Niveau expert</div>
+  <h1 class="page-title">Systèmes & Templates complets</h1>
+  <p class="page-desc">Les templates prêts à l'emploi pour une startup — CRM, OKR, Project Tracker, Wiki. Architecture et logique de chaque système.</p>
+
+  <h2>1. CRM Startup</h2>
+  <div class="template-preview">
+    <div class="tp-header">
+      <div class="tp-dot" style="background:#ff5f57"></div>
+      <div class="tp-dot" style="background:#ffbd2e"></div>
+      <div class="tp-dot" style="background:#28c840"></div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--txt3);margin-left:8px">👥 CRM — Startup ABC</span>
+    </div>
+    <div class="tp-body">
+      <div class="tp-title">Figma Corp</div>
+      <div class="tp-props">
+        <div class="tp-prop"><span class="tp-prop-key">Statut</span><span class="tp-prop-val">🟡 Proposition envoyée</span></div>
+        <div class="tp-prop"><span class="tp-prop-key">Contact</span><span class="tp-prop-val">Alice Martin</span></div>
+        <div class="tp-prop"><span class="tp-prop-key">Email</span><span class="tp-prop-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1475787d777154727d7379753a777b79">[email&#160;protected]</a></span></div>
+        <div class="tp-prop"><span class="tp-prop-key">Valeur</span><span class="tp-prop-val">$24,000 / an</span></div>
+        <div class="tp-prop"><span class="tp-prop-key">Dernière action</span><span class="tp-prop-val">12 jan 2025</span></div>
+        <div class="tp-prop"><span class="tp-prop-key">Source</span><span class="tp-prop-val">LinkedIn</span></div>
+        <div class="tp-prop"><span class="tp-prop-key">Projets liés</span><span class="tp-prop-val">→ Intégration API, Onboarding</span></div>
+      </div>
+      <div class="tp-content">📋 Notes : Premier appel très positif. Alice est la DM mais besoin de valider avec leur CTO. Relancer dans 5 jours...</div>
+    </div>
+  </div>
+
+  <div class="code">
+<span class="cc">## Architecture CRM : 2 databases + Relations</span>
+
+<span class="ck">Database 1 : Contacts</span>
+  Nom (Title) │ Email │ Téléphone │ Entreprise (relation → Entreprises)
+  Rôle │ Source │ Tags │ Dernière interaction (date) │ Notes
+
+<span class="ck">Database 2 : Entreprises (pipeline)</span>
+  Nom (Title) │ Statut (select) │ Valeur ($) │ Responsable (person)
+  Contacts (relation → Contacts) │ Nb contacts (rollup: count)
+  Deal value total (rollup: sum valeur contacts)
+  Prochaine action │ Date prochaine action │ Canal d'acquisition
+
+<span class="cc">## Statuts pipeline :</span>
+🔵 Prospect → 🟡 Qualifié → 🟠 Proposition → 🟣 Négociation → ✅ Gagné / ❌ Perdu
+
+<span class="cc">## Vues utiles :</span>
+- Board groupé par Statut (Kanban deals)
+- Table groupée par Responsable (par commercial)
+- Calendar sur "Date prochaine action" (relances)
+- Filtrée "Statut ≠ Gagné ET ≠ Perdu" (pipeline actif)
+  </div>
+
+  <h2>2. OKR System</h2>
+  <div class="code">
+<span class="cc">## Architecture OKRs : 2 databases</span>
+
+<span class="ck">Database 1 : Objectives</span>
+  Objectif (Title) │ Trimestre │ Responsable │ Key Results (relation)
+  Score moyen (rollup: average de KR.Score) │ Statut
+
+<span class="ck">Database 2 : Key Results</span>
+  KR (Title) │ Objectif (relation) │ Valeur cible │ Valeur actuelle
+  Score (formule: valeur actuelle / valeur cible * 100)
+  Progression (formule barre: voir module 06) │ Assigné
+
+<span class="cc">## Formule Score OKR (Green/Yellow/Red)</span>
+if(prop(<span class="cs">"Score"</span>) >= <span class="cn">70</span>, <span class="cs">"🟢 On track"</span>,
+  if(prop(<span class="cs">"Score"</span>) >= <span class="cn">40</span>, <span class="cs">"🟡 À risque"</span>, <span class="cs">"🔴 Off track"</span>))
+  </div>
+
+  <h2>3. Project & Sprint Tracker</h2>
+  <div class="code">
+<span class="cc">## Architecture : 3 databases connectées</span>
+
+<span class="ck">Database 1 : Projects</span>
+  Nom │ Statut │ Dates (début → fin) │ Team │ Épics (relation)
+  % Done (rollup depuis Tasks) │ Roadmap (timeline view)
+
+<span class="ck">Database 2 : Épics / Features</span>
+  Titre │ Projet (relation) │ Sprint (relation) │ Tasks (relation)
+  Effort estimé │ Priorité │ % Done (rollup)
+
+<span class="ck">Database 3 : Tasks</span>
+  Titre │ Épic (relation) │ Assigné │ Sprint (relation)
+  Estimation (points) │ Statut │ Type (Bug/Feature/Chore)
+  Deadline │ Lié à Issue GitHub
+
+<span class="cc">## Sprint Board (vue Board sur Tasks)</span>
+Groupé par : Statut
+Filtré par : Sprint = Sprint actuel
+Trié par : Priorité desc + Estimation asc
+  </div>
+
+  <h2>4. Company Wiki</h2>
+  <div class="code">
+<span class="cc">## Structure recommandée</span>
+
+<span class="ck">📖 Wiki</span>
+  ├── <span class="cv">🏢 Company</span>
+  │   ├── Mission, Vision, Values
+  │   ├── Team & Org Chart
+  │   ├── Processus onboarding
+  │   └── Culture & Handbook
+  ├── <span class="cv">🔧 Product</span>
+  │   ├── Product Spec (database)
+  │   ├── User Research
+  │   ├── Design System
+  │   └── Changelog
+  ├── <span class="cv">💻 Tech</span>
+  │   ├── Architecture decisions (ADRs)
+  │   ├── Setup dev environment
+  │   ├── Runbooks (procédures incidents)
+  │   └── API Documentation
+  ├── <span class="cv">💰 Finance</span>
+  │   ├── Budget tracker
+  │   ├── Cap table
+  │   └── Reporting mensuel
+  └── <span class="cv">🤝 Sales & Marketing</span>
+      ├── CRM (database)
+      ├── Playbooks commerciaux
+      └── Assets marketing
+  </div>
+
+  <div class="callout callout-green">
+    <span class="callout-emoji">🎯</span>
+    <div class="callout-content"><strong>Où trouver des templates :</strong> <strong>notion.com/templates</strong> — bibliothèque officielle. <strong>notionpages.com</strong> — communauté. <strong>notioneverything.com</strong> — sélection premium. Toujours adapter un template existant plutôt que partir de zéro — tu économises des heures de configuration.</div>
+  </div>
+
+  <div class="page-nav">
+    <div class="page-nav-btn" onclick="goTo('automation')"><span>←</span> Module 07</div>
+    <div class="page-nav-btn" onclick="goTo('api')"><span>→</span> Module 09 : API</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ API ═══════════════════════════════════ -->
+<div class="page" id="page-api">
+  <div class="page-cover cover-3">
+    <div class="page-emoji">🔌</div>
+  </div>
+
+  <div class="breadcrumb">Notion Mastery <span>/</span> Module 09</div>
+  <div class="level level-4">Niveau expert</div>
+  <h1 class="page-title">API Notion & Intégrations</h1>
+  <p class="page-desc">L'API Notion te permet de lire, créer et modifier des pages et databases programmatiquement depuis Python, JavaScript ou n'importe quel langage.</p>
+
+  <h2>Setup — obtenir ta clé API</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Créer une intégration</div>
+        <div class="step-desc">Va sur <strong>notion.so/my-integrations</strong> → "New integration" → Donne-lui un nom → Récupère le <strong>Internal Integration Token</strong> (ta clé API). Commence par <code>ntn_</code>.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Connecter l'intégration à une page</div>
+        <div class="step-desc">Va sur ta page/database Notion → <strong>"..."</strong> (3 points) → <strong>"Add connections"</strong> → Sélectionne ton intégration. L'API n'a accès qu'aux pages où elle est explicitement connectée.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Récupérer l'ID de la database</div>
+        <div class="step-desc">Ouvre ta database en pleine page → L'URL ressemble à <code>notion.so/workspace/<strong>abc123def456...</strong></code>. La partie en gras (32 caractères) est l'ID de ta database.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Utilisation avec Python</h2>
+  <div class="code">
+<span class="cn">pip</span> install notion-client
+  </div>
+
+  <div class="code">
+<span class="ck">import</span> os
+<span class="ck">from</span> notion_client <span class="ck">import</span> Client
+
+<span class="cc"># Initialisation</span>
+notion = Client(auth=<span class="cs">"ntn_votre_cle_api"</span>)
+DATABASE_ID = <span class="cs">"abc123def456..."</span>
+
+<span class="cc"># ─── LIRE une database ───</span>
+response = notion.databases.query(
+    database_id=DATABASE_ID,
+    filter={
+        <span class="cs">"property"</span>: <span class="cs">"Statut"</span>,
+        <span class="cs">"select"</span>: { <span class="cs">"equals"</span>: <span class="cs">"En cours"</span> }
+    },
+    sorts=[{ <span class="cs">"property"</span>: <span class="cs">"Deadline"</span>, <span class="cs">"direction"</span>: <span class="cs">"ascending"</span> }]
+)
+
+<span class="ck">for</span> page <span class="ck">in</span> response[<span class="cs">"results"</span>]:
+    title = page[<span class="cs">"properties"</span>][<span class="cs">"Titre"</span>][<span class="cs">"title"</span>][<span class="cn">0</span>][<span class="cs">"plain_text"</span>]
+    print(title)
+
+<span class="cc"># ─── CRÉER une entrée ───</span>
+notion.pages.create(
+    parent={ <span class="cs">"database_id"</span>: DATABASE_ID },
+    properties={
+        <span class="cs">"Titre"</span>: { <span class="cs">"title"</span>: [{ <span class="cs">"text"</span>: { <span class="cs">"content"</span>: <span class="cs">"Nouvelle tâche"</span> } }] },
+        <span class="cs">"Statut"</span>: { <span class="cs">"select"</span>: { <span class="cs">"name"</span>: <span class="cs">"Backlog"</span> } },
+        <span class="cs">"Priorité"</span>: { <span class="cs">"select"</span>: { <span class="cs">"name"</span>: <span class="cs">"Haute"</span> } },
+        <span class="cs">"Deadline"</span>: { <span class="cs">"date"</span>: { <span class="cs">"start"</span>: <span class="cs">"2025-02-01"</span> } }
+    }
+)
+
+<span class="cc"># ─── MODIFIER une entrée ───</span>
+notion.pages.update(
+    page_id=<span class="cs">"id-de-la-page"</span>,
+    properties={
+        <span class="cs">"Statut"</span>: { <span class="cs">"select"</span>: { <span class="cs">"name"</span>: <span class="cs">"Terminé"</span> } }
+    }
+)
+  </div>
+
+  <h2>Utilisation avec JavaScript / Node.js</h2>
+  <div class="code">
+<span class="cn">npm</span> install @notionhq/client
+  </div>
+
+  <div class="code">
+<span class="ck">const</span> { <span class="cv">Client</span> } = <span class="ck">require</span>(<span class="cs">"@notionhq/client"</span>);
+
+<span class="ck">const</span> notion = <span class="ck">new</span> <span class="cv">Client</span>({ auth: <span class="cs">"ntn_votre_cle_api"</span> });
+<span class="ck">const</span> DATABASE_ID = <span class="cs">"abc123..."</span>;
+
+<span class="cc">// Lire la database</span>
+<span class="ck">async function</span> <span class="cv">getTasks</span>() {
+  <span class="ck">const</span> response = <span class="ck">await</span> notion.databases.query({
+    database_id: DATABASE_ID,
+    filter: {
+      property: <span class="cs">"Statut"</span>,
+      select: { equals: <span class="cs">"En cours"</span> }
+    }
+  });
+  <span class="ck">return</span> response.results;
+}
+
+<span class="cc">// Créer une entrée</span>
+<span class="ck">async function</span> <span class="cv">createTask</span>(titre, statut) {
+  <span class="ck">await</span> notion.pages.create({
+    parent: { database_id: DATABASE_ID },
+    properties: {
+      Titre: { title: [{ text: { content: titre } }] },
+      Statut: { select: { name: statut } }
+    }
+  });
+}
+
+<span class="cc">// Appeler</span>
+getTasks().then(tasks => console.log(tasks));
+createTask(<span class="cs">"Déployer la V2"</span>, <span class="cs">"Backlog"</span>);
+  </div>
+
+  <h2>Cas d'usage avancés</h2>
+  <div class="card-grid card-grid-2">
+    <div class="card">
+      <span class="card-icon">🤖</span>
+      <div class="card-title">Notion + IA (GPT/Claude)</div>
+      <div class="card-desc">Automatise la génération de contenu : chaque nouvelle entrée dans ta database déclenche une requête à l'API IA → le résumé est écrit automatiquement dans Notion.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">📊</span>
+      <div class="card-title">Reporting automatique</div>
+      <div class="card-desc">Script Python qui tourne chaque lundi matin, lit toutes les tâches de la semaine passée et crée un rapport structuré dans Notion avec les métriques.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔄</span>
+      <div class="card-title">Sync bidirectionnelle</div>
+      <div class="card-desc">Synchroniser Notion avec Airtable, Google Sheets ou une BDD SQL. Chaque modification d'un côté se reflète de l'autre via un script de sync.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🌐</span>
+      <div class="card-title">Notion as a CMS</div>
+      <div class="card-desc">Utilise Notion comme backend CMS pour ton site Next.js. L'API lit tes pages Notion et les affiche sur ton site. Tes non-devs éditent dans Notion, le site se met à jour.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-yellow">
+    <span class="callout-emoji">📚</span>
+    <div class="callout-content"><strong>Ressources :</strong> Documentation officielle : <strong>developers.notion.com</strong>. Explorateur API interactif : <strong>developers.notion.com/reference</strong>. Limites API : 3 requêtes/seconde, 100 résultats par query (paginer avec <code>start_cursor</code>).</div>
+  </div>
+
+  <div class="page-nav">
+    <div class="page-nav-btn" onclick="goTo('systems')"><span>←</span> Module 08</div>
+    <div class="page-nav-btn" onclick="goTo('home')"><span>🏠</span> Retour à l'accueil</div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<button class="menu-btn" id="menuBtn" onclick="toggleSidebar()">☰</button>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const pages = ['home','bases','shortcuts','databases','views','relations','formulas','automation','systems','api'];
+  const visited = new Set();
+
+  function goTo(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+    document.getElementById('page-' + id).classList.add('active');
+
+    const navItems = document.querySelectorAll('.nav-item');
+    const idx = pages.indexOf(id);
+    if (navItems[idx]) navItems[idx].classList.add('active');
+
+    visited.add(id);
+
+    // Mark previous items as done
+    pages.forEach((p, i) => {
+      if (visited.has(p) && p !== id && navItems[i]) {
+        navItems[i].classList.add('done');
+      }
+    });
+
+    // Update progress
+    const pct = Math.round((visited.size / pages.length) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = visited.size + ' / ' + pages.length + ' modules';
+
+    // Scroll to top
+    document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Close sidebar on mobile
+    document.getElementById('sidebar').clas
+    document.getElementById('sidebar').classList.remove('open');
+  }
+
+  // Mark home as visited on load
+  visited.add('home');
+  document.getElementById('progressText').textContent = '1 / 10 modules';
+  document.getElementById('progressBar').style.width = '10%';
+</script>
+</body>
+</html>

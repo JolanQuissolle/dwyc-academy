@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dev Platforms — GitHub · Vercel · Cloud</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f2eb;
+    --bg2: #edeae0;
+    --ink: #1a1814;
+    --ink2: #4a4740;
+    --ink3: #8a8680;
+    --accent-git: #e84f2a;
+    --accent-vercel: #1a1814;
+    --accent-cloud: #2563eb;
+    --accent-go: #16a34a;
+    --border: rgba(26,24,20,0.12);
+    --surface: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-right {
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    padding: 60px 40px;
+  }
+
+  .diag-box {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 18px 32px;
+    color: white;
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    width: 240px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .diag-box:hover {
+    background: rgba(255,255,255,0.12);
+    transform: scale(1.03);
+  }
+
+  .diag-box.git { border-color: rgba(232,79,42,0.5); }
+  .diag-box.vercel { border-color: rgba(255,255,255,0.4); }
+  .diag-box.cloud { border-color: rgba(37,99,235,0.5); }
+
+  .diag-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+    margin-bottom: 4px;
+  }
+
+  .diag-arrow {
+    color: rgba(255,255,255,0.3);
+    font-size: 20px;
+    line-height: 1;
+    padding: 6px 0;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .kw-git { color: #e84f2a; }
+  .kw-v { color: #e5e5e5; }
+  .kw-c { color: #60a5fa; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 5px 14px;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    width: fit-content;
+  }
+
+  h1 {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+
+  h1 span {
+    display: block;
+    color: var(--ink3);
+    font-weight: 400;
+  }
+
+  .hero-desc {
+    color: var(--ink2);
+    font-size: 17px;
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+
+  .hero-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    border: 2px solid;
+  }
+
+  .pill-git { border-color: var(--accent-git); color: var(--accent-git); }
+  .pill-v { border-color: var(--ink); color: var(--ink); }
+  .pill-c { border-color: var(--accent-cloud); color: var(--accent-cloud); }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .nav-item {
+    padding: 18px 24px;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    font-family: 'Fira Code', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-item:hover { color: rgba(255,255,255,0.8); }
+  .nav-item.active { color: white; border-bottom-color: white; }
+  .nav-item.git.active { border-bottom-color: var(--accent-git); color: var(--accent-git); }
+  .nav-item.cloud.active { border-bottom-color: #60a5fa; color: #60a5fa; }
+
+  /* SECTIONS */
+  .section {
+    display: none;
+    animation: fadeUp 0.4s ease;
+  }
+
+  .section.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION LAYOUTS */
+  .section-hero {
+    padding: 80px 60px 60px;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-body {
+    padding: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+
+  .tag-git { color: var(--accent-git); }
+  .tag-v { color: var(--ink2); }
+  .tag-c { color: var(--accent-cloud); }
+
+  h2 {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+
+  .section-intro {
+    color: var(--ink2);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  /* CONCEPT BOX */
+  .concept {
+    background: var(--ink);
+    color: white;
+    border-radius: 20px;
+    padding: 36px;
+  }
+
+  .concept-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+    margin-bottom: 12px;
+  }
+
+  .concept-text {
+    font-size: 17px;
+    line-height: 1.7;
+    opacity: 0.9;
+  }
+
+  .concept-text strong { opacity: 1; }
+
+  /* CARDS */
+  .grid { display: grid; gap: 16px; }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--ink);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  }
+
+  .card-num {
+    font-family: 'Clash Display', monospace;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 16px;
+    opacity: 0.08;
+  }
+
+  .card-icon { font-size: 28px; margin-bottom: 16px; display: block; }
+
+  .card-title {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .card-desc { font-size: 14px; color: var(--ink2); line-height: 1.6; }
+
+  /* TAGS */
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+  .tag {
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: 'Fira Code', monospace;
+    font-weight: 500;
+    border: 1px solid;
+  }
+  .tag-red { color: var(--accent-git); border-color: rgba(232,79,42,0.3); background: rgba(232,79,42,0.06); }
+  .tag-blue { color: var(--accent-cloud); border-color: rgba(37,99,235,0.3); background: rgba(37,99,235,0.06); }
+  .tag-green { color: var(--accent-go); border-color: rgba(22,163,74,0.3); background: rgba(22,163,74,0.06); }
+  .tag-neutral { color: var(--ink2); border-color: var(--border); background: var(--bg); }
+
+  /* CODE */
+  .code-wrap {
+    background: var(--ink);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 24px 0;
+  }
+
+  .code-header {
+    background: rgba(255,255,255,0.05);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .code-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .code-filename {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin-left: 8px;
+  }
+
+  .code-body {
+    padding: 24px;
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    color: #a0aec0;
+    line-height: 2;
+    overflow-x: auto;
+  }
+
+  .ck { color: #f97316; } /* keyword */
+  .cs { color: #86efac; } /* string */
+  .cc { color: #4a5568; font-style: italic; } /* comment */
+  .cf { color: #67e8f9; } /* function */
+  .cn { color: #fcd34d; } /* number/var */
+  .co { color: #c084fc; } /* operator */
+
+  /* STEP-BY-STEP */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--bg2);
+    line-height: 1;
+    padding-top: 4px;
+  }
+
+  .step-title {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .step-desc { font-size: 15px; color: var(--ink2); line-height: 1.6; }
+
+  /* CALLOUT */
+  .callout {
+    border-left: 4px solid;
+    padding: 20px 24px;
+    border-radius: 0 12px 12px 0;
+    margin: 24px 0;
+  }
+
+  .callout-red { border-color: var(--accent-git); background: rgba(232,79,42,0.05); }
+  .callout-blue { border-color: var(--accent-cloud); background: rgba(37,99,235,0.05); }
+  .callout-green { border-color: var(--accent-go); background: rgba(22,163,74,0.05); }
+  .callout-neutral { border-color: var(--border); background: var(--surface); }
+
+  .callout-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .callout-red .callout-title { color: var(--accent-git); }
+  .callout-blue .callout-title { color: var(--accent-cloud); }
+  .callout-green .callout-title { color: var(--accent-go); }
+
+  .callout p { font-size: 14px; color: var(--ink2); margin: 0; line-height: 1.6; }
+
+  /* COMPARISON */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .compare-col {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .compare-head {
+    padding: 20px;
+    font-family: 'Clash Display', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .compare-head.aws { background: #f97316; color: white; }
+  .compare-head.gcp { background: #2563eb; color: white; }
+  .compare-head.azure { background: #0078d4; color: white; }
+
+  .compare-body { padding: 20px; background: var(--surface); }
+  .compare-body ul { list-style: none; }
+  .compare-body ul li {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--bg2);
+    font-size: 13px;
+    color: var(--ink2);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .compare-body ul li:last-child { border-bottom: none; }
+  .compare-body ul li::before { content: '→'; color: var(--ink3); flex-shrink: 0; font-family: 'Fira Code', monospace; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  h3 {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 40px 0 20px;
+  }
+
+  p { margin-bottom: 14px; color: var(--ink2); }
+
+  ul.plain { list-style: none; margin: 0 0 16px; }
+  ul.plain li {
+    padding: 8px 0 8px 20px;
+    position: relative;
+    font-size: 15px;
+    color: var(--ink2);
+    border-bottom: 1px solid var(--bg2);
+  }
+  ul.plain li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--ink3);
+    font-family: 'Fira Code', monospace;
+  }
+
+  /* BIG FLOW */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 32px 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .flow-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+    min-width: 130px;
+    flex-shrink: 0;
+  }
+
+  .flow-box-icon { font-size: 24px; display: block; margin-bottom: 6px; }
+  .flow-box-label { font-size: 12px; font-weight: 700; font-family: 'Fira Code', monospace; }
+  .flow-box-sub { font-size: 11px; color: var(--ink3); margin-top: 2px; }
+
+  .flow-arrow {
+    font-size: 18px;
+    color: var(--ink3);
+    padding: 0 12px;
+    flex-shrink: 0;
+    font-family: 'Fira Code', monospace;
+  }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+  th { background: var(--ink); color: white; padding: 14px 16px; text-align: left; font-family: 'Fira Code', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  td { padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--ink2); background: var(--surface); }
+  td:first-child { color: var(--ink); font-weight: 700; }
+  tr:hover td { background: var(--bg); }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left, .section-hero, .section-body { padding: 40px 24px; }
+    .section-hero { grid-template-columns: 1fr; gap: 40px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Cours Pratique</div>
+    <h1>Les plateformes<span>que tout dev</span>utilise</h1>
+    <p class="hero-desc">GitHub, Vercel, AWS, GCP, Azure — comment ça marche vraiment, et comment tu vas t'en servir pour construire ta startup.</p>
+    <div class="hero-pills">
+      <span class="pill pill-git">GitHub</span>
+      <span class="pill pill-v">Vercel · Netlify</span>
+      <span class="pill pill-c">Cloud</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-diagram">
+      <div class="diag-box git">
+        <div class="diag-label">ton code</div>
+        <span class="kw-git">git push</span> → GitHub
+      </div>
+      <div class="diag-arrow">↓</div>
+      <div class="diag-box vercel">
+        <div class="diag-label">déploiement auto</div>
+        <span class="kw-v">Vercel / Netlify</span>
+      </div>
+      <div class="diag-arrow">↓</div>
+      <div class="diag-box">
+        <div class="diag-label">ton backend & data</div>
+        <span class="kw-c">AWS · GCP · Azure</span>
+      </div>
+      <div class="diag-arrow">↓</div>
+      <div class="diag-box" style="border-color:rgba(22,163,74,0.5)">
+        <div class="diag-label">résultat</div>
+        <span style="color:#86efac">ton app en prod 🚀</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-item git active" onclick="show('github')">01 — GitHub</div>
+  <div class="nav-item active" onclick="show('vercel')">02 — Vercel · Netlify</div>
+  <div class="nav-item cloud" onclick="show('cloud')">03 — Cloud (AWS·GCP·Azure)</div>
+  <div class="nav-item" onclick="show('workflow')">04 — Workflow complet</div>
+</nav>
+
+<!-- ═══════════════════════════ GITHUB ═══════════════════════════ -->
+<div id="github" class="section active">
+  <div class="section-hero">
+    <div>
+      <div class="section-tag tag-git">Module 01</div>
+      <h2>GitHub</h2>
+      <p class="section-intro">La plateforme où vit tout le code du monde. Comprendre GitHub, c'est comprendre comment les équipes tech collaborent et livrent des produits.</p>
+    </div>
+    <div class="concept">
+      <div class="concept-title">L'analogie parfaite</div>
+      <p class="concept-text">Imagine que ton code est un <strong>document Google Docs</strong>. <strong>Git</strong> = l'historique des versions. <strong>GitHub</strong> = Google Drive, là où tout le monde peut accéder au doc, proposer des modifications, et voir qui a changé quoi et quand.</p>
+    </div>
+  </div>
+
+  <div class="section-body">
+
+    <h3>Git vs GitHub — la confusion #1</h3>
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="card-icon">⚙️</span>
+        <div class="card-title">Git</div>
+        <div class="card-desc">Un logiciel installé sur ton ordinateur. Il track les changements de ton code localement. Créé par Linus Torvalds (le créateur de Linux) en 2005. Gratuit et open-source. C'est le moteur.</div>
+        <div class="tags"><span class="tag tag-neutral">Local</span><span class="tag tag-neutral">Logiciel</span><span class="tag tag-neutral">Open Source</span></div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🐙</span>
+        <div class="card-title">GitHub</div>
+        <div class="card-desc">Un site web (github.com) qui héberge tes repos Git dans le cloud. Appartient à Microsoft ($7.5B en 2018). 100M+ développeurs. C'est la carrosserie — la partie visible et sociale.</div>
+        <div class="tags"><span class="tag tag-red">Microsoft</span><span class="tag tag-neutral">Cloud</span><span class="tag tag-neutral">Social</span></div>
+      </div>
+    </div>
+
+    <div class="callout callout-neutral">
+      <div class="callout-title">Alternatives à GitHub</div>
+      <p><strong>GitLab</strong> : Concurrent, très populaire en entreprise et open-source. Meilleur pour le DevOps intégré. <strong>Bitbucket</strong> : Fait par Atlassian (Jira), intégration parfaite avec leurs outils. Mais GitHub reste le standard avec 90% des projets open-source.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Les concepts Git fondamentaux</h3>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="card-num">01</div>
+        <div class="card-title">Repository (Repo)</div>
+        <div class="card-desc">Le dossier de ton projet versionné. Contient tout ton code + l'historique complet de toutes les modifications jamais faites.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <div class="card-title">Commit</div>
+        <div class="card-desc">Une "photo" de ton code à un instant T. Chaque commit a un message ("Fix login bug") et un identifiant unique. L'historique = la somme de tous les commits.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <div class="card-title">Branch</div>
+        <div class="card-desc">Une copie parallèle du code. Tu crées une branche pour développer une feature sans casser le code principal (main). Une fois fini, tu "merge" dans main.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">04</div>
+        <div class="card-title">Pull Request (PR)</div>
+        <div class="card-desc">Demande de merger ta branche dans main. Les collègues reviews ton code, laissent des commentaires. Acceptée = le code est mergé. C'est ainsi que les équipes collaborent.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">05</div>
+        <div class="card-title">Fork</div>
+        <div class="card-desc">Copier le repo de quelqu'un d'autre dans ton compte GitHub. Tu peux modifier librement sans affecter l'original. Base de tout l'open-source.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">06</div>
+        <div class="card-title">Clone</div>
+        <div class="card-desc">Télécharger un repo GitHub sur ta machine locale. Après le clone, tu as tout le code + l'historique en local et tu peux travailler offline.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Les commandes Git essentielles — pratique</h3>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="code-dot" style="background:#ff5f57"></div>
+        <div class="code-dot" style="background:#ffbd2e"></div>
+        <div class="code-dot" style="background:#28c840"></div>
+        <div class="code-filename">terminal</div>
+      </div>
+      <div class="code-body">
+<span class="cc"># 1. Initialiser un projet</span>
+<span class="cf">git init</span>                         <span class="cc"># Créer un repo dans le dossier actuel</span>
+
+<span class="cc"># 2. Connecter à GitHub</span>
+<span class="cf">git remote add origin</span> <span class="cs">https://github.com/toi/mon-projet.git</span>
+
+<span class="cc"># 3. Le workflow quotidien</span>
+<span class="cf">git status</span>                       <span class="cc"># Voir ce qui a changé</span>
+<span class="cf">git add</span> <span class="cn">.</span>                         <span class="cc"># "Stager" tous les fichiers modifiés</span>
+<span class="cf">git commit</span> <span class="ck">-m</span> <span class="cs">"Ajout page login"</span>  <span class="cc"># Créer un commit avec un message</span>
+<span class="cf">git push origin main</span>             <span class="cc"># Envoyer sur GitHub</span>
+
+<span class="cc"># 4. Récupérer les changements des collègues</span>
+<span class="cf">git pull origin main</span>             <span class="cc"># Mettre à jour ton code local</span>
+
+<span class="cc"># 5. Créer et changer de branche</span>
+<span class="cf">git checkout</span> <span class="ck">-b</span> <span class="cs">feature/nouvelle-page</span>  <span class="cc"># Créer + switcher sur une branche</span>
+<span class="cf">git checkout main</span>                <span class="cc"># Revenir sur main</span>
+
+<span class="cc"># 6. Merge une branche</span>
+<span class="cf">git merge</span> <span class="cs">feature/nouvelle-page</span>  <span class="cc"># Intégrer les changements dans main</span>
+      </div>
+    </div>
+
+    <div class="callout callout-red">
+      <div class="callout-title">GitHub Actions — l'automatisation</div>
+      <p>GitHub Actions permet d'automatiser des tâches à chaque push : lancer des tests automatiques, déployer sur Vercel, envoyer une notif Slack. C'est le CI/CD intégré à GitHub. Quand ton ingénieur dit "la pipeline est cassée", il parle de ça. Gratuit jusqu'à 2000 minutes/mois.</p>
+    </div>
+
+    <h3>GitHub dans la vraie vie d'une startup</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Le repo principal</div>
+          <div class="step-desc">Tout le code de la startup vit dans 1 ou plusieurs repos GitHub. Privés en général (pas visibles publiquement). L'accès se gère par équipe : devs ont accès au code, pas les autres.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Branch protection</div>
+          <div class="step-desc">La branche "main" est protégée — personne ne peut pousser directement sans une PR reviewée. Évite que quelqu'un casse la prod par accident.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Issues & Projects</div>
+          <div class="step-desc">GitHub a un outil de gestion de tickets (Issues) et un Kanban (Projects). Certaines startups gèrent tout là. D'autres préfèrent Linear ou Jira — mais GitHub est souvent suffisant en early stage.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">GitHub Copilot</div>
+          <div class="step-desc">L'IA de coding de GitHub (Microsoft + OpenAI). Complète ton code en temps réel. $10/mois. Augmente la productivité des devs de 30-55% selon des études. Révolutionnaire pour les juniors.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════ VERCEL ═══════════════════════════ -->
+<div id="vercel" class="section">
+  <div class="section-hero">
+    <div>
+      <div class="section-tag tag-v">Module 02</div>
+      <h2>Vercel & Netlify</h2>
+      <p class="section-intro">Les plateformes qui transforment ton code GitHub en un site live accessible partout dans le monde — en quelques secondes, sans gérer de serveurs.</p>
+    </div>
+    <div class="concept">
+      <div class="concept-title">L'analogie parfaite</div>
+      <p class="concept-text">Vercel, c'est comme un <strong>imprimeur ultra-rapide</strong>. Tu écris ton manuscrit (code), tu le donnes à Vercel, et en 30 secondes il est imprimé (déployé) et disponible dans toutes les librairies du monde (CDN global). Tu n'as jamais touché à la presse.</p>
+    </div>
+  </div>
+
+  <div class="section-body">
+
+    <h3>Le problème qu'ils résolvent</h3>
+    <p>Avant Vercel/Netlify, déployer un site web voulait dire : louer un serveur, l'installer, configurer Linux, Nginx, les certificats SSL, le DNS, les mises à jour de sécurité… Une journée de travail minimum. Maintenant : <strong>30 secondes</strong>.</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="card-icon">▲</span>
+        <div class="card-title">Vercel</div>
+        <div class="card-desc">Créé par les auteurs de Next.js. La plateforme de référence pour React/Next. Déploiement instantané depuis GitHub. Preview URLs pour chaque PR. Analytics intégrés. Fondée en 2015, valorisée $3.25B.</div>
+        <div class="tags"><span class="tag tag-neutral">Next.js natif</span><span class="tag tag-green">Freemium</span></div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🦊</span>
+        <div class="card-title">Netlify</div>
+        <div class="card-desc">Pionnière du "JAMstack". Plus polyvalente que Vercel (tous frameworks). Netlify Drop = déploiement par drag & drop. Forms, Identity, Edge Functions intégrés. Très populaire pour les sites statiques.</div>
+        <div class="tags"><span class="tag tag-neutral">Polyvalent</span><span class="tag tag-green">Freemium</span></div>
+      </div>
+    </div>
+
+    <div class="callout callout-neutral">
+      <div class="callout-title">Vercel vs Netlify — lequel choisir ?</div>
+      <p>Tu fais du <strong>Next.js</strong> ? → Vercel sans hésiter (même équipe, intégration parfaite). Tu fais autre chose (React simple, Vue, Hugo, Astro) ? → Les deux sont équivalents. Pour débuter ? <strong>Netlify Drop</strong> est le plus simple (glisser-déposer). Pour une vraie startup → <strong>Vercel</strong>.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Comment ça marche — le flow complet</h3>
+    <div class="flow">
+      <div class="flow-box">
+        <span class="flow-box-icon">💻</span>
+        <div class="flow-box-label">Tu codes</div>
+        <div class="flow-box-sub">Local</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <span class="flow-box-icon">📤</span>
+        <div class="flow-box-label">git push</div>
+        <div class="flow-box-sub">GitHub</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color: #1a1814; background: #f5f2eb;">
+        <span class="flow-box-icon">⚡</span>
+        <div class="flow-box-label">Build auto</div>
+        <div class="flow-box-sub">Vercel détecte</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <span class="flow-box-icon">🌍</span>
+        <div class="flow-box-label">CDN global</div>
+        <div class="flow-box-sub">100+ datacenters</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-color: #16a34a;">
+        <span class="flow-box-icon">✅</span>
+        <div class="flow-box-label">Ton site live</div>
+        <div class="flow-box-sub">En ~30 secondes</div>
+      </div>
+    </div>
+
+    <div class="callout callout-green">
+      <div class="callout-title">Preview Deployments — la feature killer</div>
+      <p>Chaque Pull Request génère automatiquement une URL de preview unique. Exemple : <code>ma-startup-pr-42.vercel.app</code>. Tu peux la partager avec ton designer ou tes investisseurs pour voir les changements avant de les merger en prod. C'est une des features les plus utilisées par les équipes product.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Déploiement pratique — étape par étape</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Connecte GitHub à Vercel</div>
+          <div class="step-desc">Va sur vercel.com → "New Project" → "Import Git Repository" → Autorise Vercel à accéder à ton GitHub. Sélectionne le repo.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Vercel détecte ton framework</div>
+          <div class="step-desc">Vercel reconnaît automatiquement Next.js, React, Vue, etc. et configure la build. En général zero config nécessaire.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Variables d'environnement</div>
+          <div class="step-desc">Tes clés secrètes (API keys, BDD passwords) vont dans "Environment Variables" dans Vercel — jamais dans ton code GitHub. C'est là que tu mets <code>OPENAI_API_KEY=sk-...</code></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Domaine custom</div>
+          <div class="step-desc">Dans les settings Vercel → Domains → ajoute ton domaine (ex: masaas.com). Vercel configure le SSL (HTTPS) automatiquement en quelques minutes.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="code-dot" style="background:#ff5f57"></div>
+        <div class="code-dot" style="background:#ffbd2e"></div>
+        <div class="code-dot" style="background:#28c840"></div>
+        <div class="code-filename">vercel.json — config optionnelle</div>
+      </div>
+      <div class="code-body">
+<span class="cc">// Fichier optionnel à la racine de ton projet</span>
+<span class="co">{</span>
+  <span class="cs">"framework"</span>: <span class="cs">"nextjs"</span>,
+  <span class="cs">"buildCommand"</span>: <span class="cs">"npm run build"</span>,
+  <span class="cs">"outputDirectory"</span>: <span class="cs">".next"</span>,
+  <span class="cs">"env"</span>: <span class="co">{</span>
+    <span class="cs">"NEXT_PUBLIC_API_URL"</span>: <span class="cs">"@api_url"</span>   <span class="cc">// Référence une env var Vercel</span>
+  <span class="co">}</span>,
+  <span class="cs">"rewrites"</span>: <span class="co">[</span>
+    <span class="co">{</span> <span class="cs">"source"</span>: <span class="cs">"/api/:path*"</span>, <span class="cs">"destination"</span>: <span class="cs">"/api/:path*"</span> <span class="co">}</span>
+  <span class="co">]</span>
+<span class="co">}</span>
+      </div>
+    </div>
+
+    <h3>Tarifs — ce que tu vas vraiment payer</h3>
+    <table>
+      <tr><th>Plan</th><th>Prix</th><th>Limites</th><th>Pour qui</th></tr>
+      <tr><td>Hobby (Vercel)</td><td>Gratuit</td><td>Usage perso, pas commercial</td><td>Side projects, MVP perso</td></tr>
+      <tr><td>Pro (Vercel)</td><td>$20/mois</td><td>Projets commerciaux, team</td><td>Startup en production</td></tr>
+      <tr><td>Netlify Free</td><td>Gratuit</td><td>100GB bandwidth, 300min build</td><td>MVP, sites statiques</td></tr>
+      <tr><td>Netlify Pro</td><td>$19/mois</td><td>Bandwidth illimitée, team</td><td>Startup en production</td></tr>
+    </table>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════ CLOUD ═══════════════════════════ -->
+<div id="cloud" class="section">
+  <div class="section-hero">
+    <div>
+      <div class="section-tag tag-c">Module 03</div>
+      <h2>AWS · GCP · Azure</h2>
+      <p class="section-intro">Les trois géants du cloud qui font tourner 90% d'internet. Comprendre ce qu'ils vendent et quand les utiliser.</p>
+    </div>
+    <div class="concept">
+      <div class="concept-title">L'analogie parfaite</div>
+      <p class="concept-text">Le cloud, c'est comme <strong>louer de l'électricité</strong> au lieu d'avoir votre propre générateur. Avant le cloud, les entreprises achetaient des serveurs physiques. Aujourd'hui elles louent de la puissance de calcul à la demande, au centime près.</p>
+    </div>
+  </div>
+
+  <div class="section-body">
+
+    <h3>Pourquoi le cloud a tout changé</h3>
+    <p>Avant AWS (2006), lancer une startup nécessitait d'acheter des serveurs ($10k-100k+), louer un datacenter, embaucher des sysadmins. Cela prenait des mois. AWS a rendu ça possible en quelques clics pour $0 au départ. Netflix, Airbnb, Uber ont tous commencé sur AWS. C'est la démocratisation totale de l'infrastructure tech.</p>
+
+    <div class="compare-grid">
+      <div class="compare-col">
+        <div class="compare-head aws">Amazon AWS</div>
+        <div class="compare-body">
+          <ul>
+            <li>Lancé en 2006, le pionnier</li>
+            <li>~31% du marché cloud</li>
+            <li>200+ services disponibles</li>
+            <li>S3 (stockage), EC2 (serveurs), Lambda (serverless)</li>
+            <li>Le plus mature et le plus utilisé</li>
+            <li>Documentation immense mais complexe</li>
+            <li>Free tier 12 mois très généreux</li>
+          </ul>
+        </div>
+      </div>
+      <div class="compare-col">
+        <div class="compare-head gcp">Google GCP</div>
+        <div class="compare-body">
+          <ul>
+            <li>Google Cloud Platform</li>
+            <li>~11% du marché cloud</li>
+            <li>Meilleur pour les données & IA/ML</li>
+            <li>BigQuery (analytics), TPUs (IA), Vertex AI</li>
+            <li>Firebase = backend as a service pour apps mobiles</li>
+            <li>Interface plus simple qu'AWS</li>
+            <li>$300 de crédits à l'inscription</li>
+          </ul>
+        </div>
+      </div>
+      <div class="compare-col">
+        <div class="compare-head azure">Microsoft Azure</div>
+        <div class="compare-body">
+          <ul>
+            <li>~24% du marché cloud</li>
+            <li>Dominant dans les grandes entreprises</li>
+            <li>Intégration native Microsoft (Office 365, Active Directory)</li>
+            <li>Azure OpenAI Service = GPT-4 en enterprise</li>
+            <li>Certifications Azure très reconnues</li>
+            <li>Complexe pour les débutants</li>
+            <li>$200 de crédits à l'inscription</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-blue">
+      <div class="callout-title">Lequel choisir pour une startup ?</div>
+      <p><strong>AWS</strong> si tu veux le maximum de ressources, tutorials, et qu'aucun autre critère ne s'impose. C'est le plus safe. <strong>GCP</strong> si ton produit est centré IA/ML ou data analytics. <strong>Azure</strong> si tu vends à des grandes entreprises qui sont déjà dans l'écosystème Microsoft. En early stage, <strong>commence par AWS</strong>.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Les services cloud essentiels à connaître</h3>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="card-icon">🖥️</span>
+        <div class="card-title">Compute — les serveurs virtuels</div>
+        <div class="card-desc">
+          <strong>AWS EC2</strong> / GCP Compute Engine / Azure VMs. Tu loues un "ordinateur" dans le cloud. Tu choisis la taille (CPU, RAM). Tu paies à l'heure. C'est là que tourne ton backend.
+        </div>
+        <div class="tags"><span class="tag tag-neutral">EC2</span><span class="tag tag-neutral">VMs</span><span class="tag tag-neutral">$0.01-10/heure</span></div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🗄️</span>
+        <div class="card-title">Storage — le stockage</div>
+        <div class="card-desc">
+          <strong>AWS S3</strong> (Simple Storage Service) = le Google Drive des devs. Stocke fichiers, images, vidéos, backups. Utilisé par Netflix, Airbnb, Slack. ~$0.023/GB/mois. Le service cloud le plus utilisé au monde.
+        </div>
+        <div class="tags"><span class="tag tag-red">S3</span><span class="tag tag-neutral">Blob Storage</span></div>
+      </div>
+      <div class="card">
+        <span class="card-icon">⚡</span>
+        <div class="card-title">Serverless — Functions</div>
+        <div class="card-desc">
+          <strong>AWS Lambda</strong> / GCP Cloud Functions / Azure Functions. Exécute du code sans gérer de serveur. Tu paies uniquement quand ta fonction tourne. Parfait pour les APIs légères et les tâches automatisées.
+        </div>
+        <div class="tags"><span class="tag tag-green">Lambda</span><span class="tag tag-green">Pay per use</span></div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🗃️</span>
+        <div class="card-title">Managed Databases</div>
+        <div class="card-desc">
+          <strong>AWS RDS</strong> (Postgres/MySQL managé), <strong>DynamoDB</strong> (NoSQL), <strong>Firebase Firestore</strong> (GCP). La base de données tourne dans le cloud, backups automatiques, scaling auto. Tu ne gères pas le serveur.
+        </div>
+        <div class="tags"><span class="tag tag-blue">RDS</span><span class="tag tag-blue">DynamoDB</span></div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌐</span>
+        <div class="card-title">CDN — Content Delivery Network</div>
+        <div class="card-desc">
+          <strong>AWS CloudFront</strong>. Distribue ton contenu (images, videos, pages) depuis des serveurs proches de l'utilisateur. Quelqu'un à Tokyo reçoit le contenu depuis un serveur japonais, pas depuis Paris. Vercel fait ça automatiquement.
+        </div>
+        <div class="tags"><span class="tag tag-neutral">CloudFront</span><span class="tag tag-neutral">Performance</span></div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🤖</span>
+        <div class="card-title">AI / ML Services</div>
+        <div class="card-desc">
+          <strong>AWS Bedrock</strong> (accès à Claude, Llama, etc.), <strong>GCP Vertex AI</strong>, <strong>Azure OpenAI</strong>. Les clouds exposent les grands modèles IA via API avec gestion enterprise (sécurité, compliance, SLA).
+        </div>
+        <div class="tags"><span class="tag tag-red">Bedrock</span><span class="tag tag-blue">Vertex AI</span></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Pratique — lancer ton premier serveur AWS</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Créer un compte AWS Free Tier</div>
+          <div class="step-desc">aws.amazon.com → "Créer un compte gratuit". CB requise mais ne sera pas débitée si tu restes dans les limites. Free tier = 12 mois d'accès gratuit à la plupart des services basiques.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">AWS Console — le tableau de bord</div>
+          <div class="step-desc">Console.aws.amazon.com — L'interface principale. 200+ services listés. Ne panique pas. Tu n'en utiliseras que 5-10 au début. Utilise la barre de recherche pour trouver ce dont tu as besoin.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Créer un bucket S3 (stockage)</div>
+          <div class="step-desc">S3 → "Create Bucket" → Nom unique mondial → Région (eu-west-1 = Irlande pour l'Europe) → Upload tes fichiers. Free tier : 5GB gratuits la première année.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Attention aux coûts !</div>
+          <div class="step-desc">Configure des <strong>billing alerts</strong> immédiatement (AWS Budgets → Create Budget → $10/mois). Des erreurs de config peuvent générer des factures surprises. C'est l'erreur classique de tout développeur débutant sur AWS.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-blue">
+      <div class="callout-title">Railway & Render — les alternatives simples</div>
+      <p>Si AWS/GCP/Azure te semblent trop complexes pour démarrer, <strong>Railway.app</strong> et <strong>Render.com</strong> sont des alternatives parfaites pour les startups early stage. Tu déploies ton backend comme tu déploies sur Vercel — en 2 clics depuis GitHub. Moins puissants mais infiniment plus simples. Parfait jusqu'à quelques milliers d'utilisateurs.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════ WORKFLOW ═══════════════════════════ -->
+<div id="workflow" class="section">
+  <div class="section-hero">
+    <div>
+      <div class="section-tag">Module 04</div>
+      <h2>Le workflow complet</h2>
+      <p class="section-intro">Comment tout s'assemble en pratique — du code écrit sur ton laptop jusqu'à l'utilisateur final.</p>
+    </div>
+    <div class="concept">
+      <div class="concept-title">La grande image</div>
+      <p class="concept-text">GitHub + Vercel + Cloud ne sont pas des alternatives — ce sont des <strong>couches complémentaires</strong>. GitHub stocke ton code. Vercel déploie ton frontend. Le Cloud fait tourner ton backend et ta base de données.</p>
+    </div>
+  </div>
+
+  <div class="section-body">
+
+    <h3>Le stack startup standard en 2025</h3>
+    <div class="flow" style="flex-wrap: wrap; gap: 16px;">
+      <div class="flow-box" style="border-color: #e84f2a;">
+        <span class="flow-box-icon">💻</span>
+        <div class="flow-box-label" style="color: #e84f2a;">GitHub</div>
+        <div class="flow-box-sub">Code source</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <span class="flow-box-icon">▲</span>
+        <div class="flow-box-label">Vercel</div>
+        <div class="flow-box-sub">Frontend Next.js</div>
+      </div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-box" style="border-color: #16a34a;">
+        <span class="flow-box-icon">🚂</span>
+        <div class="flow-box-label" style="color: #16a34a;">Railway</div>
+        <div class="flow-box-sub">Backend Python</div>
+      </div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-box" style="border-color: #2563eb;">
+        <span class="flow-box-icon">🐘</span>
+        <div class="flow-box-label" style="color: #2563eb;">Supabase</div>
+        <div class="flow-box-sub">Postgres + Auth</div>
+      </div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-box" style="border-color: #f97316;">
+        <span class="flow-box-icon">☁️</span>
+        <div class="flow-box-label" style="color: #f97316;">AWS S3</div>
+        <div class="flow-box-sub">Fichiers & médias</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Scénario réel — tu codes une feature</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Tu crées une branche sur GitHub</div>
+          <div class="step-desc"><code>git checkout -b feature/page-pricing</code> — Tu travailles sur ta feature sans toucher au code de prod.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Tu pushs — Vercel crée une preview</div>
+          <div class="step-desc"><code>git push origin feature/page-pricing</code> → Vercel détecte le push et déploie automatiquement sur une URL de preview. Tu vois ta feature live en 30 secondes.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Tu ouvres une Pull Request</div>
+          <div class="step-desc">Sur GitHub, tu ouvres une PR. Ton co-founder review le code, laisse des commentaires. Les GitHub Actions lancent les tests automatiques. Tout est vert → la PR est approuvée.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Merge → Déploiement en prod</div>
+          <div class="step-desc">Tu merges la PR dans <code>main</code>. Vercel détecte le merge sur main et redéploie automatiquement en production. L'URL <code>masaas.com</code> est mise à jour. Zero downtime.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-title">Le backend tourne sur Railway/AWS</div>
+          <div class="step-desc">Ton API FastAPI tourne sur Railway (auto-déployée depuis le même GitHub). S3 stocke les uploads users. Supabase gère la base de données. Tout est connecté via variables d'environnement.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Récapitulatif — quand utiliser quoi</h3>
+    <table>
+      <tr><th>Besoin</th><th>Outil</th><th>Pourquoi</th></tr>
+      <tr><td>Versionner mon code</td><td>GitHub</td><td>Standard universel, impossible de ne pas l'utiliser</td></tr>
+      <tr><td>Déployer mon frontend</td><td>Vercel</td><td>Le plus simple pour Next.js, preview auto par PR</td></tr>
+      <tr><td>Déployer mon backend</td><td>Railway / Render</td><td>Simple comme Vercel mais pour le back</td></tr>
+      <tr><td>Stocker des fichiers</td><td>AWS S3</td><td>Standard incontournable, $0.023/GB</td></tr>
+      <tr><td>Base de données</td><td>Supabase</td><td>Postgres managé + auth + realtime, gratuit au départ</td></tr>
+      <tr><td>Scaler à des millions d'users</td><td>AWS complet</td><td>La puissance brute quand Railway ne suffit plus</td></tr>
+      <tr><td>Produit IA centré data</td><td>GCP</td><td>BigQuery, Vertex AI, TPUs</td></tr>
+      <tr><td>Vendre à des grands groupes</td><td>Azure</td><td>Compliance, Active Directory, contrats Microsoft</td></tr>
+    </table>
+
+    <div class="callout callout-green">
+      <div class="callout-title">🎯 Plan d'action concret</div>
+      <p>
+        <strong>Cette semaine :</strong> Crée un compte GitHub et un compte Vercel. Connecte-les. Déploie n'importe quel fichier HTML ou projet Next.js. Observe le déploiement automatique.<br><br>
+        <strong>Semaine 2 :</strong> Crée un compte AWS Free Tier. Crée un bucket S3. Upload une image. Accède-y via une URL publique.<br><br>
+        <strong>Mois 1 :</strong> Lance un petit projet (même une page de landing pour ta future startup) avec ce stack complet. Tu apprendras 10x plus qu'en lisant.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function show(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    const map = { github: 0, vercel: 1, cloud: 2, workflow: 3 };
+    document.querySelectorAll('.nav-item')[map[id]].classList.add('active');
+    window.scrollTo({ top: document.querySelector('nav').offsetTop, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

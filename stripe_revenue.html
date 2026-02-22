@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STRIPE REVENUE MASTERY</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #0c0b09;
+  --surface:   #121109;
+  --surface2:  #1a1812;
+  --surface3:  #221f16;
+  --border:    #2c2920;
+  --border2:   #3d3828;
+
+  --gold:      #d4a843;
+  --gold-lt:   #e8c46a;
+  --gold-dk:   #8a6a1f;
+  --gold-glow: rgba(212,168,67,0.09);
+  --gold-bg:   rgba(212,168,67,0.05);
+
+  --ivory:     #f0e8d0;
+  --ivory-dk:  #c8b98a;
+
+  --red:       #e05252;
+  --red-dim:   #5a1a1a;
+  --green:     #52a876;
+  --green-dim: #1a4a2e;
+
+  --text:      #e8dfc8;
+  --muted:     #6b6048;
+  --muted2:    #4a4030;
+
+  --code-bg:   #080807;
+  --stripe:    #635bff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ── GOLD RULE TOP ── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--gold-dk) 20%,
+    var(--gold) 50%,
+    var(--gold-dk) 80%,
+    transparent 100%);
+  z-index: 200;
+}
+
+/* ── HEADER ── */
+header {
+  position: sticky; top: 2px; z-index: 100;
+  background: rgba(12,11,9,0.97);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem; height: 58px;
+}
+
+.logo {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+
+.logo-mark {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, var(--gold-dk), var(--gold));
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.75rem; font-weight: 700;
+  color: var(--bg);
+}
+
+.logo-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.12em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.logo-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem; color: var(--muted);
+  letter-spacing: 0.06em;
+  border-left: 1px solid var(--border2);
+  padding-left: 0.75rem;
+}
+
+nav { display: flex; gap: 0.2rem; }
+
+.nav-btn {
+  background: none; border: 1px solid transparent;
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem; padding: 0.3rem 0.75rem;
+  cursor: pointer; border-radius: 4px;
+  transition: all 0.15s;
+  text-transform: uppercase; letter-spacing: 0.07em;
+}
+
+.nav-btn:hover, .nav-btn.active {
+  color: var(--gold);
+  border-color: var(--gold-dk);
+  background: var(--gold-bg);
+}
+
+/* ── HERO ── */
+.hero {
+  max-width: 1040px; margin: 0 auto;
+  padding: 5rem 2.5rem 3.5rem;
+  position: relative;
+}
+
+.hero::after {
+  content: '§';
+  position: absolute;
+  right: 2rem; top: 3rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 18rem; line-height: 1;
+  color: rgba(212,168,67,0.03);
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem; color: var(--gold);
+  text-transform: uppercase; letter-spacing: 0.2em;
+  margin-bottom: 1.75rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+
+.hero-kicker::before, .hero-kicker::after {
+  content: '';
+  flex: 1; max-width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dk));
+}
+
+.hero-kicker::after {
+  background: linear-gradient(90deg, var(--gold-dk), transparent);
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  font-weight: 900;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--gold);
+  display: block;
+}
+
+h1 .sub {
+  font-size: 55%;
+  font-weight: 700;
+  color: var(--muted);
+  display: block;
+  font-style: normal;
+  letter-spacing: 0.05em;
+}
+
+.hero-desc {
+  font-size: 0.97rem; color: var(--muted);
+  max-width: 560px; line-height: 1.85;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+/* REVENUE LEDGER — hero stats */
+.ledger {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+
+.ledger-cell {
+  padding: 1.25rem 1.5rem;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.ledger-cell:last-child { border-right: none; }
+.ledger-cell:hover { background: var(--surface2); }
+
+.ledger-cell::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ledger-cell:hover::before { opacity: 1; }
+
+.l-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem; line-height: 1;
+  color: var(--gold-lt);
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+}
+
+.l-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  line-height: 1.4;
+}
+
+.modules-nav {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+}
+
+.mod-pill {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  background: var(--surface2); border: 1px solid var(--border2);
+  color: var(--ivory-dk);
+  padding: 0.45rem 1rem; border-radius: 5px;
+  cursor: pointer; transition: all 0.2s;
+  letter-spacing: 0.04em;
+}
+
+.mod-pill:hover {
+  border-color: var(--gold-dk);
+  background: var(--gold-bg);
+  color: var(--gold);
+}
+
+/* ── CONTENT ── */
+.content {
+  max-width: 1040px; margin: 0 auto;
+  padding: 0 2.5rem 6rem;
+}
+
+.section { display: none; animation: emerge 0.3s ease; }
+.section.active { display: block; }
+
+@keyframes emerge {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── MODULE HEADER ── */
+.mod-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border2);
+  gap: 2rem;
+}
+
+.mod-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem; color: var(--gold);
+  text-transform: uppercase; letter-spacing: 0.18em;
+  margin-bottom: 0.6rem;
+}
+
+.mod-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  line-height: 1.02; font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.mod-head h2 em { font-style: italic; color: var(--gold); }
+
+.mod-head p {
+  color: var(--muted); font-size: 0.88rem;
+  max-width: 520px; margin-top: 0.5rem;
+  line-height: 1.75; font-weight: 300;
+}
+
+.mod-figure {
+  text-align: right; flex-shrink: 0;
+}
+
+.big-fig {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem; line-height: 1;
+  color: var(--gold); font-weight: 700;
+  font-style: italic;
+}
+
+.big-fig-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-top: 0.25rem;
+}
+
+/* ── TAGS ── */
+.tags { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:2rem; }
+
+.tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem; padding: 0.18rem 0.6rem;
+  border-radius: 3px; text-transform: uppercase;
+  letter-spacing: 0.07em; border: 1px solid var(--border2);
+  color: var(--muted);
+}
+
+.tag.gold  { border-color: var(--gold-dk); color: var(--gold); background: var(--gold-bg); }
+.tag.green { border-color: var(--green-dim); color: var(--green); background: rgba(82,168,118,0.06); }
+.tag.red   { border-color: var(--red-dim); color: var(--red); background: rgba(224,82,82,0.06); }
+
+/* ── CARD ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.75rem;
+  margin-bottom: 1.25rem;
+  transition: border-color 0.2s;
+  position: relative; overflow: hidden;
+}
+
+.card:hover { border-color: var(--border2); }
+
+.card h3 {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.97rem; font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.5rem;
+  color: var(--ivory);
+}
+
+.card p { color: var(--muted); font-size: 0.87rem; line-height: 1.8; }
+
+.card ul { list-style: none; }
+.card ul li {
+  color: var(--muted); font-size: 0.87rem;
+  padding: 0.22rem 0 0.22rem 1.2rem;
+  position: relative;
+}
+
+.card ul li::before {
+  content: '—';
+  position: absolute; left: 0;
+  color: var(--gold-dk);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem; top: 0.38rem;
+}
+
+strong { color: var(--ivory); font-weight: 600; }
+
+/* ── CODE BLOCK ── */
+.code-block {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px; margin: 1.1rem 0;
+  overflow: hidden;
+}
+
+.code-hd {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.1rem;
+  background: rgba(26,24,18,0.8);
+  border-bottom: 1px solid var(--border);
+}
+
+.code-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem; color: var(--gold);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+
+.copy-btn {
+  background: none; border: 1px solid var(--border2);
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem; padding: 0.18rem 0.6rem;
+  cursor: pointer; border-radius: 3px;
+  transition: all 0.15s; text-transform: uppercase;
+}
+
+.copy-btn:hover { color: var(--gold); border-color: var(--gold-dk); }
+
+pre {
+  padding: 1.25rem; overflow-x: auto;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem; line-height: 1.85;
+  color: #c8bfa8;
+}
+
+.kw   { color: #d4a843; }
+.str  { color: #90c490; }
+.fn   { color: #9ab8d4; }
+.com  { color: #3d3828; font-style: italic; }
+.num  { color: #e8c46a; }
+.var  { color: #c8a870; }
+.tp   { color: #b8a0d0; }
+.ev   { color: #e8b870; font-weight: 500; }  /* event name */
+.amt  { color: #52a876; font-weight: 500; }  /* money amount */
+
+/* ── ALERT ── */
+.alert {
+  border-radius: 8px; padding: 1rem 1.25rem;
+  margin: 1.25rem 0; font-size: 0.85rem;
+  display: flex; gap: 0.75rem;
+  line-height: 1.75; align-items: flex-start;
+}
+
+.a-gold  { background: var(--gold-bg); border: 1px solid var(--gold-dk); color: var(--gold-lt); }
+.a-red   { background: rgba(224,82,82,0.06); border: 1px solid var(--red-dim); color: #f09090; }
+.a-green { background: rgba(82,168,118,0.06); border: 1px solid var(--green-dim); color: #80c8a0; }
+.a-icon  { flex-shrink: 0; }
+
+/* ── TABLE ── */
+table { width:100%; border-collapse:collapse; font-size:0.82rem; margin:0.75rem 0; }
+
+th {
+  background: var(--surface2);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 0.7rem 1rem;
+  text-align: left; border-bottom: 1px solid var(--border2);
+  color: var(--gold);
+}
+
+td {
+  padding: 0.72rem 1rem;
+  border-bottom: 1px solid rgba(44,41,32,0.6);
+  color: var(--muted); vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(212,168,67,0.02); }
+
+td code, p code, li code {
+  font-family: 'IBM Plex Mono', monospace;
+  background: var(--surface2); border: 1px solid var(--border2);
+  padding: 0.08em 0.38em; border-radius: 3px;
+  font-size: 0.8em; color: var(--gold-lt);
+}
+
+/* ── GRID ── */
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.25rem; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:1.25rem; }
+
+/* ── STEP ── */
+.steps { display:flex; flex-direction:column; gap:0.5rem; }
+
+.step {
+  display:flex; gap:1.25rem; align-items:flex-start;
+  padding:1.25rem; background:var(--surface2);
+  border:1px solid var(--border); border-radius:8px;
+  transition:border-color 0.2s;
+}
+
+.step:hover { border-color: var(--border2); }
+
+.step-n {
+  width:30px; height:30px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.6rem; font-weight:500;
+  background:var(--gold-bg); border:1px solid var(--gold-dk);
+  color:var(--gold); border-radius:5px;
+}
+
+.step h4 { font-size:0.9rem; font-weight:600; margin-bottom:0.2rem; color:var(--ivory); }
+.step p  { font-size:0.83rem; color:var(--muted); line-height:1.65; }
+
+/* ── FORMULA ── */
+.formula {
+  background: var(--code-bg);
+  border: 1px solid var(--gold-dk);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 1.25rem 1.5rem;
+  margin: 1.25rem 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem; line-height: 2.1;
+  color: var(--gold-lt);
+}
+
+.formula .dim   { color: var(--muted); }
+.formula .green { color: var(--green); }
+.formula .red   { color: var(--red); }
+
+/* ── ACCORDION ── */
+details {
+  background:var(--surface2); border:1px solid var(--border);
+  border-radius:8px; margin-bottom:0.6rem; overflow:hidden;
+  transition:border-color 0.2s;
+}
+
+details:hover { border-color:var(--border2); }
+
+summary {
+  padding:0.9rem 1.25rem; cursor:pointer;
+  font-weight:600; font-size:0.88rem;
+  list-style:none; display:flex;
+  align-items:center; justify-content:space-between;
+  color:var(--ivory); user-select:none;
+}
+
+summary::after {
+  content:'+'; font-family:'IBM Plex Mono',monospace;
+  color:var(--gold); font-size:1rem;
+}
+
+details[open] summary::after { content:'−'; }
+
+.det-body {
+  padding:1.25rem; border-top:1px solid var(--border);
+  color:var(--muted); font-size:0.85rem; line-height:1.75;
+}
+
+/* ── WEBHOOK EVENT ROW ── */
+.event-row {
+  display:flex; align-items:flex-start; gap:1rem;
+  padding:0.85rem 1rem;
+  border-bottom:1px solid var(--border);
+}
+
+.event-row:last-child { border-bottom:none; }
+
+.event-name {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.72rem; color:var(--gold-lt);
+  white-space:nowrap; flex-shrink:0;
+  padding-top:0.05rem;
+}
+
+.event-desc { font-size:0.82rem; color:var(--muted); line-height:1.6; }
+
+.event-badge {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.55rem; padding:0.15rem 0.5rem;
+  border-radius:3px; white-space:nowrap;
+  flex-shrink:0; margin-top:0.05rem;
+}
+
+.eb-critical { background:rgba(224,82,82,0.12); border:1px solid var(--red-dim); color:var(--red); }
+.eb-important { background:var(--gold-bg); border:1px solid var(--gold-dk); color:var(--gold); }
+.eb-info { background:var(--surface3); border:1px solid var(--border2); color:var(--muted); }
+
+/* ── METRIC BAR ── */
+.metric-bar {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--border2);
+  border:1px solid var(--border2);
+  border-radius:8px; overflow:hidden;
+  margin-bottom:1.25rem;
+}
+
+.mc {
+  background:var(--surface); padding:1.25rem 1.5rem;
+}
+
+.mc-n {
+  font-family:'Playfair Display',serif;
+  font-size:1.9rem; color:var(--gold-lt);
+  margin-bottom:0.15rem; font-weight:700;
+}
+
+.mc-d { font-size:0.77rem; color:var(--muted); line-height:1.5; }
+
+/* ── DIVIDER ── */
+hr { border:none; height:1px; background:var(--border); margin:2rem 0; }
+
+/* ── PLAN CARD ── */
+.plan-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:1.25rem; }
+
+.plan-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:10px; overflow:hidden;
+  transition:border-color 0.2s;
+}
+
+.plan-card:hover { border-color:var(--border2); }
+.plan-card.featured { border-color:var(--gold-dk); }
+.plan-card.featured .plan-top { background:var(--gold-bg); }
+
+.plan-top {
+  padding:1.25rem 1.5rem;
+  border-bottom:1px solid var(--border);
+}
+
+.plan-name {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.65rem; color:var(--gold);
+  text-transform:uppercase; letter-spacing:0.1em;
+  margin-bottom:0.25rem;
+}
+
+.plan-price {
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem; color:var(--ivory);
+  font-weight:700; line-height:1;
+}
+
+.plan-price span {
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:0.8rem; color:var(--muted);
+  font-weight:300;
+}
+
+.plan-body { padding:1.25rem 1.5rem; }
+
+.plan-body li {
+  font-size:0.82rem; color:var(--muted);
+  padding:0.2rem 0 0.2rem 1.1rem;
+  position:relative;
+}
+
+.plan-body li::before {
+  content:'✓'; position:absolute; left:0;
+  color:var(--green); font-size:0.7rem;
+  top:0.3rem;
+}
+
+/* ── DUNNING TIMELINE ── */
+.timeline { position:relative; padding-left:2rem; }
+
+.timeline::before {
+  content:''; position:absolute;
+  left:0.45rem; top:0; bottom:0;
+  width:1px; background:var(--border2);
+}
+
+.tl-item {
+  position:relative; padding-bottom:1.5rem;
+}
+
+.tl-item:last-child { padding-bottom:0; }
+
+.tl-dot {
+  position:absolute; left:-1.6rem; top:0.15rem;
+  width:10px; height:10px; border-radius:50%;
+  border:2px solid var(--gold);
+  background:var(--bg);
+}
+
+.tl-dot.red { border-color:var(--red); }
+.tl-dot.green { border-color:var(--green); }
+
+.tl-day {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.62rem; color:var(--gold);
+  text-transform:uppercase; letter-spacing:0.08em;
+  margin-bottom:0.2rem;
+}
+
+.tl-title { font-size:0.9rem; font-weight:600; color:var(--ivory); margin-bottom:0.2rem; }
+.tl-desc  { font-size:0.83rem; color:var(--muted); line-height:1.65; }
+
+@media (max-width:680px) {
+  .grid-2,.grid-3,.plan-grid { grid-template-columns:1fr; }
+  .ledger { grid-template-columns:repeat(2,1fr); }
+  .metric-bar { grid-template-columns:1fr; }
+  nav { display:none; }
+  h1 { font-size:3rem; }
+  .mod-head { flex-direction:column; align-items:flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-mark">$</div>
+    <div>
+      <div class="logo-text">Stripe Revenue</div>
+    </div>
+    <div class="logo-sub">Mastery · Infrastructure financière</div>
+  </div>
+  <nav>
+    <button class="nav-btn active" onclick="show('intro')">Intro</button>
+    <button class="nav-btn" onclick="show('pricing')">Pricing</button>
+    <button class="nav-btn" onclick="show('subscriptions')">Subscriptions</button>
+    <button class="nav-btn" onclick="show('webhooks')">Webhooks</button>
+    <button class="nav-btn" onclick="show('dunning')">Dunning</button>
+    <button class="nav-btn" onclick="show('revenue')">Rev. Recognition</button>
+    <button class="nav-btn" onclick="show('ops')">Ops & Sécurité</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-kicker">Tier 1 &nbsp;·&nbsp; Stripe Revenue Mastery</div>
+  <h1>
+    Revenue<br>
+    <em>Infrastructure</em>
+    <span class="sub">Pricing · Subscriptions · Webhooks · Dunning · Recognition</span>
+  </h1>
+  <p class="hero-desc">
+    Stripe n'est pas un bouton "payer". C'est une infrastructure financière complète. Chaque mauvaise décision de setup vous coûte des revenus en silence — impayés non relancés, webhooks ratés, pricing mal structuré. Ce cours vous donne l'architecture production, sans lacune.
+  </p>
+
+  <div class="ledger">
+    <div class="ledger-cell" onclick="show('pricing')">
+      <div class="l-num">3.2%</div>
+      <div class="l-label">Churn récupéré<br>via dunning correct</div>
+    </div>
+    <div class="ledger-cell" onclick="show('subscriptions')">
+      <div class="l-num">MRR</div>
+      <div class="l-label">Seule métrique<br>qui compte</div>
+    </div>
+    <div class="ledger-cell" onclick="show('webhooks')">
+      <div class="l-num">99.9%</div>
+      <div class="l-label">Fiabilité webhook<br>avec idempotence</div>
+    </div>
+    <div class="ledger-cell" onclick="show('dunning')">
+      <div class="l-num">48h</div>
+      <div class="l-label">Délai critique<br>avant churn définitif</div>
+    </div>
+    <div class="ledger-cell" onclick="show('revenue')">
+      <div class="l-num">ARR</div>
+      <div class="l-label">Recognition<br>conforme IFRS15</div>
+    </div>
+  </div>
+
+  <div class="modules-nav">
+    <div class="mod-pill" onclick="show('pricing')">§1 — Pricing Architecture</div>
+    <div class="mod-pill" onclick="show('subscriptions')">§2 — Subscriptions</div>
+    <div class="mod-pill" onclick="show('webhooks')">§3 — Webhooks</div>
+    <div class="mod-pill" onclick="show('dunning')">§4 — Dunning</div>
+    <div class="mod-pill" onclick="show('revenue')">§5 — Revenue Recognition</div>
+    <div class="mod-pill" onclick="show('ops')">§6 — Ops & Sécurité</div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════ INTRO -->
+<div id="intro" class="section active">
+  <div class="mod-head">
+    <div>
+      <div class="mod-eyebrow">Vue d'ensemble</div>
+      <h2>L'anatomie<br>d'une machine<br><em>à revenus</em></h2>
+      <p>Stripe expose des primitives bas niveau. Savoir lesquelles assembler — et dans quel ordre — détermine si votre infrastructure financière tient à l'échelle ou se fracture sous la charge.</p>
+    </div>
+    <div class="mod-figure">
+      <div class="big-fig">6</div>
+      <div class="big-fig-sub">Couches à<br>maîtriser</div>
+    </div>
+  </div>
+
+  <div class="alert a-red">
+    <span class="a-icon">⛔</span>
+    <div><strong>L'erreur architecturale #1 :</strong> stocker l'état des abonnements dans votre propre base de données sans passer par les webhooks Stripe comme source de vérité. Résultat : désynchronisation silencieuse, accès accordé malgré impayé, churn invisible. Stripe EST la vérité. Votre DB est un miroir.</div>
+  </div>
+
+  <div class="card">
+    <h3>Les 6 couches de l'infrastructure Stripe</h3>
+    <table>
+      <tr>
+        <th>Couche</th><th>Objet Stripe</th><th>Responsabilité</th><th>Criticité</th>
+      </tr>
+      <tr><td><strong>Produit</strong></td><td><code>Product</code></td><td>Ce que vous vendez</td><td>Fondation</td></tr>
+      <tr><td><strong>Pricing</strong></td><td><code>Price</code></td><td>Comment vous le tarifez</td><td>Stratégique</td></tr>
+      <tr><td><strong>Client</strong></td><td><code>Customer</code></td><td>Identité, moyens de paiement</td><td>🔴 Critique</td></tr>
+      <tr><td><strong>Abonnement</strong></td><td><code>Subscription</code></td><td>État de l'accès récurrent</td><td>🔴 Critique</td></tr>
+      <tr><td><strong>Facturation</strong></td><td><code>Invoice</code></td><td>Paiements réels, tentatives</td><td>🔴 Critique</td></tr>
+      <tr><td><strong>Events</strong></td><td><code>Webhook Event</code></td><td>Synchronisation état → votre DB</td><td>🔴 Critique</td></tr>
+    </table>
+  </div>
+
+  <div class="formula">
+    MRR = <span class="dim">Σ(</span> active_subscriptions <span class="dim">×</span> monthly_price <span class="dim">)</span><br>
+    <span class="dim">     —</span> <span class="red">churn_mrr</span>     <span class="dim">(subscriptions annulées ce mois)</span><br>
+    <span class="dim">     +</span> <span class="green">expansion_mrr</span>  <span class="dim">(upgrades + add-ons)</span><br>
+    <span class="dim">     —</span> <span class="red">contraction_mrr</span> <span class="dim">(downgrades)</span><br>
+    <span class="dim">     +</span> <span class="green">reactivation_mrr</span> <span class="dim">(anciens clients revenus)</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Environnements test vs prod</h3>
+      <ul>
+        <li>2 clés distinctes : <code>sk_test_</code> et <code>sk_live_</code></li>
+        <li>2 ensembles de webhooks à configurer séparément</li>
+        <li>Les données test ne migrent pas en prod</li>
+        <li>Cartes test : <code>4242 4242 4242 4242</code> = succès</li>
+        <li>Carte déclinée : <code>4000 0000 0000 0002</code></li>
+        <li>3DS requis : <code>4000 0025 0000 3155</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Stripe CLI — Indispensable en dev</h3>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-title">bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+        <pre><span class="com"># Installer</span>
+brew install stripe/stripe-cli/stripe
+stripe login
+
+<span class="com"># Forwarder les webhooks en local</span>
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+
+<span class="com"># Déclencher un event manuellement</span>
+stripe trigger payment_intent.succeeded
+stripe trigger customer.subscription.deleted</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ PRICING -->
+<div id="pricing" class="section">
+  <div class="mod-head">
+    <div>
+      <div class="mod-eyebrow">Module 01</div>
+      <h2>Pricing<br><em>Architecture</em></h2>
+      <p>Products, Prices, et les modèles de tarification Stripe. La structure que vous choisissez ici conditionne l'ensemble de votre surface de revenus et votre capacité à évoluer.</p>
+    </div>
+    <div class="mod-figure">
+      <div class="big-fig">§1</div>
+      <div class="big-fig-sub">Pricing<br>Models</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag gold">Flat Rate</span>
+    <span class="tag gold">Per Seat</span>
+    <span class="tag gold">Usage-Based</span>
+    <span class="tag gold">Tiered</span>
+    <span class="tag">Metered Billing</span>
+    <span class="tag">Free Trial</span>
+  </div>
+
+  <div class="card">
+    <h3>Products & Prices — La séparation fondamentale</h3>
+    <p>Un <code>Product</code> = ce que vous vendez (immuable). Un <code>Price</code> = comment vous le tarifez (peut changer). Un produit peut avoir plusieurs prix : mensuel, annuel, lifetime, promotionnel. Cette séparation permet de créer de nouveaux pricing sans toucher à l'objet métier.</p>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — Créer product + prices</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">import</span> Stripe <span class="kw">from</span> <span class="str">'stripe'</span>
+<span class="kw">const</span> stripe = <span class="kw">new</span> <span class="fn">Stripe</span>(process.env.<span class="var">STRIPE_SECRET_KEY</span>!)
+
+<span class="com">// 1. Créer le produit</span>
+<span class="kw">const</span> product = <span class="kw">await</span> stripe.products.<span class="fn">create</span>({
+  name: <span class="str">'Pro Plan'</span>,
+  description: <span class="str">'Accès complet à toutes les features'</span>,
+  metadata: { tier: <span class="str">'pro'</span>, max_seats: <span class="str">'10'</span> }
+})
+
+<span class="com">// 2. Prix mensuel flat</span>
+<span class="kw">const</span> monthlyPrice = <span class="kw">await</span> stripe.prices.<span class="fn">create</span>({
+  product: product.id,
+  unit_amount: <span class="amt">4900</span>,          <span class="com">// 49€ en centimes</span>
+  currency: <span class="str">'eur'</span>,
+  recurring: { interval: <span class="str">'month'</span> },
+  metadata: { billing_period: <span class="str">'monthly'</span> }
+})
+
+<span class="com">// 3. Prix annuel avec remise</span>
+<span class="kw">const</span> annualPrice = <span class="kw">await</span> stripe.prices.<span class="fn">create</span>({
+  product: product.id,
+  unit_amount: <span class="amt">47000</span>,         <span class="com">// 470€/an (20% off)</span>
+  currency: <span class="str">'eur'</span>,
+  recurring: { interval: <span class="str">'year'</span> },
+  metadata: { billing_period: <span class="str">'annual'</span>, savings: <span class="str">'118'</span> }
+})
+
+<span class="com">// 4. Prix per-seat (usage metered)</span>
+<span class="kw">const</span> seatPrice = <span class="kw">await</span> stripe.prices.<span class="fn">create</span>({
+  product: product.id,
+  unit_amount: <span class="amt">1500</span>,          <span class="com">// 15€ par siège</span>
+  currency: <span class="str">'eur'</span>,
+  recurring: {
+    interval: <span class="str">'month'</span>,
+    usage_type: <span class="str">'licensed'</span>    <span class="com">// quantité fixée au billing</span>
+  }
+})</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Les 4 modèles de pricing Stripe — Choisir le bon</h3>
+    <table>
+      <tr>
+        <th>Modèle</th><th>Stripe billing_scheme</th><th>Idéal pour</th><th>Complexité</th>
+      </tr>
+      <tr>
+        <td><strong>Flat Rate</strong></td>
+        <td><code>per_unit</code> + qté fixe</td>
+        <td>SaaS avec features fixes</td>
+        <td>Faible</td>
+      </tr>
+      <tr>
+        <td><strong>Per Seat</strong></td>
+        <td><code>per_unit</code> + qté variable</td>
+        <td>Outils collaboration (Notion, Slack)</td>
+        <td>Faible</td>
+      </tr>
+      <tr>
+        <td><strong>Usage-Based</strong></td>
+        <td><code>per_unit</code> + <code>metered</code></td>
+        <td>APIs, tokens IA, SMS</td>
+        <td>Moyenne</td>
+      </tr>
+      <tr>
+        <td><strong>Tiered</strong></td>
+        <td><code>tiered</code> graduated/volume</td>
+        <td>Volume variable avec seuils</td>
+        <td>Élevée</td>
+      </tr>
+    </table>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — Tiered pricing + metered</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Usage-based : reporter la consommation</span>
+<span class="kw">await</span> stripe.subscriptionItems.<span class="fn">createUsageRecord</span>(
+  subscriptionItemId,
+  {
+    quantity: <span class="num">1500</span>,            <span class="com">// tokens consommés</span>
+    timestamp: <span class="str">'now'</span>,
+    action: <span class="str">'increment'</span>       <span class="com">// ou 'set' pour écraser</span>
+  }
+)
+
+<span class="com">// Tiered graduated pricing</span>
+<span class="kw">const</span> tieredPrice = <span class="kw">await</span> stripe.prices.<span class="fn">create</span>({
+  product: productId,
+  currency: <span class="str">'eur'</span>,
+  billing_scheme: <span class="str">'tiered'</span>,
+  tiers_mode: <span class="str">'graduated'</span>,      <span class="com">// vs 'volume'</span>
+  tiers: [
+    { up_to: <span class="num">1000</span>,  unit_amount: <span class="amt">100</span> },   <span class="com">// 0-1000 : 1€/unité</span>
+    { up_to: <span class="num">10000</span>, unit_amount: <span class="amt">50</span>  },   <span class="com">// 1001-10000 : 0.50€</span>
+    { up_to: <span class="str">'inf'</span>,  unit_amount: <span class="amt">20</span>  },   <span class="com">// 10001+ : 0.20€</span>
+  ],
+  recurring: {
+    interval: <span class="str">'month'</span>,
+    usage_type: <span class="str">'metered'</span>,
+    aggregate_usage: <span class="str">'sum'</span>
+  }
+})</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Checkout Session — La page de paiement sécurisée</h3>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — Route Handler création checkout</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// app/api/checkout/route.ts</span>
+<span class="kw">export async function</span> <span class="fn">POST</span>(req: <span class="tp">Request</span>) {
+  <span class="kw">const</span> { priceId, userId } = <span class="kw">await</span> req.<span class="fn">json</span>()
+
+  <span class="com">// Récupérer ou créer le Customer Stripe</span>
+  <span class="kw">const</span> customer = <span class="kw">await</span> <span class="fn">getOrCreateStripeCustomer</span>(userId)
+
+  <span class="kw">const</span> session = <span class="kw">await</span> stripe.checkout.sessions.<span class="fn">create</span>({
+    customer: customer.stripeCustomerId,
+    mode: <span class="str">'subscription'</span>,
+    payment_method_types: [<span class="str">'card'</span>, <span class="str">'sepa_debit'</span>],
+    line_items: [{ price: priceId, quantity: <span class="num">1</span> }],
+
+    <span class="com">// Trial sans CB (attention : risque impayé)</span>
+    subscription_data: {
+      trial_period_days: <span class="num">14</span>,
+      metadata: { user_id: userId }
+    },
+
+    <span class="com">// Collecter CB même en trial</span>
+    payment_method_collection: <span class="str">'always'</span>,
+
+    success_url: <span class="str">`${process.env.APP_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`</span>,
+    cancel_url:  <span class="str">`${process.env.APP_URL}/pricing`</span>,
+
+    <span class="com">// Permettre les codes promo</span>
+    allow_promotion_codes: <span class="num">true</span>,
+
+    <span class="com">// Données fiscales (EU)</span>
+    automatic_tax: { enabled: <span class="num">true</span> },
+    tax_id_collection: { enabled: <span class="num">true</span> },
+  })
+
+  <span class="kw">return</span> <span class="fn">Response</span>.<span class="fn">json</span>({ url: session.url })
+}</pre>
+    </div>
+  </div>
+
+  <div class="plan-grid">
+    <div class="plan-card">
+      <div class="plan-top">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price"><span>€</span>0<span>/mois</span></div>
+      </div>
+      <div class="plan-body">
+        <ul>
+          <li>3 projets max</li>
+          <li>1 utilisateur</li>
+          <li>Storage 1GB</li>
+          <li>Support communauté</li>
+        </ul>
+      </div>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-top">
+        <div class="plan-name">◈ Pro — Recommandé</div>
+        <div class="plan-price"><span>€</span>49<span>/mois</span></div>
+      </div>
+      <div class="plan-body">
+        <ul>
+          <li>Projets illimités</li>
+          <li>10 sièges inclus</li>
+          <li>Storage 100GB</li>
+          <li>Analytics avancés</li>
+          <li>Support prioritaire</li>
+        </ul>
+      </div>
+    </div>
+    <div class="plan-card">
+      <div class="plan-top">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">Sur<span> devis</span></div>
+      </div>
+      <div class="plan-body">
+        <ul>
+          <li>SSO / SAML</li>
+          <li>SLA 99.9%</li>
+          <li>Sièges illimités</li>
+          <li>Contrat sur mesure</li>
+          <li>Déploiement dédié</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert a-gold">
+    <span class="a-icon">◈</span>
+    <div><strong>Règle d'or pricing :</strong> ne jamais hardcoder un Price ID dans le front-end. Stockez les Price IDs dans votre base de données ou vos variables d'environnement, mappés à des noms de plans. Quand vous changez un prix, vous mettez à jour la config — pas le code.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SUBSCRIPTIONS -->
+<div id="subscriptions" class="section">
+  <div class="mod-head">
+    <div>
+      <div class="mod-eyebrow">Module 02</div>
+      <h2>Subscription<br><em>Lifecycle</em></h2>
+      <p>Créer, mettre à jour, upgrader, downgrader, annuler, réactiver. Chaque transition d'état déclenche des événements. Comprendre le cycle de vie complet est non-négociable.</p>
+    </div>
+    <div class="mod-figure">
+      <div class="big-fig">§2</div>
+      <div class="big-fig-sub">États &<br>Transitions</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag gold">trialing</span>
+    <span class="tag gold">active</span>
+    <span class="tag gold">past_due</span>
+    <span class="tag red">canceled</span>
+    <span class="tag red">incomplete</span>
+    <span class="tag">pause</span>
+    <span class="tag">proration</span>
+  </div>
+
+  <div class="card">
+    <h3>Les états d'un abonnement — Machine à états</h3>
+    <table>
+      <tr>
+        <th>Statut</th><th>Signification</th><th>Accès produit</th><th>Action requise</th>
+      </tr>
+      <tr><td><code>trialing</code></td><td>Période d'essai en cours</td><td>✅ Oui</td><td>Aucune</td></tr>
+      <tr><td><code>active</code></td><td>Paiement réussi, abonnement sain</td><td>✅ Oui</td><td>Aucune</td></tr>
+      <tr><td><code>past_due</code></td><td>Paiement échoué, relances en cours</td><td>⚠️ Selon config</td><td>Dunning</td></tr>
+      <tr><td><code>unpaid</code></td><td>Toutes les relances épuisées</td><td>❌ Bloquer</td><td>Suspension</td></tr>
+      <tr><td><code>incomplete</code></td><td>Premier paiement en attente (3DS)</td><td>❌ Non</td><td>Attendre/relancer</td></tr>
+      <tr><td><code>incomplete_expired</code></td><td>Paiement initial expiré (23h)</td><td>❌ Non</td><td>Nouveau checkout</td></tr>
+      <tr><td><code>paused</code></td><td>Abonnement mis en pause</td><td>❌ Non</td><td>Reprendre billing</td></tr>
+      <tr><td><code>canceled</code></td><td>Annulé définitivement</td><td>❌ Non</td><td>Offrir réactivation</td></tr>
+    </table>
+    <div class="alert a-red">
+      <span class="a-icon">⛔</span>
+      <div><strong>Erreur critique :</strong> accorder l'accès produit basé uniquement sur <code>active</code>. Il faut autoriser aussi <code>trialing</code> et potentiellement garder un accès dégradé pour <code>past_due</code> (grace period). Définissez votre politique explicitement et implémentez-la dans un middleware centralisé.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Upgrade / Downgrade — Proration</h3>
+    <p>Quand un client change de plan en milieu de cycle, Stripe calcule automatiquement la différence au prorata. Vous choisissez le comportement.</p>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — Upgrade avec proration</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Récupérer l'abonnement actuel</span>
+<span class="kw">const</span> subscription = <span class="kw">await</span> stripe.subscriptions.<span class="fn">retrieve</span>(subscriptionId)
+
+<span class="com">// Preview de la proration avant d'appliquer</span>
+<span class="kw">const</span> proration_date = <span class="fn">Math</span>.floor(<span class="fn">Date</span>.now() / <span class="num">1000</span>)
+
+<span class="kw">const</span> invoice = <span class="kw">await</span> stripe.invoices.<span class="fn">retrieveUpcoming</span>({
+  customer: subscription.customer <span class="kw">as</span> <span class="tp">string</span>,
+  subscription: subscriptionId,
+  subscription_items: [{
+    id: subscription.items.data[<span class="num">0</span>].id,
+    price: newPriceId,
+  }],
+  subscription_proration_date: proration_date,
+})
+
+<span class="com">// Le montant dû immédiatement</span>
+console.<span class="fn">log</span>(<span class="str">'Proration amount:'</span>, invoice.amount_due / <span class="num">100</span>, <span class="str">'€'</span>)
+
+<span class="com">// Appliquer l'upgrade</span>
+<span class="kw">const</span> updated = <span class="kw">await</span> stripe.subscriptions.<span class="fn">update</span>(subscriptionId, {
+  items: [{
+    id: subscription.items.data[<span class="num">0</span>].id,
+    price: newPriceId,
+  }],
+  proration_behavior: <span class="str">'create_prorations'</span>,  <span class="com">// ou 'none' ou 'always_invoice'</span>
+  proration_date,
+})
+
+<span class="com">// proration_behavior options :</span>
+<span class="com">// 'create_prorations'  → crédite/débite au prochain cycle</span>
+<span class="com">// 'always_invoice'     → facture immédiatement la différence</span>
+<span class="com">// 'none'               → aucune proration (prix plein au prochain cycle)</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Customer Portal — Self-service billing</h3>
+    <p>Stripe Customer Portal gère les upgrades, downgrades, annulations, et la mise à jour des moyens de paiement sans que vous ayez à coder ces flows. Activez-le — c'est du temps de développement économisé et une réduction du churn involontaire.</p>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — Créer une session portal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// app/api/portal/route.ts</span>
+<span class="kw">export async function</span> <span class="fn">POST</span>(req: <span class="tp">Request</span>) {
+  <span class="kw">const</span> session = <span class="kw">await</span> stripe.billingPortal.sessions.<span class="fn">create</span>({
+    customer: stripeCustomerId,
+    return_url: <span class="str">`${process.env.APP_URL}/dashboard/billing`</span>,
+  })
+  <span class="kw">return</span> <span class="fn">Response</span>.<span class="fn">json</span>({ url: session.url })
+}
+
+<span class="com">// Configurer le portal dans Stripe Dashboard :</span>
+<span class="com">// → Products allowed to switch to</span>
+<span class="com">// → Allow cancellation (oui/non)</span>
+<span class="com">// → Cancellation reason survey</span>
+<span class="com">// → Allow pausing (alternative à l'annulation)</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Annulation avec cancel_at_period_end</h3>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — Annulation soft vs hard</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Soft cancel — accès jusqu'à fin de période</span>
+<span class="com">// (recommandé — réduit le churn perçu)</span>
+<span class="kw">await</span> stripe.subscriptions.<span class="fn">update</span>(subscriptionId, {
+  cancel_at_period_end: <span class="num">true</span>,
+})
+<span class="com">// → subscription.status reste 'active'</span>
+<span class="com">// → subscription.cancel_at = timestamp fin période</span>
+<span class="com">// → event: customer.subscription.updated</span>
+
+<span class="com">// Hard cancel — immédiat, accès coupé</span>
+<span class="kw">await</span> stripe.subscriptions.<span class="fn">cancel</span>(subscriptionId, {
+  invoice_now: <span class="num">false</span>,     <span class="com">// ne pas facturer les prorations</span>
+  prorate: <span class="num">false</span>,
+})
+<span class="com">// → event: customer.subscription.deleted</span>
+
+<span class="com">// Réactivation avant fin de période</span>
+<span class="kw">await</span> stripe.subscriptions.<span class="fn">update</span>(subscriptionId, {
+  cancel_at_period_end: <span class="num">false</span>,
+})
+<span class="com">// → Facturez cette réactivation comme un save</span></pre>
+    </div>
+  </div>
+
+  <div class="metric-bar">
+    <div class="mc">
+      <div class="mc-n">14j</div>
+      <div class="mc-d">Durée trial optimale pour SaaS B2B — assez pour montrer la valeur, assez court pour créer l'urgence</div>
+    </div>
+    <div class="mc">
+      <div class="mc-n">2×</div>
+      <div class="mc-d">Conversion trial → payant avec CB collectée dès le trial vs sans</div>
+    </div>
+    <div class="mc">
+      <div class="mc-n">20%</div>
+      <div class="mc-d">Churn supplémentaire évité en proposant pause vs annulation immédiate</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ WEBHOOKS -->
+<div id="webhooks" class="section">
+  <div class="mod-head">
+    <div>
+      <div class="mod-eyebrow">Module 03</div>
+      <h2>Webhooks<br><em>Architecture</em></h2>
+      <p>Les webhooks sont la colonne vertébrale de toute intégration Stripe. Un webhook raté ou mal traité = état désynchronisé, accès incorrect, revenu perdu. L'idempotence n'est pas optionnelle.</p>
+    </div>
+    <div class="mod-figure">
+      <div class="big-fig">§3</div>
+      <div class="big-fig-sub">Events<br>critiques</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag gold">Signature verification</span>
+    <span class="tag gold">Idempotence</span>
+    <span class="tag red">Retry logic</span>
+    <span class="tag">Queue</span>
+    <span class="tag">Event sourcing</span>
+  </div>
+
+  <div class="card">
+    <h3>Les events critiques à implémenter sans exception</h3>
+    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+      <div class="event-row">
+        <div class="event-name">checkout.session.completed</div>
+        <div class="event-desc">Paiement initial réussi. <strong>Provisionner l'accès ici, pas côté succès_url.</strong> La success_url peut être ignorée (onglet fermé, réseau coupé).</div>
+        <div class="event-badge eb-critical">Critique</div>
+      </div>
+      <div class="event-row">
+        <div class="event-name">customer.subscription.created</div>
+        <div class="event-desc">Abonnement créé. Créer l'entrée en DB, envoyer l'email de bienvenue.</div>
+        <div class="event-badge eb-important">Important</div>
+      </div>
+      <div class="event-row">
+        <div class="event-name">customer.subscription.updated</div>
+        <div class="event-desc">Changement de statut, de plan, cancel_at_period_end. Mettre à jour le plan en DB, ajuster les permissions.</div>
+        <div class="event-badge eb-critical">Critique</div>
+      </div>
+      <div class="event-row">
+        <div class="event-name">customer.subscription.deleted</div>
+        <div class="event-desc">Abonnement annulé définitivement. Révoquer l'accès, déclencher le flow offboarding.</div>
+        <div class="event-badge eb-critical">Critique</div>
+      </div>
+      <div class="event-row">
+        <div class="event-name">invoice.payment_succeeded</div>
+        <div class="event-desc">Renouvellement mensuel/annuel réussi. Étendre la date d'accès, envoyer le reçu.</div>
+        <div class="event-badge eb-important">Important</div>
+      </div>
+      <div class="event-row">
+        <div class="event-name">invoice.payment_failed</div>
+        <div class="event-desc">Paiement échoué. Déclencher le dunning — email immédiat + séquence de relance. Ne pas révoquer l'accès encore.</div>
+        <div class="event-badge eb-critical">Critique</div>
+      </div>
+      <div class="event-row">
+        <div class="event-name">customer.subscription.trial_will_end</div>
+        <div class="event-desc">3 jours avant la fin du trial. Email d'urgence de conversion. L'event le plus sous-utilisé.</div>
+        <div class="event-badge eb-important">Important</div>
+      </div>
+      <div class="event-row">
+        <div class="event-name">invoice.upcoming</div>
+        <div class="event-desc">7 jours avant le prochain cycle. Pré-notification client (améliore la satisfaction).</div>
+        <div class="event-badge eb-info">Info</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Handler webhook production — Architecture complète</h3>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — app/api/webhooks/stripe/route.ts</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">import</span> { headers } <span class="kw">from</span> <span class="str">'next/headers'</span>
+<span class="kw">import</span> Stripe <span class="kw">from</span> <span class="str">'stripe'</span>
+
+<span class="kw">export async function</span> <span class="fn">POST</span>(req: <span class="tp">Request</span>) {
+  <span class="kw">const</span> body = <span class="kw">await</span> req.<span class="fn">text</span>()   <span class="com">// text(), pas json() !</span>
+  <span class="kw">const</span> sig = headers().<span class="fn">get</span>(<span class="str">'stripe-signature'</span>)!
+
+  <span class="kw">let</span> event: Stripe.<span class="tp">Event</span>
+
+  <span class="kw">try</span> {
+    <span class="com">// 1. Vérifier la signature TOUJOURS en premier</span>
+    event = stripe.webhooks.<span class="fn">constructEvent</span>(
+      body, sig,
+      process.env.<span class="var">STRIPE_WEBHOOK_SECRET</span>!
+    )
+  } <span class="kw">catch</span> (err) {
+    console.error(<span class="str">'Webhook signature invalid'</span>, err)
+    <span class="kw">return new</span> <span class="fn">Response</span>(<span class="str">'Unauthorized'</span>, { status: <span class="num">400</span> })
+  }
+
+  <span class="com">// 2. Idempotence — éviter le double traitement</span>
+  <span class="kw">const</span> processed = <span class="kw">await</span> <span class="fn">isEventAlreadyProcessed</span>(event.id)
+  <span class="kw">if</span> (processed) {
+    <span class="kw">return new</span> <span class="fn">Response</span>(<span class="str">'Already processed'</span>, { status: <span class="num">200</span> })
+  }
+
+  <span class="com">// 3. Marquer comme "en cours" (avant traitement)</span>
+  <span class="kw">await</span> <span class="fn">markEventAsProcessing</span>(event.id)
+
+  <span class="kw">try</span> {
+    <span class="com">// 4. Router vers le bon handler</span>
+    <span class="kw">switch</span> (event.type) {
+      <span class="kw">case</span> <span class="ev">'checkout.session.completed'</span>:
+        <span class="kw">await</span> <span class="fn">handleCheckoutCompleted</span>(event.data.object)
+        <span class="kw">break</span>
+      <span class="kw">case</span> <span class="ev">'customer.subscription.updated'</span>:
+        <span class="kw">await</span> <span class="fn">handleSubscriptionUpdated</span>(event.data.object)
+        <span class="kw">break</span>
+      <span class="kw">case</span> <span class="ev">'customer.subscription.deleted'</span>:
+        <span class="kw">await</span> <span class="fn">handleSubscriptionDeleted</span>(event.data.object)
+        <span class="kw">break</span>
+      <span class="kw">case</span> <span class="ev">'invoice.payment_failed'</span>:
+        <span class="kw">await</span> <span class="fn">handlePaymentFailed</span>(event.data.object)
+        <span class="kw">break</span>
+      <span class="kw">case</span> <span class="ev">'invoice.payment_succeeded'</span>:
+        <span class="kw">await</span> <span class="fn">handlePaymentSucceeded</span>(event.data.object)
+        <span class="kw">break</span>
+      <span class="kw">default</span>:
+        <span class="com">// Log les events non gérés pour future implémentation</span>
+        console.<span class="fn">log</span>(<span class="str">`Unhandled event: ${event.type}`</span>)
+    }
+
+    <span class="com">// 5. Marquer comme traité avec succès</span>
+    <span class="kw">await</span> <span class="fn">markEventAsDone</span>(event.id)
+    <span class="kw">return new</span> <span class="fn">Response</span>(<span class="str">'OK'</span>, { status: <span class="num">200</span> })
+
+  } <span class="kw">catch</span> (err) {
+    <span class="com">// 6. En cas d'erreur : laisser Stripe retenter</span>
+    <span class="com">// Stripe retente 3 fois sur 3 jours si non-200</span>
+    console.error(<span class="str">`Handler error for ${event.type}:`</span>, err)
+    <span class="kw">await</span> <span class="fn">markEventAsFailed</span>(event.id, err)
+    <span class="kw">return new</span> <span class="fn">Response</span>(<span class="str">'Internal Error'</span>, { status: <span class="num">500</span> })
+  }
+}</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Table d'idempotence en base — Schéma SQL</h3>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">sql — migration stripe_webhook_events</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">CREATE TABLE</span> stripe_webhook_events (
+  id            <span class="tp">TEXT</span>        <span class="kw">PRIMARY KEY</span>,  <span class="com">-- event.id Stripe (evt_xxx)</span>
+  type          <span class="tp">TEXT</span>        <span class="kw">NOT NULL</span>,
+  status        <span class="tp">TEXT</span>        <span class="kw">NOT NULL</span>      <span class="com">-- 'processing' | 'done' | 'failed'</span>
+                             <span class="kw">DEFAULT</span> <span class="str">'processing'</span>,
+  payload       <span class="tp">JSONB</span>,
+  error_message <span class="tp">TEXT</span>,
+  processed_at  <span class="tp">TIMESTAMPTZ</span>,
+  created_at    <span class="tp">TIMESTAMPTZ</span> <span class="kw">DEFAULT</span> <span class="fn">now</span>()
+);
+
+<span class="com">-- Index pour les lookups fréquents</span>
+<span class="kw">CREATE INDEX</span> idx_webhook_status <span class="kw">ON</span> stripe_webhook_events(status);
+<span class="kw">CREATE INDEX</span> idx_webhook_type   <span class="kw">ON</span> stripe_webhook_events(type);
+
+<span class="com">-- Purger après 90 jours (rétention Stripe)</span>
+<span class="kw">CREATE POLICY</span> <span class="str">"retention"</span> <span class="kw">ON</span> stripe_webhook_events
+  <span class="kw">FOR DELETE USING</span> (created_at &lt; now() - interval <span class="str">'90 days'</span>);</pre>
+    </div>
+  </div>
+
+  <div class="alert a-gold">
+    <span class="a-icon">◈</span>
+    <div><strong>Stripe retente sur 3 jours :</strong> si votre endpoint répond avec une erreur 5xx ou un timeout, Stripe retente automatiquement avec backoff exponentiel pendant 3 jours. Votre table d'idempotence empêche le double traitement lors de ces retry. Sans elle, un client pourrait voir son accès activé deux fois, ou son email de bienvenue envoyé 8 fois.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DUNNING -->
+<div id="dunning" class="section">
+  <div class="mod-head">
+    <div>
+      <div class="mod-eyebrow">Module 04</div>
+      <h2>Dunning &<br><em>Churn Recovery</em></h2>
+      <p>Le dunning est la récupération des revenus sur les paiements échoués. En moyenne, 30-40% des churns sont involontaires — carte expirée, fonds insuffisants, réseau. Ce sont des revenus récupérables.</p>
+    </div>
+    <div class="mod-figure">
+      <div class="big-fig" style="color:var(--green)">40%</div>
+      <div class="big-fig-sub">Churn involontaire<br>récupérable</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag gold">Smart Retries</span>
+    <span class="tag gold">Grace Period</span>
+    <span class="tag green">Recovery</span>
+    <span class="tag red">Hard Decline</span>
+    <span class="tag">Update Payment Link</span>
+  </div>
+
+  <div class="card">
+    <h3>Smart Retries — Activer dans Stripe Dashboard</h3>
+    <p>Stripe a entraîné un modèle ML sur des milliards de transactions pour prédire le meilleur moment pour retenter un paiement échoué. <strong>Activez Smart Retries</strong> dans Billing Settings. Stripe choisit automatiquement jusqu'à 4 tentatives sur une fenêtre configurable (7 à 28 jours).</p>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — Configurer manuellement les retry (si besoin)</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Dans Stripe Dashboard → Billing → Automatic collection</span>
+<span class="com">// Ou via API pour les cas custom :</span>
+
+<span class="kw">await</span> stripe.subscriptions.<span class="fn">update</span>(subscriptionId, {
+  collection_method: <span class="str">'charge_automatically'</span>,
+})
+
+<span class="com">// Forcer une tentative de paiement immédiate</span>
+<span class="com">// (ex: après que le client a mis à jour sa carte)</span>
+<span class="kw">const</span> invoice = <span class="kw">await</span> stripe.invoices.<span class="fn">retrieve</span>(invoiceId)
+
+<span class="kw">if</span> (invoice.status === <span class="str">'open'</span>) {
+  <span class="kw">await</span> stripe.invoices.<span class="fn">pay</span>(invoiceId, {
+    forgive: <span class="num">false</span>  <span class="com">// true = pardonner si insuffisant (gracieux)</span>
+  })
+}
+
+<span class="com">// Générer un lien de mise à jour de paiement</span>
+<span class="com">// Envoyer dans l'email dunning</span>
+<span class="kw">const</span> session = <span class="kw">await</span> stripe.billingPortal.sessions.<span class="fn">create</span>({
+  customer: customerId,
+  return_url: <span class="str">`${APP_URL}/billing`</span>,
+  flow_data: {
+    type: <span class="str">'payment_method_update'</span>,   <span class="com">// Focus direct sur le paiement</span>
+  }
+})</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Séquence dunning — Timeline complète</h3>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-day">J+0 — Paiement échoué</div>
+        <div class="tl-title">Email immédiat — Ton informatif</div>
+        <div class="tl-desc">Informer sans alarmer. "Votre paiement n'a pas pu aboutir". Lien direct vers la mise à jour de CB. Accès maintenu. Stripe retente automatiquement dans 24-48h selon Smart Retries.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-day">J+3 — 2ème tentative échouée</div>
+        <div class="tl-title">Email de suivi — Ton urgent</div>
+        <div class="tl-desc">"Votre accès sera suspendu dans X jours si non résolu." CTA proéminent. Proposer une alternative (autre carte, PayPal, virement). Mentionner ce qui sera perdu.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot red"></div>
+        <div class="tl-day">J+7 — 3ème tentative échouée</div>
+        <div class="tl-title">Email de dernière chance + SMS (si disponible)</div>
+        <div class="tl-desc">"Votre accès expire dans 24h." Proposer une pause de l'abonnement comme alternative à l'annulation. Intégrer un lien de call si B2B enterprise.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot red"></div>
+        <div class="tl-day">J+14 — Tentatives épuisées</div>
+        <div class="tl-title">Webhook invoice.marked_uncollectible / subscription deleted</div>
+        <div class="tl-desc">Révoquer l'accès. Email de confirmation. Conserver les données 30 jours (facilite la réactivation). Email de réactivation à J+30 et J+60.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot green"></div>
+        <div class="tl-day">À tout moment — Récupération</div>
+        <div class="tl-title">Paiement réussi → réactiver immédiatement</div>
+        <div class="tl-desc">Webhook <code>invoice.payment_succeeded</code> ou <code>customer.subscription.updated</code> status → active. Rétablir l'accès dans les secondes. Email de confirmation chaleureux.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Handler dunning — Déclencher la séquence</h3>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — handlePaymentFailed</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="kw">async function</span> <span class="fn">handlePaymentFailed</span>(invoice: Stripe.<span class="tp">Invoice</span>) {
+  <span class="kw">const</span> customerId = invoice.customer <span class="kw">as</span> <span class="tp">string</span>
+
+  <span class="com">// Récupérer l'user depuis votre DB</span>
+  <span class="kw">const</span> user = <span class="kw">await</span> db.users.<span class="fn">findByStripeCustomerId</span>(customerId)
+  <span class="kw">if</span> (!user) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">`No user for customer ${customerId}`</span>)
+
+  <span class="com">// Compter les tentatives pour personnaliser le message</span>
+  <span class="kw">const</span> attemptCount = invoice.attempt_count  <span class="com">// 1, 2, 3...</span>
+
+  <span class="com">// Générer le lien de mise à jour de paiement</span>
+  <span class="kw">const</span> portalSession = <span class="kw">await</span> stripe.billingPortal.sessions.<span class="fn">create</span>({
+    customer: customerId,
+    return_url: <span class="str">`${APP_URL}/dashboard`</span>,
+    flow_data: { type: <span class="str">'payment_method_update'</span> }
+  })
+
+  <span class="com">// Router vers le bon template selon l'attempt</span>
+  <span class="kw">const</span> templates = {
+    <span class="num">1</span>: <span class="str">'dunning_first_attempt'</span>,
+    <span class="num">2</span>: <span class="str">'dunning_second_attempt'</span>,
+    <span class="num">3</span>: <span class="str">'dunning_final_warning'</span>,
+  }
+
+  <span class="kw">await</span> email.<span class="fn">send</span>({
+    to: user.email,
+    template: templates[attemptCount] ?? <span class="str">'dunning_final_warning'</span>,
+    variables: {
+      firstName:    user.firstName,
+      updateUrl:    portalSession.url,
+      invoiceUrl:   invoice.hosted_invoice_url,
+      amount:       (invoice.amount_due / <span class="num">100</span>).toFixed(<span class="num">2</span>),
+      attemptCount,
+      daysRemaining: <span class="num">14</span> - (attemptCount * <span class="num">3</span>),
+    }
+  })
+
+  <span class="com">// Log pour analytics</span>
+  analytics.<span class="fn">track</span>(<span class="str">'payment_failed'</span>, {
+    userId: user.id, attemptCount,
+    amount: invoice.amount_due,
+    invoiceId: invoice.id
+  })
+}</pre>
+    </div>
+  </div>
+
+  <div class="metric-bar">
+    <div class="mc">
+      <div class="mc-n">68%</div>
+      <div class="mc-d">Des paiements échoués au retry 1 sont récupérés si tentative dans les 24h</div>
+    </div>
+    <div class="mc">
+      <div class="mc-n">3.2%</div>
+      <div class="mc-d">MRR supplémentaire récupéré en moyenne avec un dunning bien configuré</div>
+    </div>
+    <div class="mc">
+      <div class="mc-n">J+2</div>
+      <div class="mc-d">Meilleur moment pour le 2ème retry selon les données Stripe ML</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ REVENUE RECOGNITION -->
+<div id="revenue" class="section">
+  <div class="mod-head">
+    <div>
+      <div class="mod-eyebrow">Module 05</div>
+      <h2>Revenue<br><em>Recognition</em></h2>
+      <p>Distinguer cash collecté et revenu reconnu. Un paiement annuel de 1 200€ en janvier n'est pas 1 200€ de revenu en janvier — c'est 100€/mois sur 12 mois. IFRS 15 l'impose, Stripe Revenue Recognition l'automatise.</p>
+    </div>
+    <div class="mod-figure">
+      <div class="big-fig">§5</div>
+      <div class="big-fig-sub">IFRS 15<br>Compliant</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag gold">MRR</span>
+    <span class="tag gold">ARR</span>
+    <span class="tag gold">Deferred Revenue</span>
+    <span class="tag">IFRS 15</span>
+    <span class="tag">Accrual Accounting</span>
+    <span class="tag green">Stripe Revenue Recognition</span>
+  </div>
+
+  <div class="card">
+    <h3>Le principe — Cash vs Revenu reconnu</h3>
+    <div class="formula">
+      Paiement annuel 1 200€ reçu le 1er janvier<br><br>
+      <span class="dim">Cash collected (bilan) :</span>     <span class="green">+1 200€</span>     <span class="dim">le 1er janvier</span><br>
+      <span class="dim">Revenue recognized (P&L) :</span>  <span class="green">+100€/mois</span>  <span class="dim">sur 12 mois</span><br><br>
+      <span class="dim">Deferred revenue (dette) :</span>  <span class="red">−1 100€</span>     <span class="dim">en janvier</span><br>
+      <span class="dim">                           </span>  <span class="red">−1 000€</span>     <span class="dim">en février (−100€ reconnus)</span><br>
+      <span class="dim">                           </span>  <span class="green">0€</span>          <span class="dim">au 31 décembre</span>
+    </div>
+    <p>Le <strong>deferred revenue</strong> est une dette envers le client — vous avez encaissé mais pas encore livré le service. Cette dette disparaît au fur et à mesure que le service est rendu.</p>
+  </div>
+
+  <div class="card">
+    <h3>MRR, ARR, et les métriques qui comptent</h3>
+    <table>
+      <tr>
+        <th>Métrique</th><th>Définition</th><th>Calcul Stripe</th><th>Usage</th>
+      </tr>
+      <tr>
+        <td><strong>MRR</strong></td>
+        <td>Monthly Recurring Revenue</td>
+        <td>Σ (montant_mensuel des subscriptions actives)</td>
+        <td>Santé mensuelle</td>
+      </tr>
+      <tr>
+        <td><strong>ARR</strong></td>
+        <td>Annual Recurring Revenue</td>
+        <td>MRR × 12</td>
+        <td>Valorisation, fundraising</td>
+      </tr>
+      <tr>
+        <td><strong>New MRR</strong></td>
+        <td>MRR ajouté ce mois</td>
+        <td>Nouvelles subscriptions actives ce mois</td>
+        <td>Performance acquisition</td>
+      </tr>
+      <tr>
+        <td><strong>Expansion MRR</strong></td>
+        <td>MRR additionnel d'existants</td>
+        <td>Upgrades + add-ons ce mois</td>
+        <td>Land & expand</td>
+      </tr>
+      <tr>
+        <td><strong>Churned MRR</strong></td>
+        <td>MRR perdu ce mois</td>
+        <td>Subscriptions annulées × montant mensuel</td>
+        <td>Rétention</td>
+      </tr>
+      <tr>
+        <td><strong>Net Revenue Churn</strong></td>
+        <td>Churned − Expansion</td>
+        <td>(Churned MRR − Expansion MRR) / MRR début mois</td>
+        <td>Santé NRR</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Stripe Revenue Recognition — Setup et données</h3>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — Récupérer les données recognition</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Stripe Revenue Recognition est un module Dashboard</span>
+<span class="com">// Il génère automatiquement les schedules de recognition</span>
+<span class="com">// basés sur les dates de service de chaque invoice</span>
+
+<span class="com">// Récupérer les transactions de recognition via API</span>
+<span class="kw">const</span> transactions = <span class="kw">await</span> stripe.reporting.reportRuns.<span class="fn">create</span>({
+  report_type: <span class="str">'revenue_recognition.debits_and_credits.2'</span>,
+  parameters: {
+    interval_start: <span class="num">1704067200</span>,   <span class="com">// 2024-01-01</span>
+    interval_end:   <span class="num">1706745600</span>,   <span class="com">// 2024-02-01</span>
+    currency: <span class="str">'eur'</span>,
+  }
+})
+
+<span class="com">// Calculer le MRR depuis les subscriptions actives</span>
+<span class="kw">export async function</span> <span class="fn">calculateMRR</span>(): <span class="tp">Promise</span>&lt;<span class="tp">number</span>&gt; {
+  <span class="kw">let</span> mrr = <span class="num">0</span>
+  <span class="kw">let</span> hasMore = <span class="num">true</span>
+  <span class="kw">let</span> startingAfter: <span class="tp">string</span> | <span class="tp">undefined</span>
+
+  <span class="kw">while</span> (hasMore) {
+    <span class="kw">const</span> subs = <span class="kw">await</span> stripe.subscriptions.<span class="fn">list</span>({
+      status: <span class="str">'active'</span>,
+      limit: <span class="num">100</span>,
+      expand: [<span class="str">'data.items.data.price'</span>],
+      starting_after: startingAfter,
+    })
+
+    <span class="kw">for</span> (<span class="kw">const</span> sub <span class="kw">of</span> subs.data) {
+      <span class="kw">for</span> (<span class="kw">const</span> item <span class="kw">of</span> sub.items.data) {
+        <span class="kw">const</span> price = item.price
+        <span class="kw">if</span> (!price.unit_amount) <span class="kw">continue</span>
+
+        <span class="kw">const</span> qty = item.quantity ?? <span class="num">1</span>
+        <span class="kw">const</span> monthly = price.recurring?.interval === <span class="str">'year'</span>
+          ? (price.unit_amount * qty) / <span class="num">12</span>
+          : price.unit_amount * qty
+
+        mrr += monthly
+      }
+    }
+
+    hasMore = subs.has_more
+    startingAfter = subs.data.at(-<span class="num">1</span>)?.id
+  }
+
+  <span class="kw">return</span> mrr / <span class="num">100</span>   <span class="com">// convertir centimes en euros</span>
+}</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Stripe Sigma — SQL sur vos données de revenu</h3>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">sql — Stripe Sigma — MRR par mois</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">-- MRR mensuel sur les 12 derniers mois</span>
+<span class="com">-- À exécuter dans Stripe Dashboard → Sigma</span>
+
+<span class="kw">SELECT</span>
+  date_trunc(<span class="str">'month'</span>, created) <span class="kw">AS</span> month,
+  <span class="fn">SUM</span>(amount_paid) / <span class="num">100.0</span>     <span class="kw">AS</span> cash_collected,
+  <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> subscription)  <span class="kw">AS</span> active_subscriptions,
+  <span class="fn">AVG</span>(amount_paid) / <span class="num">100.0</span>     <span class="kw">AS</span> avg_invoice_value
+<span class="kw">FROM</span> invoices
+<span class="kw">WHERE</span>
+  status = <span class="str">'paid'</span>
+  <span class="kw">AND</span> created >= now() - interval <span class="str">'12 months'</span>
+  <span class="kw">AND</span> subscription <span class="kw">IS NOT NULL</span>   <span class="com">-- exclure one-time payments</span>
+<span class="kw">GROUP BY</span> <span class="num">1</span>
+<span class="kw">ORDER BY</span> <span class="num">1</span> <span class="kw">DESC</span>;
+
+<span class="com">-- Churn MRR ce mois</span>
+<span class="kw">SELECT</span>
+  <span class="fn">SUM</span>(plan_amount) / <span class="num">100.0</span> <span class="kw">AS</span> churned_mrr,
+  <span class="fn">COUNT</span>(*) <span class="kw">AS</span> churned_subscriptions
+<span class="kw">FROM</span> subscriptions
+<span class="kw">WHERE</span>
+  status = <span class="str">'canceled'</span>
+  <span class="kw">AND</span> canceled_at >= date_trunc(<span class="str">'month'</span>, now());</pre>
+    </div>
+  </div>
+
+  <div class="alert a-gold">
+    <span class="a-icon">◈</span>
+    <div><strong>NRR (Net Revenue Retention) — La métrique de maturité :</strong> un NRR &gt; 100% signifie que votre base existante croît d'elle-même par expansion, compensant le churn. C'est le signal que vous avez un vrai product-market fit et un pricing qui s'adapte à la valeur perçue croissante. Ciblez &gt;110% pour une valorisation SaaS optimale.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ OPS & SÉCURITÉ -->
+<div id="ops" class="section">
+  <div class="mod-head">
+    <div>
+      <div class="mod-eyebrow">Module 06</div>
+      <h2>Ops &<br><em>Sécurité</em></h2>
+      <p>Ce qui ne peut pas être ignoré : gestion des clés, conformité PCI, fraude, taxes, et les intégrations avec le reste de votre stack. L'infrastructure financière qui tient à l'échelle.</p>
+    </div>
+    <div class="mod-figure">
+      <div class="big-fig">§6</div>
+      <div class="big-fig-sub">Production<br>Ready</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag red">PCI DSS</span>
+    <span class="tag gold">Radar Fraud</span>
+    <span class="tag gold">Tax Automation</span>
+    <span class="tag">Restricted Keys</span>
+    <span class="tag">Connect</span>
+    <span class="tag green">Audit Log</span>
+  </div>
+
+  <div class="card">
+    <h3>Gestion des clés API — Principe de moindre privilège</h3>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — Restricted API Keys par use case</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Dans Stripe Dashboard → Developers → API Keys</span>
+<span class="com">// Créer des Restricted Keys avec uniquement les permissions nécessaires</span>
+
+<span class="com">// Clé pour le webhook handler (lecture seule + events)</span>
+<span class="com">// Permissions : webhooks:read, subscriptions:read, customers:read</span>
+<span class="var">STRIPE_WEBHOOK_KEY</span>=rk_live_xxx...
+
+<span class="com">// Clé pour le checkout (création sessions uniquement)</span>
+<span class="com">// Permissions : checkout_sessions:write, customers:write</span>
+<span class="var">STRIPE_CHECKOUT_KEY</span>=rk_live_xxx...
+
+<span class="com">// Clé pour le reporting (lecture seule)</span>
+<span class="com">// Permissions : subscriptions:read, invoices:read</span>
+<span class="var">STRIPE_REPORTING_KEY</span>=rk_live_xxx...
+
+<span class="com">// JAMAIS dans le code :</span>
+<span class="com">// - sk_live_ dans le front-end (client-side)</span>
+<span class="com">// - sk_live_ commité dans git</span>
+<span class="com">// - La même clé pour tous les services</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Stripe Radar — Prévention de la fraude</h3>
+    <p>Radar est le moteur anti-fraude de Stripe, entraîné sur l'ensemble du réseau Stripe. Il bloque ~99% des fraudes automatiquement. Configurez des règles custom pour votre secteur.</p>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">Règles Radar — Stripe Dashboard</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Règles custom à configurer dans Dashboard → Radar → Rules</span>
+<span class="com">// Syntaxe Radar Rule Language</span>
+
+<span class="com">// Bloquer les paiements de certains pays à risque élevé</span>
+<span class="kw">block if</span> :ip_country: <span class="str">in</span> (<span class="str">'XX'</span>, <span class="str">'YY'</span>)
+
+<span class="com">// Demander 3DS pour les montants élevés</span>
+<span class="kw">request_three_d_secure if</span> :amount_in_eur: > <span class="num">500</span>
+
+<span class="com">// Review manuelle pour les nouvelles cartes sur des montants importants</span>
+<span class="kw">review if</span> :card_funding: = <span class="str">'prepaid'</span>
+<span class="kw">review if</span> :is_new_card: = <span class="kw">true</span> <span class="kw">and</span> :amount_in_eur: > <span class="num">200</span>
+
+<span class="com">// Bloquer les VPN/Tor connus</span>
+<span class="kw">block if</span> :ip_is_anonymous_proxy: = <span class="kw">true</span>
+
+<span class="com">// Metadata custom dans Payment Intent pour les règles</span>
+<span class="kw">const</span> paymentIntent = <span class="kw">await</span> stripe.paymentIntents.<span class="fn">create</span>({
+  amount, currency,
+  metadata: {
+    user_id:       userId,
+    account_age:   daysSinceSignup.toString(),
+    is_verified:   isEmailVerified.toString(),
+  }
+})</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Taxes automatiques — Stripe Tax</h3>
+    <div class="code-block">
+      <div class="code-hd"><span class="code-title">typescript — Activer Stripe Tax sur checkout</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+      <pre><span class="com">// Stripe Tax calcule automatiquement TVA, GST, VAT</span>
+<span class="com">// selon l'adresse du client et votre localisation</span>
+
+<span class="kw">const</span> session = <span class="kw">await</span> stripe.checkout.sessions.<span class="fn">create</span>({
+  mode: <span class="str">'subscription'</span>,
+  line_items: [{ price: priceId, quantity: <span class="num">1</span> }],
+
+  <span class="com">// Activer le calcul automatique des taxes</span>
+  automatic_tax: { enabled: <span class="num">true</span> },
+
+  <span class="com">// Collecter l'adresse fiscale du client</span>
+  customer_update: {
+    address: <span class="str">'auto'</span>,   <span class="com">// Stripe met à jour l'adresse client</span>
+  },
+
+  <span class="com">// Permettre la collecte du numéro de TVA (B2B EU)</span>
+  tax_id_collection: { enabled: <span class="num">true</span> },
+
+  <span class="com">// Pour les clients existants avec adresse connue</span>
+  customer: stripeCustomerId,
+})
+
+<span class="com">// Le montant final inclut la TVA applicable</span>
+<span class="com">// Stripe génère les rapports fiscaux par juridiction</span>
+<span class="com">// Export dans Dashboard → Tax → Tax reports</span></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Checklist production — Avant le go-live</h3>
+    <table>
+      <tr><th>Catégorie</th><th>Vérification</th><th>Statut</th></tr>
+      <tr><td><strong>Sécurité</strong></td><td>Webhook signature verification active</td><td>🔴 Obligatoire</td></tr>
+      <tr><td><strong>Sécurité</strong></td><td>Table idempotence webhook en DB</td><td>🔴 Obligatoire</td></tr>
+      <tr><td><strong>Sécurité</strong></td><td>Clés restreintes par service</td><td>🟡 Recommandé</td></tr>
+      <tr><td><strong>Sécurité</strong></td><td>STRIPE_SECRET_KEY non exposée côté client</td><td>🔴 Obligatoire</td></tr>
+      <tr><td><strong>Paiement</strong></td><td>3DS activé (Stripe handles automatiquement)</td><td>🟡 Recommandé</td></tr>
+      <tr><td><strong>Paiement</strong></td><td>Radar rules configurées</td><td>🟡 Recommandé</td></tr>
+      <tr><td><strong>Billing</strong></td><td>Smart Retries activé</td><td>🔴 Obligatoire</td></tr>
+      <tr><td><strong>Billing</strong></td><td>Séquence dunning emails configurée</td><td>🔴 Obligatoire</td></tr>
+      <tr><td><strong>Billing</strong></td><td>Customer Portal configuré</td><td>🟡 Recommandé</td></tr>
+      <tr><td><strong>Legal</strong></td><td>Stripe Tax ou TVA gérée manuellement</td><td>🔴 Obligatoire (EU)</td></tr>
+      <tr><td><strong>Legal</strong></td><td>Mentions légales + CGV sur checkout</td><td>🔴 Obligatoire</td></tr>
+      <tr><td><strong>Monitoring</strong></td><td>Alertes sur webhook failures (Dashboard)</td><td>🟡 Recommandé</td></tr>
+      <tr><td><strong>Monitoring</strong></td><td>Alert MRR anomaly (baisse > 10% WoW)</td><td>🟡 Recommandé</td></tr>
+    </table>
+  </div>
+
+  <div class="alert a-green">
+    <span class="a-icon">✦</span>
+    <div><strong>Axes de progression non demandés :</strong> (1) <strong>Stripe Connect</strong> — si vous construisez une marketplace, Connect permet de distribuer les paiements entre votre plateforme et des vendeurs tiers, avec gestion automatique des frais de plateforme et des virements. Architecture radicalement différente. (2) <strong>Entitlements API (beta)</strong> — couche native Stripe pour gérer les permissions d'accès produit directement liées aux features, sans synchronisation manuelle. (3) <strong>Meter Events (usage-based billing 2.0)</strong> — la nouvelle API Stripe pour le billing à la consommation, plus flexible que l'ancien système metered — à surveiller pour les produits IA (tokens, crédits).</div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const map = {
+    intro:'Intro', pricing:'Pricing', subscriptions:'Subscriptions',
+    webhooks:'Webhooks', dunning:'Dunning', revenue:'Rev. Recognition', ops:'Ops & Sécurité'
+  };
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === (map[id] || ''));
+  });
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function copyCode(btn) {
+  const container = btn.closest('.code-block');
+  const pre = container.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = 'copied!';
+    btn.style.color = '#d4a843';
+    setTimeout(() => { btn.textContent = 'copy'; btn.style.color = ''; }, 2000);
+  });
+}
+
+document.addEventListener('keydown', e => {
+  const sections = ['intro','pricing','subscriptions','webhooks','dunning','revenue','ops'];
+  const current = sections.findIndex(s => document.getElementById(s).classList.contains('active'));
+  if (e.key === 'ArrowRight' && current < sections.length - 1) show(sections[current + 1]);
+  if (e.key === 'ArrowLeft' && current > 0) show(sections[current - 1]);
+});
+</script>
+</body>
+</html>
